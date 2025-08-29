@@ -29,7 +29,7 @@ const projects = [
     id: 3,
     title: 'Student Dropout Prediction',
     year: 2023,
-    description: 'How can we improve the current dropout situation in STEM classes? Kalman Filter model for early identification of students at risk of dropping out, enabling timely intervention and support strategies.',
+    description: 'How can we improve the current dropout situation in STEM classes? Kalman Filter model for early identification of students at risk of dropping out, enabling timely intervention and support strategies',
     fullDescription: 'Developed the model to predict student dropouts in STEM classes using multivariate time-series analysis (i.e., Kalman Filter) to strengthen the educational environment. Utilized latent characteristics such as ability, motivation, stress levels from questionnaries for prediction. Supported by the Ministry of Education Baden-Württemberg.',
     image: '/images/projects/lyra.png',
     images: [
@@ -41,8 +41,8 @@ const projects = [
     id: 4,
     title: 'Automatic Labeling Model',
     year: 2023,
-    description: 'How can we streamline the workflow? Designed and implemented an automatic labeling model to streamline the workflow during the internship',
-    fullDescription: 'Using the BERT model, I trained internal clothing reviews with supervised learning. When you upload the unlabeled file, it labels the sentiment as Positive, Neutral, or Negative and returns the labeled file.',
+    description: 'How can we streamline the workflow? Designed and implemented an automatic labeling model to streamline the workflow during the internship at KakaoStyle',
+    fullDescription: 'Using the BERT model, I trained internal clothing reviews data with supervised learning. When you upload the unlabeled file, it labels the sentiment as Positive, Neutral, or Negative and returns the labeled file.',
     image: 'https://picsum.photos/600/300',
     technologies: ['Python', 'Streamlit'],
     topics: ['Machine Learning', 'NLP']
@@ -69,6 +69,7 @@ const projects = [
     fullDescription: 'Investigated pandemic-driven social inequalities through statistical correlation analysis, text mining, and news media archiving',
     image: '/images/projects/covid19.png',
     topics: ['Public Health', 'NLP', 'Social Science', 'Data Analysis'],
+    outcomes: ['Donated to the National Public Library of Korea'],
     links: [{label: 'Website', url: 'http://hike.cau.ac.kr/covid-19-our-memory/index-en.html'}]
   },
   {
@@ -79,6 +80,7 @@ const projects = [
     fullDescription: 'Conducted an analysis of South Korea’s online petition system, revealing unresolved social issues; presented at the International Postgraduate and Academic Conference 2021',
     image: '/images/projects/petitions.png',
     topics: ['Social Science', 'NLP', 'Data Analysis'],
+    outcomes: ['Evolved into a publication accepted in PLOS ONE 2024'],
     links: [{label: 'Slides', url: 'https://docs.google.com/presentation/d/1KmKsndiEqIGVuV73TBdGs2_e9RDkGUIh/edit?usp=sharing&ouid=107424392698532184399&rtpof=true&sd=true'}]
   }
 ];
