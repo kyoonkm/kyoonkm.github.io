@@ -15,7 +15,6 @@ interface Project {
   links?: { label: string; url: string }[];
 }
 
-// Move your projects data to a shared file or expand it here
 const projects: Project[] = [
   {
     id: 1,
@@ -41,6 +40,13 @@ const projects: Project[] = [
   },
   // Add other projects with expanded data...
 ];
+
+export async function generateStaticParams() { // for static export
+  // Return an array of all possible id values
+  return projects.map((project) => ({
+    id: project.id.toString(), // Convert to string as URL params are strings
+  }));
+}
 
 export default function ProjectDetail() {
   const params = useParams();
