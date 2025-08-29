@@ -53,7 +53,7 @@ const projects = [
     description: 'AI-powered system for automated data labeling and annotation, significantly reducing manual effort in machine learning dataset preparation.',
     fullDescription: 'Advanced AI system for automated data processing...',
     image: 'https://readdy.ai/api/search-image?query=Automated%20data%20labeling%20system%20with%20AI%20processing%20pipelines%2C%20data%20classification%20tags%2C%20and%20machine%20learning%20workflows%20in%20modern%20tech%20environment%20with%20clean%20blue%20and%20white%20design&width=600&height=300&seq=auto-labeling&orientation=landscape',
-    topics: ['Machine Learning', 'NLP', 'AI Agents']
+    topics: ['Machine Learning', 'NLP']
   },
   {
     id: 5,

@@ -1,6 +1,6 @@
-
 'use client';
 import { useState } from 'react';
+import Link from 'next/link'; // Add this import
 import Header from '../../components/Header';
 
 export default function Projects() {
@@ -213,15 +213,19 @@ export default function Projects() {
             </div>
           )}
 
-          {/* Projects Grid */}
+          {/* Projects Grid - THIS IS THE UPDATED PART */}
           <div className="grid md:grid-cols-2 gap-8">
             {filteredProjects.map((project) => (
-              <div key={project.id} className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100">
+              <Link 
+                href={`/projects/${project.id}`} 
+                key={project.id}
+                className="block bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100 group cursor-pointer"
+              >
                 <div className="relative">
                   <img 
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-48 object-cover object-top"
+                    className="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-gray-900 shadow-sm">
                     {project.year}
@@ -229,7 +233,9 @@ export default function Projects() {
                 </div>
                 
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{project.title}</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                    {project.title}
+                  </h3>
                   <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -247,8 +253,13 @@ export default function Projects() {
                       </span>
                     )}
                   </div>
+
+                  <div className="flex items-center text-blue-600 text-sm font-medium group-hover:gap-2 transition-all">
+                    <span>View Details</span>
+                    <i className="ri-arrow-right-line ml-1 group-hover:translate-x-1 transition-transform"></i>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -256,3 +267,4 @@ export default function Projects() {
     </div>
   );
 }
+
