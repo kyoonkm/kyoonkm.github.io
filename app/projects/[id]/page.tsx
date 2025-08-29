@@ -7,80 +7,79 @@ const projects = [
     id: 1,
     title: 'Carmony (Tentative)',
     year: 2025,
-    description: 'Developing advanced computational modeling techniques for understanding complex social dynamics and human behavior patterns in digital environments.',
-    fullDescription: `This research project focuses on developing cutting-edge computational models that can accurately simulate and predict complex social dynamics in digital environments. 
-
-    The project combines machine learning algorithms with behavioral psychology principles to create more nuanced understanding of human interactions online. Key objectives include:
-    
-    • Understanding group decision-making processes in digital spaces
-    • Modeling influence propagation in social networks  
-    • Predicting behavioral changes based on environmental factors
-    • Developing intervention strategies for positive social outcomes`,
-    image: 'https://readdy.ai/api/search-image?query=Advanced%20computational%20modeling%20visualization%20with%20flowing%20data%20networks%2C%20neural%20pathways%2C%20and%20algorithmic%20patterns%20in%20modern%20blue%20and%20purple%20gradients%2C%20clean%20scientific%20aesthetic%2C%20high-tech%20research%20environment&width=600&height=300&seq=carmony-modeling&orientation=landscape',
+    description: 'Implementing a context-aware system using AI agents for decision-making on optimal vehicle configurations and seamless human-vehicle interaction for all occupants',
+    fullDescription: 'TBD',
+    image: '/images/projects/porsche_logo.svg',
     topics: ['Decision Making', 'AI Agents'],
-    technologies: ['Python', 'TensorFlow', 'NetworkX', 'PyTorch'],
-    outcomes: ['Paper submitted to ICML 2025', 'Patent application filed'],
-    links: [
-      { label: 'GitHub Repository', url: '#' },
-      { label: 'Research Paper', url: '#' }
-    ]
+    technologies: ['Python', 'Autogen', 'Model Context Protocol'],
+    outcomes: ['Paper will be submitted to UIST 2026'],
   },
   {
     id: 2,
-    title: 'Preferential Bayesian Optimization',
+    title: 'Preferential Bayesian Optimization (PBO)',
     year: 2024,
-    description: 'Advanced Bayesian optimization framework that incorporates human preferences and decision-making patterns to improve AI system performance.',
-    fullDescription: 'Detailed description of Bayesian optimization research...',
-    image: 'https://readdy.ai/api/search-image?query=Bayesian%20optimization%20mathematical%20visualization%20with%20probability%20distributions%2C%20gradient%20flows%2C%20and%20optimization%20landscapes%20in%20elegant%20mathematical%20style%2C%20clean%20white%20background%20with%20blue%20and%20green%20accents&width=600&height=300&seq=bayesian-opt&orientation=landscape',
+    description: 'Can the PBO model human preferences, suggest an optimal setting, and facilitate efficient decision-making for humans?',
+    fullDescription: 'Using Bosch real-world data, I developed and tested PBO algorithms to optimize machinery settings for expert operators efficiently. This involved modeling human preferences in decision-making processes and identifying cognitive biases for future human-in-the-loop experiments. For more information and results, please refer to the research project paper!',
+    image: '/images/projects/forrester_loop.png',
     topics: ['Decision Making', 'Machine Learning', 'Data Analysis'],
-    technologies: ['Python', 'scipy', 'numpy'],
-    outcomes: ['Published in NeurIPS 2024'],
-    links: [{ label: 'Paper', url: '#' }]
+    technologies: ['Python', 'BoTorch'],
+    links: [{ label: 'Paper', url: 'pbo.pdf' }]
   },
   {
     id: 3,
     title: 'Student Dropout Prediction',
     year: 2023,
-    description: 'Machine learning model for early identification of students at risk of dropping out, enabling timely intervention and support strategies.',
-    fullDescription: 'Comprehensive machine learning approach to predicting student outcomes...',
-    image: 'https://readdy.ai/api/search-image?query=Educational%20analytics%20dashboard%20showing%20student%20progress%20charts%2C%20predictive%20models%2C%20and%20intervention%20strategies%20in%20modern%20educational%20setting%20with%20warm%20colors%20and%20clean%20interface%20design&width=600&height=300&seq=student-prediction&orientation=landscape',
+    description: 'How can we improve the current dropout situation in STEM classes? Kalman Filter model for early identification of students at risk of dropping out, enabling timely intervention and support strategies.',
+    fullDescription: 'Developed the model to predict student dropouts in STEM classes using multivariate time-series analysis (i.e., Kalman Filter) to strengthen the educational environment. Utilized latent characteristics such as ability, motivation, stress levels from questionnaries for prediction. Supported by the Ministry of Education Baden-Württemberg.',
+    image: '/images/projects/lyra.png',
+    images: [
+        '/images/projects/lyra_analysis.png'
+    ],
     topics: ['Machine Learning', 'Data Analysis', 'Social Science']
   },
   {
     id: 4,
     title: 'Automatic Labeling Model',
     year: 2023,
-    description: 'AI-powered system for automated data labeling and annotation, significantly reducing manual effort in machine learning dataset preparation.',
-    fullDescription: 'Advanced AI system for automated data processing...',
-    image: 'https://readdy.ai/api/search-image?query=Automated%20data%20labeling%20system%20with%20AI%20processing%20pipelines%2C%20data%20classification%20tags%2C%20and%20machine%20learning%20workflows%20in%20modern%20tech%20environment%20with%20clean%20blue%20and%20white%20design&width=600&height=300&seq=auto-labeling&orientation=landscape',
+    description: 'How can we streamline the workflow? Designed and implemented an automatic labeling model to streamline the workflow during the internship',
+    fullDescription: 'Using the BERT model, I trained internal clothing reviews with supervised learning. When you upload the unlabeled file, it labels the sentiment as Positive, Neutral, or Negative and returns the labeled file.',
+    image: 'https://picsum.photos/600/300',
+    technologies: ['Python', 'Streamlit'],
     topics: ['Machine Learning', 'NLP']
   },
   {
     id: 5,
     title: 'COVID-19 Data Analysis A to Z',
     year: 2021,
-    description: 'Comprehensive analysis of pandemic data patterns, transmission dynamics, and public health implications using advanced statistical methods.',
-    fullDescription: 'Complete statistical analysis of pandemic data...',
-    image: 'https://readdy.ai/api/search-image?query=COVID-19%20data%20visualization%20with%20epidemiological%20charts%2C%20statistical%20analysis%20graphs%2C%20and%20public%20health%20metrics%20in%20professional%20medical%20research%20style%20with%20clean%20scientific%20presentation&width=600&height=300&seq=covid-analysis&orientation=landscape',
-    topics: ['Data Analysis', 'Public Health', 'Social Science']
+    description: 'What critical factors were constrained by the existing public COVID-19 data, and what strategies can we implement to enhance data accessibility and analysis?',
+    fullDescription: 'I assessed the effectiveness of policies, such as pandemic screening facilities and hospital bed capacity. I improved data visualization accessibility for the general public and developed recommendations for enhancing public health data infrastructure. By implementing a new dataset, my analysis revealed regional healthcare inequalities in South Korea’s capital-centric system. Additionally, I created a policy visualization over time and visualized mass infection data for Seoul, linking it to related news articles to combat misinformation. I also suggested detailed state-level policies. I presented this work on International Open Data Day 2021 in Seoul, with support from Open Knowledge International NPO and the Korean Ministry of the Interior and Safety.',
+    image: 'https://img.youtube.com/vi/L3i_Rng3i5s/maxresdefault.jpg',
+    topics: ['Data Analysis', 'Public Health', 'Social Science'],
+    outcomes: ['Donated to the National Public Library of Korea'],
+    links: [{ label: 'GitHub', url: 'https://github.com/Open-Knowledge-Korea/covid-19-our-memory/tree/master/covid19-atoz/topic-1'},
+        {label: 'Press', url: 'https://www.nl.go.kr/EN/contents/EN10700000000.do?schFld=0&schStr=Chung&schOpt5=NLNE&schM=view&page=1&ordFld=regdt&ordBy=DESC&viewCount=9&id=42008&schBdcode=&schGroupCode='},
+        {label: 'YouTube', url: 'https://www.youtube.com/watch?v=L3i_Rng3i5s&ab_channel=NIA%ED%95%9C%EA%B5%AD%EC%A7%80%EB%8A%A5%EC%A0%95%EB%B3%B4%EC%82%AC%ED%9A%8C%EC%A7%84%ED%9D%A5%EC%9B%90'},
+    ]
   },
   {
     id: 6,
     title: 'COVID-19: Our Memory',
     year: 2020,
-    description: 'Digital archive project documenting personal experiences and collective memories during the COVID-19 pandemic for future research.',
-    fullDescription: 'Digital memory preservation project...',
-    image: 'https://readdy.ai/api/search-image?query=Digital%20memory%20archive%20interface%20with%20personal%20stories%2C%20timeline%20documentation%2C%20and%20social%20history%20preservation%20in%20warm%20humanistic%20design%20with%20gentle%20colors%20and%20emotional%20storytelling%20elements&width=600&height=300&seq=covid-memory&orientation=landscape',
-    topics: ['NLP', 'Social Science', 'Data Analysis']
+    description: 'Does disaster inequality exist? How can we capture peoples mobilizing needs?',
+    fullDescription: 'Investigated pandemic-driven social inequalities through statistical correlation analysis, text mining, and news media archiving',
+    image: '/images/projects/covid19.png',
+    topics: ['Public Health', 'NLP', 'Social Science', 'Data Analysis'],
+    links: [{label: 'Website', url: 'http://hike.cau.ac.kr/covid-19-our-memory/index-en.html'}]
   },
   {
     id: 7,
     title: 'Online Petition Analysis of South Korea',
     year: 2020,
-    description: 'Analysis of digital civic engagement through online petition platforms, examining patterns of political participation and democratic processes.',
-    fullDescription: 'Comprehensive analysis of digital democracy...',
-    image: 'https://readdy.ai/api/search-image?query=Digital%20democracy%20visualization%20with%20petition%20analysis%2C%20civic%20engagement%20metrics%2C%20and%20political%20participation%20data%20in%20Korean%20government%20style%20with%20professional%20blue%20and%20red%20color%20scheme&width=600&height=300&seq=petition-analysis&orientation=landscape',
-    topics: ['Social Science', 'NLP', 'Data Analysis']
+    description: 'Based on the Structuration Theory by Giddens, will the content and subjects of the petition data will contain social multi-perspective factors?',
+    fullDescription: 'Conducted an analysis of South Korea’s online petition system, revealing unresolved social issues; presented at the International Postgraduate and Academic Conference 2021',
+    image: '/images/projects/petitions.png',
+    topics: ['Social Science', 'NLP', 'Data Analysis'],
+    links: [{label: 'Slides', url: 'https://docs.google.com/presentation/d/1KmKsndiEqIGVuV73TBdGs2_e9RDkGUIh/edit?usp=sharing&ouid=107424392698532184399&rtpof=true&sd=true'}]
   }
 ];
 

@@ -1,69 +1,69 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link'; // Add this import
+import Link from 'next/link';
 import Header from '../../components/Header';
 
 export default function Projects() {
   const [sortBy, setSortBy] = useState<'newest' | 'oldest'>('newest');
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
 
+  // Updated to match your detail page data exactly
   const projects = [
     {
       id: 1,
       title: 'Carmony (Tentative)',
       year: 2025,
-      description: 'Developing advanced computational modeling techniques for understanding complex social dynamics and human behavior patterns in digital environments.',
-      image: 'https://readdy.ai/api/search-image?query=Advanced%20computational%20modeling%20visualization%20with%20flowing%20data%20networks%2C%20neural%20pathways%2C%20and%20algorithmic%20patterns%20in%20modern%20blue%20and%20purple%20gradients%2C%20clean%20scientific%20aesthetic%2C%20high-tech%20research%20environment&width=600&height=300&seq=carmony-modeling&orientation=landscape',
+      description: 'Implementing a context-aware system using AI agents for decision-making on optimal vehicle configurations and seamless human-vehicle interaction for all occupants',
+      image: '/images/projects/porsche_logo.svg',
       topics: ['Decision Making', 'AI Agents']
     },
     {
       id: 2,
-      title: 'Preferential Bayesian Optimization',
+      title: 'Preferential Bayesian Optimization (PBO)',
       year: 2024,
-      description: 'Advanced Bayesian optimization framework that incorporates human preferences and decision-making patterns to improve AI system performance.',
-      image: 'https://readdy.ai/api/search-image?query=Bayesian%20optimization%20mathematical%20visualization%20with%20probability%20distributions%2C%20gradient%20flows%2C%20and%20optimization%20landscapes%20in%20elegant%20mathematical%20style%2C%20clean%20white%20background%20with%20blue%20and%20green%20accents&width=600&height=300&seq=bayesian-opt&orientation=landscape',
+      description: 'Can the PBO model human preferences, suggest an optimal setting, and facilitate efficient decision-making for humans?',
+      image: '/images/projects/forrester_loop.png',
       topics: ['Decision Making', 'Machine Learning', 'Data Analysis']
     },
     {
       id: 3,
       title: 'Student Dropout Prediction',
       year: 2023,
-      description: 'Machine learning model for early identification of students at risk of dropping out, enabling timely intervention and support strategies.',
-      image: 'https://readdy.ai/api/search-image?query=Educational%20analytics%20dashboard%20showing%20student%20progress%20charts%2C%20predictive%20models%2C%20and%20intervention%20strategies%20in%20modern%20educational%20setting%20with%20warm%20colors%20and%20clean%20interface%20design&width=600&height=300&seq=student-prediction&orientation=landscape',
+      description: 'How can we improve the current dropout situation in STEM classes? Kalman Filter model for early identification of students at risk of dropping out, enabling timely intervention and support strategies.',
+      image: '/images/projects/lyra.png',
       topics: ['Machine Learning', 'Data Analysis', 'Social Science']
     },
     {
       id: 4,
       title: 'Automatic Labeling Model',
       year: 2023,
-      description: 'AI-powered system for automated data labeling and annotation, significantly reducing manual effort in machine learning dataset preparation.',
-      image: 'https://readdy.ai/api/search-image?query=Automated%20data%20labeling%20system%20with%20AI%20processing%20pipelines%2C%20data%20classification%20tags%2C%20and%20machine%20learning%20workflows%20in%20modern%20tech%20environment%20with%20clean%20blue%20and%20white%20design&width=600&height=300&seq=auto-labeling&orientation=landscape',
-      topics: ['Machine Learning', 'NLP', 'AI Agents']
+      description: 'How can we streamline the workflow? Designed and implemented an automatic labeling model to streamline the workflow during the internship',
+      image: 'https://picsum.photos/600/300',
+      topics: ['Machine Learning', 'NLP']
     },
     {
       id: 5,
       title: 'COVID-19 Data Analysis A to Z',
       year: 2021,
-      description: 'Comprehensive analysis of pandemic data patterns, transmission dynamics, and public health implications using advanced statistical methods.',
-      image: 'https://readdy.ai/api/search-image?query=COVID-19%20data%20visualization%20with%20epidemiological%20charts%2C%20statistical%20analysis%20graphs%2C%20and%20public%20health%20metrics%20in%20professional%20medical%20research%20style%20with%20clean%20scientific%20presentation&width=600&height=300&seq=covid-analysis&orientation=landscape',
+      description: 'What critical factors were constrained by the existing public COVID-19 data, and what strategies can we implement to enhance data accessibility and analysis?',
+      image: 'https://img.youtube.com/vi/L3i_Rng3i5s/maxresdefault.jpg',
       topics: ['Data Analysis', 'Public Health', 'Social Science']
     },
     {
       id: 6,
       title: 'COVID-19: Our Memory',
       year: 2020,
-      description: 'Digital archive project documenting personal experiences and collective memories during the COVID-19 pandemic for future research.',
-      image: 'https://readdy.ai/api/search-image?query=Digital%20memory%20archive%20interface%20with%20personal%20stories%2C%20timeline%20documentation%2C%20and%20social%20history%20preservation%20in%20warm%20humanistic%20design%20with%20gentle%20colors%20and%20emotional%20storytelling%20elements&width=600&height=300&seq=covid-memory&orientation=landscape',
-      topics: ['NLP', 'Social Science', 'Data Analysis']
+      description: 'Does disaster inequality exist? How can we capture peoples mobilizing needs?',
+      image: '/images/projects/covid19.png',
+      topics: ['Public Health', 'NLP', 'Social Science', 'Data Analysis']
     },
     {
       id: 7,
       title: 'Online Petition Analysis of South Korea',
       year: 2020,
-      description: 'Analysis of digital civic engagement through online petition platforms, examining patterns of political participation and democratic processes.',
-      image: 'https://readdy.ai/api/search-image?query=Digital%20democracy%20visualization%20with%20petition%20analysis%2C%20civic%20engagement%20metrics%2C%20and%20political%20participation%20data%20in%20Korean%20government%20style%20with%20professional%20blue%20and%20red%20color%20scheme&width=600&height=300&seq=petition-analysis&orientation=landscape',
+      description: 'Based on the Structuration Theory by Giddens, will the content and subjects of the petition data will contain social multi-perspective factors?',
+      image: '/images/projects/petitions.png',
       topics: ['Social Science', 'NLP', 'Data Analysis']
     }
   ];
@@ -92,19 +92,6 @@ export default function Projects() {
       : selectedAreas.length === 1 
         ? selectedAreas[0]
         : `${selectedAreas.length} areas selected`
-  };
-
-  const getTopicColor = (topic: string) => {
-    const colors = {
-      'Decision Making': 'bg-blue-50 text-blue-600 border-blue-100',
-      'Machine Learning': 'bg-green-50 text-green-600 border-green-100',
-      'Public Health': 'bg-red-50 text-red-600 border-red-100',
-      'NLP': 'bg-purple-50 text-purple-600 border-purple-100',
-      'Data Analysis': 'bg-orange-50 text-orange-600 border-orange-100',
-      'AI Agents': 'bg-cyan-50 text-cyan-600 border-cyan-100',
-      'Social Science': 'bg-indigo-50 text-indigo-600 border-indigo-100'
-    };
-    return colors[topic as keyof typeof colors] || 'bg-gray-50 text-gray-600 border-gray-100';
   };
 
   const handleAreaFilter = (area: string) => {
@@ -213,7 +200,7 @@ export default function Projects() {
             </div>
           )}
 
-          {/* Projects Grid - THIS IS THE UPDATED PART */}
+          {/* Projects Grid */}
           <div className="grid md:grid-cols-2 gap-8">
             {filteredProjects.map((project) => (
               <Link 
@@ -253,11 +240,6 @@ export default function Projects() {
                       </span>
                     )}
                   </div>
-
-                  <div className="flex items-center text-blue-600 text-sm font-medium group-hover:gap-2 transition-all">
-                    <span>View Details</span>
-                    <i className="ri-arrow-right-line ml-1 group-hover:translate-x-1 transition-transform"></i>
-                  </div>
                 </div>
               </Link>
             ))}
@@ -267,4 +249,3 @@ export default function Projects() {
     </div>
   );
 }
-
