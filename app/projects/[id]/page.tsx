@@ -23,7 +23,7 @@ const projects = [
     image: '/images/projects/forrester_loop.png',
     topics: ['Decision Making', 'Machine Learning', 'Data Analysis'],
     technologies: ['Python', 'BoTorch'],
-    links: [{ label: 'Paper', url: 'pbo.pdf' }]
+    links: [{ label: 'Paper', url: '/pbo.pdf' }]
   },
   {
     id: 3,
