@@ -31,6 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      <head>
+        <link rel="icon" href="/favicon.png" sizes="16x16" type="image/png" />
+        {}
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased`}
       >
@@ -39,3 +43,4 @@ export default function RootLayout({
     </html>
   );
 }
+
