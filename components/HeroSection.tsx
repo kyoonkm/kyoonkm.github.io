@@ -43,9 +43,9 @@ export default function HeroSection() {
                 Hi, I am a master's student studying Quantitative Data Science at the University of Tübingen. Currently, I am writing my master's thesis at the Porsche Human-Centered AI Research.
               </p>
               {/* --- News Section Start --- */}
-              <div className="mt-4 bg-blue-50 rounded-md px-4 py-2 border-l-4 border-blue-500">
-                <span className="text-sm text-blue-800 font-semibold">News:</span>{" "}
-                <span className="text-gray-900 text-sm">
+              <div className="mt-4 bg-gray-50 rounded-md px-4 py-2 border-l-4 border-gray-300">
+                <span className="text-sm text-gray-700 font-semibold">Recent News:</span>{" "}
+                <span className="text-gray-800 text-sm">
                   I am proud to announce that I have won the DAAD STIBET Scholarship as the sole recipient! 🎉
                 </span>
               </div>
