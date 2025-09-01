@@ -42,6 +42,13 @@ export default function HeroSection() {
               <p className="text-lg text-gray-800 leading-relaxed">
                 Hi, I am a master's student studying Quantitative Data Science at the University of Tübingen. Currently, I am writing my master's thesis at the Porsche Human-Centered AI Research.
               </p>
+              {/* --- News Section Start --- */}
+              <div className="mt-4 bg-blue-50 rounded-md px-4 py-2 border-l-4 border-blue-500">
+                <span className="text-sm text-blue-800 font-semibold">News:</span>{" "}
+                <span className="text-gray-900 text-sm">
+                  I am proud to announce that I have won the DAAD STIBET Scholarship as the sole recipient! 🎉
+                </span>
+              </div>
             </div>
 
             {/* Social Links */}
