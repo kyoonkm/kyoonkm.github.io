@@ -39,7 +39,8 @@ export default function Projects() {
       title: 'Automatic Labeling Model',
       year: 2023,
       description: 'How can we streamline the workflow? Designed and implemented an automatic labeling model to streamline the workflow during the internship',
-      image: 'https://picsum.photos/600/300',
+      image: '/images/projects/labeling.png',
+      video: '/images/projects/demo.webm',
       topics: ['Machine Learning', 'NLP']
     },
     {
