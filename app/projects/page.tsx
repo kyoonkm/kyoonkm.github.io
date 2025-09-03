@@ -40,7 +40,6 @@ export default function Projects() {
       year: 2023,
       description: 'How can we streamline the workflow? Designed and implemented an automatic labeling model to streamline the workflow during the internship',
       image: '/images/projects/labeling.png',
-      video: '/images/projects/demo.webm',
       topics: ['Machine Learning', 'NLP']
     },
     {

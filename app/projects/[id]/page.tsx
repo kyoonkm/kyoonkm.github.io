@@ -43,7 +43,8 @@ const projects = [
     year: 2023,
     description: 'How can we streamline the workflow? Designed and implemented an automatic labeling model to streamline the workflow during the internship at KakaoStyle',
     fullDescription: 'Using the BERT model, I trained internal clothing reviews data with supervised learning. When you upload the unlabeled file, it labels the sentiment as Positive, Neutral, or Negative and returns the labeled file.',
-    image: 'https://picsum.photos/600/300',
+    image: '/images/projects/labeling.png',
+    video: '/images/projects/labeling_demo.webm',
     technologies: ['Python', 'Streamlit'],
     topics: ['Machine Learning', 'NLP']
   },
