@@ -7,7 +7,7 @@ const projects = [
     id: 1,
     title: 'Carmony (Tentative)',
     year: 2025,
-    description: 'Implementing a context-aware system using AI agents for decision-making on optimal vehicle configurations and seamless human-vehicle interaction for all occupants',
+    description: 'Collaborated with Porsche, implementing a context-aware system using AI agents for decision-making on optimal vehicle configurations and seamless human-vehicle interaction for all occupants',
     fullDescription: 'TBD',
     image: '/images/projects/porsche_logo.svg',
     topics: ['Decision Making', 'AI Agents'],
@@ -18,7 +18,7 @@ const projects = [
     id: 2,
     title: 'Preferential Bayesian Optimization (PBO)',
     year: 2024,
-    description: 'Can the PBO model human preferences, suggest an optimal setting, and facilitate efficient decision-making for humans?',
+    description: 'Can the PBO model human preferences, suggest an optimal setting, and facilitate efficient decision-making for humans? Can biases potentially impede the efficacy of PBO?',
     fullDescription: 'Using Bosch real-world data, I developed and tested PBO algorithms to optimize machinery settings for expert operators efficiently. This involved modeling human preferences in decision-making processes and identifying cognitive biases for future human-in-the-loop experiments. For more information and results, please refer to the research project paper!',
     image: '/images/projects/forrester_loop.png',
     topics: ['Decision Making', 'Machine Learning', 'Data Analysis'],
@@ -31,10 +31,7 @@ const projects = [
     year: 2023,
     description: 'How can we improve the current dropout situation in STEM classes? Kalman Filter model for early identification of students at risk of dropping out, enabling timely intervention and support strategies',
     fullDescription: 'Developed the model to predict student dropouts in STEM classes using multivariate time-series analysis (i.e., Kalman Filter) to strengthen the educational environment. Utilized latent characteristics such as ability, motivation, stress levels from questionnaries for prediction. Supported by the Ministry of Education Baden-Württemberg.',
-    image: '/images/projects/lyra.png',
-    images: [
-        '/images/projects/lyra_analysis.png'
-    ],
+    image: '/images/projects/lyra_analysis.png',
     topics: ['Machine Learning', 'Data Analysis', 'Social Science']
   },
   {
