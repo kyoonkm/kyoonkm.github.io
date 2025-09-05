@@ -84,7 +84,6 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
       <div className="mb-8">
         <Zoom>
           <img 
-            src={project.image}
             alt={project.title}
             className="w-full h-64 md:h-80 object-cover rounded-2xl shadow-lg cursor-zoom-in"
           />
