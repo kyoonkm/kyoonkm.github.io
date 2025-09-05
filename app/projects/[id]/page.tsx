@@ -34,7 +34,6 @@ const projects = [
     image: '/images/projects/lyra.png',
     images: [
         '/images/projects/lyra_analysis.png',
-        '/images/projects/lyra_analysis.png'
     ],
     topics: ['Machine Learning', 'Data Analysis', 'Social Science']
   },
