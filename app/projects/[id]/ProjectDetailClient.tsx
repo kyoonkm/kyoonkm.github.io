@@ -107,7 +107,9 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             <div className="mt-8">
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Project Gallery</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {project.images.map((imageSrc: string, index: number) => (
+                {project.images
+                .filter((imageSrc: string) => imageSrc !== project.image)
+                .map((imageSrc: string, index: number) => (
                   <div key={index} className="relative">
                     <Zoom>
                     <img 
