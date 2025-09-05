@@ -9,6 +9,7 @@ interface Project {
   description: string;
   fullDescription?: string;
   image: string;
+  images?: string[];
   topics: string[];
   technologies?: string[];
   outcomes?: string[];
@@ -87,6 +88,24 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
               {project.fullDescription || project.description}
             </p>
           </div>
+
+        {/* Additional Images Section */}
+          {project.images && project.images.length > 0 && (
+            <div className="mt-8">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Project Gallery</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {project.images.map((imageSrc: string, index: number) => (
+                  <div key={index} className="relative">
+                    <img 
+                      src={imageSrc}
+                      alt={`${project.title} - Image ${index + 1}`}
+                      className="w-full h-48 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Technologies */}
           {project.technologies && (
