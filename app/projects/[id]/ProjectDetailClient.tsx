@@ -1,6 +1,8 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 interface Project {
   id: number;
@@ -77,6 +79,17 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           className="w-full h-64 md:h-80 object-cover rounded-2xl shadow-lg"
         />
       </div>
+      
+      {/* Main Project Image with Zoom */}
+      <div className="mb-8">
+        <Zoom>
+          <img 
+            src={project.image}
+            alt={project.title}
+            className="w-full h-64 md:h-80 object-cover rounded-2xl shadow-lg cursor-zoom-in"
+          />
+        </Zoom>
+      </div>
 
       {/* Project Content */}
       <div className="grid md:grid-cols-3 gap-8">
@@ -96,11 +109,13 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {project.images.map((imageSrc: string, index: number) => (
                   <div key={index} className="relative">
+                    <Zoom>
                     <img 
                       src={imageSrc}
                       alt={`${project.title} - Image ${index + 1}`}
-                      className="w-full h-48 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                      className="w-full h-48 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-zoom-in"
                     />
+                    </Zoom>
                   </div>
                 ))}
               </div>
