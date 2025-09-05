@@ -31,7 +31,11 @@ const projects = [
     year: 2023,
     description: 'How can we improve the current dropout situation in STEM classes? Kalman Filter model for early identification of students at risk of dropping out, enabling timely intervention and support strategies',
     fullDescription: 'Developed the model to predict student dropouts in STEM classes using multivariate time-series analysis (i.e., Kalman Filter) to strengthen the educational environment. Utilized latent characteristics such as ability, motivation, stress levels from questionnaries for prediction. Supported by the Ministry of Education Baden-Württemberg.',
-    image: '/images/projects/lyra_analysis.png',
+    image: '/images/projects/lyra.png',
+    images: [
+        '/images/projects/lyra_analysis.png',
+        '/images/projects/lyra_analysis.png'
+    ],
     topics: ['Machine Learning', 'Data Analysis', 'Social Science']
   },
   {
