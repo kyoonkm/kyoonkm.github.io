@@ -22,7 +22,7 @@ export default function Projects() {
       id: 2,
       title: 'Preferential Bayesian Optimization (PBO)',
       year: 2024,
-      description: 'Can the PBO model human preferences, suggest an optimal setting, and facilitate efficient decision-making for humans?',
+      description: 'Can the PBO model human preferences, suggest an optimal setting, and facilitate efficient decision-making for humans? Can biases potentially impede the efficacy of PBO?',
       image: '/images/projects/forrester_loop.png',
       topics: ['Decision Making', 'Machine Learning', 'Data Analysis']
     },
