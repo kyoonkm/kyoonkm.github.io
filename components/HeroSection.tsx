@@ -40,7 +40,7 @@ export default function HeroSection() {
                 Kayoon Kim
               </h1>
               <p className="text-lg text-gray-800 leading-relaxed">
-                Hi, My name is Kayoon. It is pronounced as Ga-Yoon. I am a master's student studying Quantitative Data Science at the University of Tübingen. Currently, I am writing my master's thesis at the Porsche Human-Centered AI Research Lab.
+                Hi, My name is Kayoon (pronounced as Ga-Yoon). I am a master's student studying Quantitative Data Science at the University of Tübingen. Currently, I am writing my master's thesis at the Porsche Human-Centered AI Research Lab.
               </p>
               {/* --- News Section Start --- */}
               <div className="mt-4 bg-gray-50 rounded-md px-4 py-2 border-l-4 border-gray-300">
