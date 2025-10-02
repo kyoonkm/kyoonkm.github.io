@@ -19,8 +19,13 @@ const projects = [
     title: 'Preferential Bayesian Optimization (PBO)',
     year: 2024,
     description: 'Can the PBO model human preferences, suggest an optimal setting, and facilitate efficient decision-making for humans? Can biases potentially impede the efficacy of PBO?',
-    fullDescription: 'Using Bosch real-world data, I developed and tested PBO algorithms to optimize machinery settings for expert operators efficiently. This involved modeling human preferences in decision-making processes and identifying cognitive biases for future human-in-the-loop experiments. For more information and results, please refer to the research project paper!',
+    fullDescription: 'Using Bosch real-world data, I developed and tested PBO algorithms to efficiently optimize machinery settings for expert operators. This process involved modeling human preferences in decision-making and identifying cognitive biases for future human-in-the-loop experiments. I also conducted an experiment using simulated biased data, which demonstrated how bias can hinder the performance of the algorithms. For more information and results, please refer to the research project paper!',
     image: '/images/projects/forrester_loop.png',
+    images: [
+        '/images/projects/3_2_bosch_use_case_best.png',
+        '/images/projects/3_6d_ackley_regret_bias.png',
+        '/images/projects/3_ackley_bias.png',
+    ],
     topics: ['Decision Making', 'Machine Learning', 'Data Analysis'],
     technologies: ['Python', 'BoTorch'],
     links: [{ label: 'Paper', url: '/pbo.pdf' }]
@@ -53,7 +58,7 @@ const projects = [
     title: 'COVID-19 Data Analysis A to Z',
     year: 2021,
     description: 'What critical factors were constrained by the existing public COVID-19 data, and what strategies can we implement to enhance data accessibility and analysis?',
-    fullDescription: 'After a year since the hackathon, I discovered that limited public APIs prevented thorough analysis of critical factors such as healthcare capacity and resource distribution. This realization prompted me to develop a new research project. Implementing a new dataset, the analysis proved regional healthcare inequality in South Korea’s capital-centric system. My teammates and I assessed the effectiveness of policies, such as pandemic screening facilities and hospital bed capacity.\n Additionally, I created a policy visualization across over time and visualized mass infection data for Seoul, linking with related news articles to combat misinformation. I also suggested detailed state-level policies. Our efforts improved data visualization accessibility for the general public and developed recommendations for enhancing public health data infrastructure.\n I presented the work on International Open Data Day 2021 in Seoul, supported by Open Knowledge International NPO and the Korean Ministry of the Interior and Safety. It was meaningful to directly provide suggestions and contribute to public health data for the government. The projects were donated to the National Public Library of Korea as the first non-governmental archive.',
+    fullDescription: 'After a year since the hackathon, I discovered that limited public APIs prevented thorough analysis of critical factors such as healthcare capacity and resource distribution. This realization prompted me to develop a new research project. Implementing a new dataset, the analysis proved regional healthcare inequality in South Korea’s capital-centric system. My colleagues and I assessed the effectiveness of policies, such as pandemic screening facilities and hospital bed capacity.\n Additionally, I created a policy visualization across over time and visualized mass infection data for Seoul, linking with related news articles to combat misinformation. I also suggested detailed state-level policies. Our efforts improved data visualization accessibility for the general public and developed recommendations for enhancing public health data infrastructure.\n I presented the work on International Open Data Day 2021 in Seoul, supported by Open Knowledge International NPO and the Korean Ministry of the Interior and Safety. It was meaningful to directly provide suggestions and contribute to public health data for the government. The projects were donated to the National Public Library of Korea as the first non-governmental archive.',
     image: 'https://img.youtube.com/vi/L3i_Rng3i5s/maxresdefault.jpg',
     topics: ['Data Analysis', 'Public Health', 'Social Science'],
     outcomes: ['Donated to the National Public Library of Korea'],
@@ -68,8 +73,11 @@ const projects = [
     title: 'COVID-19: Our Memory',
     year: 2020,
     description: 'Does disaster inequality exist? How can we capture peoples mobilizing needs?',
-    fullDescription: 'In the book "The Disaster Profiteers," John C. Mutter wrote, "While the wealthy can avoid disasters by staying away from them, the poor become trapped in poverty traps or slip even deeper into these traps." COVID-19 was one of the most critical events that showed disaster inequality. To investigate the societal effect of COVID-19, I participated in the hackathon using public COVID-19 data. Proving disaster inequality and capturing mobile people’s needs utilizing statistical correlation analysis, text mining, and news media archiving, our data collection and analysis won an award.',
+    fullDescription: 'In the book "The Disaster Profiteers," John C. Mutter states, "While the wealthy can avoid disasters by staying away from them, the poor become trapped in poverty traps or slip even deeper into these traps." COVID-19 highlighted the issue of disaster inequality. To explore the societal impact of COVID-19, my colleagues and I participated in a hackathon that utilized public COVID-19 data. We demonstrated disaster inequality and captured the dynamic needs of individuals through COVID-19-related petition data. By employing statistical correlation analysis, text mining, and news media archiving, our data collection and analysis earned an award.',
     image: '/images/projects/covid19.png',
+    images: [
+        '/images/projects/covid_all_online_petitions.png',
+    ],
     topics: ['Public Health', 'NLP', 'Social Science', 'Data Analysis'],
     outcomes: ['Donated to the National Public Library of Korea'],
     links: [{label: 'Website', url: 'http://hike.cau.ac.kr/covid-19-our-memory/index-en.html'}]
