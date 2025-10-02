@@ -27,14 +27,6 @@ export default function PublicationsSection() {
 
   const publications = [
     {
-      id: 'mobilizing-grievances-korea',
-      title: 'Mobilizing grievances in the internet age: The case of national online petitioning in South Korea, 2017–2022',
-      authors: 'Kayoon Kim, Chan S. Suh',
-      venue: 'PLOS ONE, 2024',
-      type: 'Journal Article',
-      link: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0302373'
-    },
-    {
       id: 'carmony-device-orchestration',
       title: 'Carmony: Multimodal Context-Aware Device Orchestration in Multi-User Automotive Environments (Tentative)',
       authors: 'Jan Henry Belz*, Kayoon Kim*',
@@ -42,6 +34,14 @@ export default function PublicationsSection() {
       type: 'In progress',
       link: null,
       note: '*Equal Contribution'
+    },
+    {
+      id: 'mobilizing-grievances-korea',
+      title: 'Mobilizing grievances in the internet age: The case of national online petitioning in South Korea, 2017–2022',
+      authors: 'Kayoon Kim, Chan S. Suh',
+      venue: 'PLOS ONE, 2024',
+      type: 'Journal Article',
+      link: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0302373'
     }
   ];
 

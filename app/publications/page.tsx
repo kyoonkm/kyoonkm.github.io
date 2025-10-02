@@ -37,6 +37,15 @@ export default function PublicationsSection() {
 
   const publications: Publication[] = [
     {
+      id: 'carmony-device-orchestration',
+      title: 'Carmony: Multimodal Context-Aware Device Orchestration in Multi-User Automotive Environments (Tentative)',
+      authors: 'Jan Henry Belz*, Kayoon Kim*',
+      venue: 'In progress, UIST 2026',
+      type: 'In progress',
+      link: null,
+      note: '*Equal Contribution',
+    },
+    {
       id: 'mobilizing-grievances-korea',
       title: 'Mobilizing grievances in the internet age: The case of national online petitioning in South Korea, 2017–2022',
       authors: 'Kayoon Kim, Chan S. Suh',
@@ -48,15 +57,6 @@ export default function PublicationsSection() {
       doi: 'https://doi.org/10.1371/journal.pone.0302373',
       publishedDate: 'May 16, 2024',
       link: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0302373',
-    },
-    {
-      id: 'carmony-device-orchestration',
-      title: 'Carmony: Multimodal Context-Aware Device Orchestration in Multi-User Automotive Environments (Tentative)',
-      authors: 'Jan Henry Belz*, Kayoon Kim*',
-      venue: 'In progress, UIST 2026',
-      type: 'In progress',
-      link: null,
-      note: '*Equal Contribution',
     }
   ];
 
