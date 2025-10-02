@@ -27,7 +27,10 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="min-h-screen flex items-center justify-center bg-backgroundCream pt-20 relative">
+    <section 
+      ref={sectionRef} 
+      className="min-h-screen flex items-center justify-center bg-backgroundCream pt-20 relative"
+    >
       <div className="max-w-6xl mx-auto px-6 py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left side - Text content */}
@@ -41,12 +44,15 @@ export default function HeroSection() {
               <p className="text-lg text-textGrayCustom leading-relaxed">
                 Hi, My name is Kayoon (pronounced as Ga-Yoon). I am a master's student studying Quantitative Data Science at the University of Tübingen. Currently, I am writing my master's thesis at the Porsche Human-Centered AI Research Lab.
               </p>
-              {/* --- News Section Start --- */}
-              <div className="mt-4 bg-gray-50 rounded-md px-4 py-2 border-l-4 border-gray-300">
-                <span className="text-sm text-gray-700 font-semibold">Recent News:</span>{" "}
-                <span className="text-gray-800 text-sm">
-                  I am proud to announce that I have won the DAAD STIBET Scholarship as the sole recipient! 🎉
-                </span>
+
+              {/* --- News Section Start (updated) --- */}
+              <div className="mt-6 p-4 bg-white bg-opacity-60 shadow-md rounded-lg border border-gray-200 max-w-md">
+                <h3 className="text-sm font-semibold text-gray-800 mb-1 uppercase tracking-wide">
+                  Recent News
+                </h3>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  I am proud to announce that I have won the <strong className="text-green-600">DAAD STIBET Scholarship</strong> as the sole recipient! 🎉
+                </p>
               </div>
             </div>
 
@@ -158,4 +164,5 @@ export default function HeroSection() {
     </section>
   );
 }
+
 
