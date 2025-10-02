@@ -2,3 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #FAF9F6;
+  color: #4A4A4A;   /* Or try #515151 or #5A5A5A for a warm, easy-to-read gray */
+}
