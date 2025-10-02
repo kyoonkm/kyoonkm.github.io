@@ -206,7 +206,7 @@ export default function Projects() {
               <Link 
                 href={`/projects/${project.id}`} 
                 key={project.id}
-                className="block bg-gray-50 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 group cursor-pointer"
+                className="block bg-backgroundCream rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 group cursor-pointer"
 
               >
                 <div className="relative">
