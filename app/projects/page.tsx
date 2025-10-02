@@ -107,7 +107,7 @@ export default function Projects() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-backgroundCream">
       <Header />
       
       <section className="pt-32 pb-20">

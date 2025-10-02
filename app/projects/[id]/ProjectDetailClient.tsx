@@ -119,7 +119,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
         </div>
 
         <div className="space-y-6">
-          <div className="bg-gray-50 p-6 rounded-2xl">
+          <div className="bg-backgroundCream p-6 rounded-2xl">
             <h3 className="font-semibold text-textGrayCustom mb-4">Project Details</h3>
             <div className="space-y-3">
               <div>
