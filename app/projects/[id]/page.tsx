@@ -107,12 +107,12 @@ export default async function ProjectDetail({
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-backgroundCream">
         <Header />
         <div className="pt-32 pb-20">
           <div className="max-w-4xl mx-auto px-6 text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Project Not Found</h1>
-            <p className="text-gray-600">The project you're looking for doesn't exist.</p>
+            <h1 className="text-2xl font-bold text-textGrayCustom mb-4">Project Not Found</h1>
+            <p className="text-textGrayCustom">The project you're looking for doesn't exist.</p>
           </div>
         </div>
       </div>
@@ -120,7 +120,7 @@ export default async function ProjectDetail({
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-backgroundCream">
       <Header />
       <section className="pt-32 pb-20">
         <ProjectDetailClient project={project} />
