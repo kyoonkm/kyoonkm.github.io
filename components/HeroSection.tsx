@@ -46,7 +46,7 @@ export default function HeroSection() {
               </p>
 
               {/* --- News Section Start (updated) --- */}
-              <div className="mt-6 p-4 bg-white bg-opacity-60 shadow-md rounded-lg border border-gray-200 max-w-md">
+              <div className="mt-6 p-4 bg-backgroundCream bg-opacity-60 shadow-md rounded-lg border border-gray-200 max-w-md">
                 <h3 className="text-sm font-semibold text-gray-800 mb-1 uppercase tracking-wide">
                   Recent News
                 </h3>
@@ -62,7 +62,7 @@ export default function HeroSection() {
                 href="https://scholar.google.com/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-12 h-12 flex items-center justify-center bg-white border-2 border-gray-700 hover:bg-gray-700 rounded-full transition-all duration-300 cursor-pointer group"
+                className="w-12 h-12 flex items-center justify-center bg-backgroundCream border-2 border-gray-700 hover:bg-gray-700 rounded-full transition-all duration-300 cursor-pointer group"
               >
                 <i className="ri-graduation-cap-line text-gray-700 group-hover:text-white text-xl transition-colors"></i>
               </a>
@@ -70,7 +70,7 @@ export default function HeroSection() {
                 href="https://www.linkedin.com/in/kyoonkm/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-12 h-12 flex items-center justify-center bg-white border-2 border-gray-700 hover:bg-gray-700 rounded-full transition-all duration-300 cursor-pointer group"
+                className="w-12 h-12 flex items-center justify-center bg-backgroundCream border-2 border-gray-700 hover:bg-gray-700 rounded-full transition-all duration-300 cursor-pointer group"
               >
                 <i className="ri-linkedin-line text-gray-700 group-hover:text-white text-xl transition-colors"></i>
               </a>
@@ -78,13 +78,13 @@ export default function HeroSection() {
                 href="https://github.com/kyoonkm" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-12 h-12 flex items-center justify-center bg-white border-2 border-gray-700 hover:bg-gray-700 rounded-full transition-all duration-300 cursor-pointer group"
+                className="w-12 h-12 flex items-center justify-center bg-backgroundCream border-2 border-gray-700 hover:bg-gray-700 rounded-full transition-all duration-300 cursor-pointer group"
               >
                 <i className="ri-github-line text-gray-700 group-hover:text-white text-xl transition-colors"></i>
               </a>
               <a 
                 href="mailto:kyoonkm@gmail.com" 
-                className="w-12 h-12 flex items-center justify-center bg-white border-2 border-gray-700 hover:bg-gray-700 rounded-full transition-all duration-300 cursor-pointer group"
+                className="w-12 h-12 flex items-center justify-center bg-backgroundCream border-2 border-gray-700 hover:bg-gray-700 rounded-full transition-all duration-300 cursor-pointer group"
               >
                 <i className="ri-mail-line text-gray-700 group-hover:text-white text-xl transition-colors"></i>
               </a>
