@@ -26,7 +26,7 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20" id="bio">
+    <section ref={sectionRef} className="py-20 bg-backgroundCream/95" id="bio">
       <div className="max-w-6xl mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <div className={`text-center space-y-8 transform transition-all duration-1000 ${
