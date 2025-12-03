@@ -38,12 +38,12 @@ export default function PublicationsSection() {
   const publications: Publication[] = [
     {
       id: 'carmony-device-orchestration',
-      title: 'Carmony: Multimodal Context-Aware Device Orchestration in Multi-User Automotive Environments (Tentative)',
+      title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Design Space Exploration',
       authors: 'Jan Henry Belz*, Kayoon Kim*',
-      venue: 'In progress, UIST 2026',
+      venue: 'In progress, IMWUT 2026',
       type: 'In progress',
       link: null,
-      note: '*Equal Contribution',
+      note: '*Equal Contribution'
     },
     {
       id: 'mobilizing-grievances-korea',
