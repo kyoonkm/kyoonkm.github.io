@@ -76,7 +76,7 @@ const projects = [
     fullDescription: 'In the book "The Disaster Profiteers," John C. Mutter states, "While the wealthy can avoid disasters by staying away from them, the poor become trapped in poverty traps or slip even deeper into these traps." COVID-19 highlighted the issue of disaster inequality. To explore the societal impact of COVID-19, my colleagues and I participated in a hackathon that utilized public COVID-19 data. We demonstrated disaster inequality and captured the dynamic needs of individuals through COVID-19-related petition data. By employing statistical correlation analysis, text mining, and news media archiving, our data collection and analysis earned an award.',
     image: '/images/projects/covid19.png',
     images: [
-        '/images/projects/covid_all_online_petitions.png',
+        '/images/projects/covid_all_online_petitions.gif',
     ],
     topics: ['Public Health', 'NLP', 'Social Science', 'Data Analysis'],
     outcomes: ['Donated to the National Public Library of Korea'],
