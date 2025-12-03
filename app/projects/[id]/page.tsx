@@ -5,14 +5,14 @@ import ProjectDetailClient from './ProjectDetailClient';
 const projects = [
   {
     id: 1,
-    title: 'Carmony (Tentative)',
+    title: 'Sim-DSE',
     year: 2025,
     description: 'Collaborated with Porsche, implementing a context-aware system using AI agents for decision-making on optimal vehicle configurations and seamless human-vehicle interaction for all occupants',
     fullDescription: 'TBD',
     image: '/images/projects/porsche_logo.svg',
     topics: ['Decision Making', 'AI Agents'],
     technologies: ['Python', 'Autogen', 'Model Context Protocol'],
-    outcomes: ['Paper will be submitted to UIST 2026'],
+    outcomes: ['Paper will be submitted to IMWUT 2026'],
   },
   {
     id: 2,
