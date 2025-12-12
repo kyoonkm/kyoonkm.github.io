@@ -12,7 +12,7 @@ export default function Projects() {
   const projects = [
     {
       id: 1,
-      title: 'Carmony (Tentative)',
+      title: 'Sim-DSE',
       year: 2025,
       description: 'Implementing a context-aware system using AI agents for decision-making on optimal vehicle configurations and seamless human-vehicle interaction for all occupants',
       image: '/images/projects/porsche_logo.svg',
