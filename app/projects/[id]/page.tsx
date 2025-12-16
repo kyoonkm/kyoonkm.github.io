@@ -65,20 +65,21 @@ const projects = [
     description: 'What critical factors were constrained by the existing public COVID-19 data, and what strategies can we implement to enhance data accessibility and analysis?',
     fullDescription: 'After a year since the hackathon, my colleagues from the information science lab and I discovered that limited public APIs prevented thorough analysis of critical factors such as healthcare capacity and resource distribution. This realization prompted me to develop a new research project.\n' + '\n' +
     'Implementing a new dataset, the analysis proved regional healthcare inequality in South Korea’s capital-centric system. We assessed the effectiveness of policies, such as pandemic screening facilities and hospital bed capacity. During COVID-19, the absence of distribution guidelines caused new screening facilities to concentrate in the capital, Seoul, reinforcing existing informational access inequalities rather than addressing regional disparities. (Image 1: The ratio of screening facilities to the population by city - Seoul and Jinju). The same result was revealed when comparing the number of hospital beds. (Image 2: The difference between the required number of hospital beds and the number available)\n' + '\n' +
-    'Additionally, mass fear and misinformation were critical factors to address during the pandemic. To increase accessibility to information, I created a policy visualization across over time (Image 3) and visualized mass infection data for Seoul, linking with related news articles. I also suggested detailed state-level policies based on the visualization.\n' + '\n' +
+    'Additionally, mass fear and misinformation were critical factors to address during the pandemic. To increase accessibility to information, I created a policy visualization across over time (Image 3) and created an interactive visualization of mass infection in Seoul, linking with related news articles (Image 4). I also suggested detailed state-level policies based on the analysis.\n' + '\n' +
     'Our efforts improved data accessibility for the general public and developed recommendations for enhancing public health data infrastructure.\n I presented the work on International Open Data Day 2021 in Seoul, supported by Open Knowledge Foundation (International Non-Profit Organization) and the Korean Ministry of the Interior and Safety. It was meaningful to directly provide suggestions and contribute to public health data for the government. The projects were donated to the National Public Library of Korea as the first non-governmental archive.',
     image: 'https://img.youtube.com/vi/L3i_Rng3i5s/maxresdefault.jpg',
     images: [
         'covid_screening.png',
         'covid_hospital.png',
-        'covid_regulation.png'
+        'covid_regulation.png',
+        'covid_newslink.png'
     ],
     topics: ['Data Analysis', 'Public Health', 'Social Science'],
     outcomes: ['Donated to the National Public Library of Korea'],
     links: [{ label: 'GitHub', url: 'https://github.com/Open-Knowledge-Korea/covid-19-our-memory/tree/master/covid19-atoz/topic-1'},
         {label: 'Press', url: 'https://www.nl.go.kr/EN/contents/EN10700000000.do?schFld=0&schStr=Chung&schOpt5=NLNE&schM=view&page=1&ordFld=regdt&ordBy=DESC&viewCount=9&id=42008&schBdcode=&schGroupCode='},
-        {label: 'YouTube', url: 'https://www.youtube.com/watch?v=L3i_Rng3i5s&ab_channel=NIA%ED%95%9C%EA%B5%AD%EC%A7%80%EB%8A%A5%EC%A0%95%EB%B3%B4%EC%82%AC%ED%9A%8C%EC%A7%84%ED%9D%A5%EC%9B%90'},
-        {label: 'Slides', url: '/slides/team135/'}
+        {label: 'YouTube Presentation (Korean)', url: 'https://www.youtube.com/watch?v=L3i_Rng3i5s&ab_channel=NIA%ED%95%9C%EA%B5%AD%EC%A7%80%EB%8A%A5%EC%A0%95%EB%B3%B4%EC%82%AC%ED%9A%8C%EC%A7%84%ED%9D%A5%EC%9B%90'},
+        {label: 'Slides (Korean)', url: '/slides/team135/'}
     ]
   },
   {
