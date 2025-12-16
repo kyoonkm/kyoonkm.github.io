@@ -42,7 +42,7 @@ export default function HeroSection() {
                 Kayoon Kim
               </h1>
               <p className="text-lg text-textGrayCustom leading-relaxed">
-                Hi, My name is Kayoon (pronounced as Ga-Yoon). I am a master's student studying Quantitative Data Science at the University of Tübingen. Currently, I am writing my master's thesis at the Porsche Human-Centered AI Research Lab.
+                Hi! My name is Kayoon. I am a master's student studying Quantitative Data Science at the University of Tübingen. Currently, I am writing my master's thesis at the Porsche Human-Centered AI Research Lab.
               </p>
 
             </div>
