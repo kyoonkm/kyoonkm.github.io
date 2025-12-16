@@ -7,7 +7,7 @@ const projects = [
     id: 1,
     title: 'Sim-DSE',
     year: 2025,
-    description: 'Collaborated with Porsche, implementing a context-aware system using AI agents for decision-making on optimal vehicle configurations and seamless human-vehicle interaction for all occupants',
+    description: 'Collaborated with Porsche, formulating a Design Space framework for in-car automation based on multi-user interaction in automated vehicles. How should human-centered design be applied for human-vehicle interaction for all occupants?',
     fullDescription: 'At Porsche AG, I am currently working on the Sim-DSE project as a thesis student in the Human-Centered AI Research group. Implicit interaction (i.e., gesture recognition) of multiple users has not been tackled in automotive research. The project identifies relevant in-vehicle interactions for multiple users and model a suitable decision space for in-car automation. We propose the decision making guideline with the implementation for multi-user automotive environments that enables the automatic orchestration of ubiquitous devices in real-time.\n' +
     'For space axes, there are three axes: user action, system reaction and reasoning.',
     image: '/images/projects/porsche_logo.svg',
