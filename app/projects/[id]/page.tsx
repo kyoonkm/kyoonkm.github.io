@@ -40,7 +40,7 @@ const projects = [
     title: 'Student Dropout Prediction',
     year: 2023,
     description: 'How can we improve the current dropout situation in STEM classes? Kalman Filter model for early identification of students at risk of dropping out, enabling timely intervention and support strategies',
-    fullDescription: 'In the first year of my master`s degree, I worked as a research assistant at the Methods Center at the University of Tübingen. There, I developed a model to predict student dropouts in STEM classes using multivariate time-series analysis, specifically the Kalman Filter, to enhance the educational environment. We combined a psychometric approach, utilizing latent characteristics such as ability, motivation, and stress levels from questionnaires for prediction. The project received support from the Ministry of Education of Baden-Württemberg.',
+    fullDescription: 'In the first year of my master\'s degree, I worked as a research assistant at the Methods Center at the University of Tübingen. There, I developed a model to predict student dropouts in STEM classes using multivariate time-series analysis, specifically the Kalman Filter, to enhance the educational environment. The model combined a human-centered, psychometric approach, utilizing latent characteristics such as ability, motivation, and stress levels from questionnaires for prediction. The project received support from the Ministry of Education of Baden-Württemberg.',
     image: '/images/projects/lyra.png',
     images: [
         '/images/projects/lyra_analysis.png',
