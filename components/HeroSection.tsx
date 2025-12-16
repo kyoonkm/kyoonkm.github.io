@@ -45,15 +45,6 @@ export default function HeroSection() {
                 Hi, My name is Kayoon (pronounced as Ga-Yoon). I am a master's student studying Quantitative Data Science at the University of Tübingen. Currently, I am writing my master's thesis at the Porsche Human-Centered AI Research Lab.
               </p>
 
-              {/* --- News Section Start (updated) --- */}
-              <div className="mt-6 p-4 bg-backgroundCream bg-opacity-60 shadow-md rounded-lg border border-gray-200 max-w-md">
-                <h3 className="text-sm font-semibold text-gray-800 mb-1 uppercase tracking-wide">
-                  Recent News
-                </h3>
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  I am proud to announce that I have won the <strong className="text-green-600">DAAD STIBET Scholarship</strong> as the sole recipient! 🎉
-                </p>
-              </div>
             </div>
 
             {/* Social Links */}
