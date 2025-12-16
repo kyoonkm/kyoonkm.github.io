@@ -69,10 +69,10 @@ const projects = [
     'Our efforts improved data accessibility for the general public and developed recommendations for enhancing public health data infrastructure.\n I presented the work on International Open Data Day 2021 in Seoul, supported by Open Knowledge Foundation (International Non-Profit Organization) and the Korean Ministry of the Interior and Safety. It was meaningful to directly provide suggestions and contribute to public health data for the government. The projects were donated to the National Public Library of Korea as the first non-governmental archive.',
     image: 'https://img.youtube.com/vi/L3i_Rng3i5s/maxresdefault.jpg',
     images: [
-        'covid_screening.png',
-        'covid_hospital.png',
-        'covid_regulation.png',
-        'covid_newslink.png'
+        '/images/projects/covid_screening.png',
+        '/images/projects/covid_hospital.png',
+        '/images/projects/covid_regulation.png',
+        '/images/projects/covid_newslink.png'
     ],
     topics: ['Data Analysis', 'Public Health', 'Social Science'],
     outcomes: ['Donated to the National Public Library of Korea'],
