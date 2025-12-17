@@ -42,7 +42,9 @@ const projects = [
     year: 2024,
     description: 'Can the PBO model human preferences, suggest an optimal setting, and facilitate efficient decision-making for humans? Can biases potentially impede the efficacy of PBO? Investigated the Human factor in optimization',
     fullDescription: 'Optimizing with Subjective Preference\n\n' + 'Industrial machinery often requires tuning lots of parameters. Expert operators rely on intuition and "feel," which are difficult to quantify and require time and resources. Standard optimization algorithms fail here because there is no clear mathematical objective function to maximize.\n\n' + 'The Approach: Preferential Bayesian Optimization (PBO)\n\n' + 
-    'At the Bosch Center for Artificial Intelligence (BCAI), I utilized PBO to bridge this gap. The algorithm aims to present two machine settings and simply asks: Which feels better? This pairwise feedback loop allows the AI to construct a latent utility function of the human\'s preferences, iteratively converging on the optimal setting.\n\n' + 'The Human Bias\n\n' + 'Most PBO research assumes the human is rational. I challenged this assumption. I designed experiments to test algorithmic robustness against cognitive biases.\n\n' + '• Simulating Biases: I introduced simulated experiment representing human biases into the feedback loop.\n' + '• Finding: My results demonstrated that PBO algorithms degrade significantly when the human feedback is inconsistent. This highlights a critical need for "bias-aware" acquisition functions in Human-AI collaboration.',
+    'At the Bosch Center for Artificial Intelligence (BCAI), I utilized PBO to bridge this gap. The algorithm aims to present two machine settings and simply asks: Which feels better? This pairwise feedback loop allows the AI to construct a latent utility function of the human\'s preferences, iteratively converging on the optimal setting.\n\n' + 'The Human Bias\n\n' + 'Most PBO research assumes the human is rational. I challenged this assumption. I designed experiments to test algorithmic robustness against cognitive biases.\n\n' + '• Simulating Biases: I introduced simulated experiment representing human biases into the feedback loop.\n' 
+    + '• Finding: My results demonstrated that PBO algorithms degrade significantly when the human feedback is inconsistent. This highlights a critical need for "bias-aware" acquisition functions in Human-AI collaboration.',
+    image: '/images/projects/forrester_loop.png',
     images: [
         '/images/projects/3_2_bosch_use_case_best.png',
         '/images/projects/3_6d_ackley_regret_bias.png',
@@ -69,7 +71,7 @@ const projects = [
         '/images/projects/lyra_analysis.png',
     ],
     topics: ['Machine Learning', 'Data Analysis', 'Social Science'],
-    links: [{ label: 'Related Paper', url: '/forecasting_intraindividual_changes_of_affective_states_taking_into_account_interindividual_differences_using_intensive_longitudinal_data_from_a_university_student_dropout_study_in_math.pdf' }]
+    links: [{ label: 'Related Paper', url: '/forecasting_intraindividual_changes_of_affective_states_taking_into_account_interindividual_differences_using_intensive_longitudinal_data_from_a_university_student_dropout_study_in_math.pdf'}]
   },
   {
     id: 4,
