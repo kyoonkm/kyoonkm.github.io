@@ -135,7 +135,7 @@ const projects = [
     image: '/images/projects/petitions.png',
     topics: ['Social Science', 'NLP', 'Data Analysis'],
     outcomes: ['Evolved into a publication accepted in PLOS ONE 2024'],
-    links: [{label: 'Slides', url: 'https://docs.google.com/presentation/d/1KmKsndiEqIGVuV73TBdGs2_e9RDkGUIh/edit?usp=sharing&ouid=107424392698532184399&rtpof=true&sd=true'}]
+    links: [{label: 'Slides (English)', url: 'https://docs.google.com/presentation/d/1KmKsndiEqIGVuV73TBdGs2_e9RDkGUIh/edit?usp=sharing&ouid=107424392698532184399&rtpof=true&sd=true'}]
   }
 ];
 
