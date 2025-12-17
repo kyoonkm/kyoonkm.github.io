@@ -9,20 +9,20 @@ const projects = [
     year: 2025,
     description: 'How do automated vehicles resolve passenger needs and preference? I developed a multi-agent framework where AI agents advocate for individual occupants to negotiate optimal cabin environments, bridging the gap between rigid automation and human fluidity.',
     fullDescription: 
-'Autonomous vehicles handle the road, but not the room. When one passenger wants to sleep (dim lights, silence) while another works (bright lights, conference call), how should systems resolve passenger needs and preference?.\n\n' +
+'Autonomous vehicles handle the road, but not the room. When one passenger wants to sleep (dim lights, silence) while another works (bright lights, conference call), how should systems resolve passenger needs and preference?\n\n' +
 
 'Multi-Agent Negotiation Framework\n\n' +
 
 'I architected a system where each occupant is represented by an AI agent that advocates for their preferences. Using Large Language Models (LLMs), these agents negotiate optimal cabin configurations through natural language reasoning, for example: "Lower volume to 15% for sleeping Passenger A, maintain 40% for Passenger B\'s call"\n\n' +
 
 'Three-Axis Design Space:\n' +
-'• *User Action*: Occupant behaviors (sleeping, reading, working)\n' +
-'• *System Reaction*: Vehicle responses (adjust seat, modify climate)\n' +
-'• *Reasoning*: AI-generated contextual justifications\n\n' +
+'• User Action: Occupant behaviors (sleeping, reading, working)\n' +
+'• System Reaction: Vehicle responses (adjust seat, modify climate)\n' +
+'• Reasoning: AI-generated contextual justifications\n\n' +
 
 'Validation Strategy\n' +
 
-'I\'m conducting dual validation: (1) **Simulation experiments** testing decision-making across realistic scenarios, and (2) **Human alignment surveys** where participants judge whether agent reasoning matches human expectations. Preliminary results show agents propose solutions via consensus.\n\n' +
+'I\'m conducting dual validation: (1) Simulation experiments testing decision-making across realistic scenarios, and (2) Human alignment surveys where participants judge whether agent reasoning matches human expectations. Preliminary results show agents propose solutions via consensus.\n\n' +
 
 'Implementation\n' +
 
