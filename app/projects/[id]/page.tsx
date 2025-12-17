@@ -5,7 +5,7 @@ import ProjectDetailClient from './ProjectDetailClient';
 const projects = [
   {
     id: 1,
-    title: 'Sim-DSE',
+    title: 'Human-Centric Vehicle Configuration via AI Agents (Sim-DSE)',
     year: 2025,
     description: 'Collaborated with Porsche, formulating a Design Space framework for in-car automation based on multi-user interaction in automated vehicles. How should human-centered design be applied for human-vehicle interaction for all occupants?',
     fullDescription: 'At Porsche AG, I am currently working on the Sim-DSE project as a thesis student in the Human-Centered AI Research group. Implicit interaction (i.e., gesture recognition) of multiple users has not been tackled in automotive research. The project identifies relevant in-vehicle interactions for multiple users and model a suitable decision space for in-car automation. We propose the decision making guideline with the implementation for multi-user automotive environments that enables the automatic orchestration of ubiquitous devices in real-time.\n' + '\n' +
@@ -15,6 +15,9 @@ const projects = [
     'For the user study, I am building a prototype based on this Design Space that integrates the system with in-car modalities using Model Context Protocol (MCP) and Home Assistant. It was my first time implementing hardware integration with software, which was challenging yet rewarding! The prototype will be evaluated in a user study to assess its effectiveness in real-world scenarios.\n' + '\n' +
     'Simultaneously, I am brainstorming to develop a large language model for better reasoning based on reinforcement learning (e.g., reinforcement learning with human feedback (RLHF)) to enhance the system\'s contextual understanding and decision-making capabilities in complex multi-user scenarios. This involves fine-tuning the model to better grasp the nuances of human preferences.',
     image: '/images/projects/porsche_logo.svg',
+    images: [
+        '/images/projects/porsche_consensus.png',
+    ],
     topics: ['Decision Making', 'AI Agents'],
     technologies: ['Python', 'Autogen', 'Model Context Protocol'],
     outcomes: ['Paper will be submitted to IMWUT 2026'],
