@@ -117,7 +117,7 @@ const projects = [
     fullDescription: 'The Sociology of Disaster\n\n' + 'Disasters are not great levelers; they often exacerbate existing divides. Motivated by the sociological concept of "disaster inequality," my team sought to capture the real-time mobilizing needs of the South Korean public during the early onset of COVID-19.\n\n' 
     + 'Methodology: Statistical correlation analysis, Text mining (Image 1), and News media archiving\n\n' + 'We participated in a national hackathon, building a pipeline to analyze public discourse. By collecting petition data, using text mining analysis (e.g., word cloud - Image 1), conducting statistical correlation analysis, and archiving news media, we identified which demographics expressed their distress and how.\n\n' 
     + 'Outcome\n\n' + 'The analysis provided quantitative evidence of the "poverty trap" John C. Mutter describes, showing how certain demographics expressed distinct, urgent survival needs. Our data collection methodology was recognized with an award for its ability to capture the dynamic.',
-    image: '/images/projects/covid19.png'
+    image: '/images/projects/covid19.png',
     images: [
         '/images/projects/covid_all_online_petitions.gif',
     ],
