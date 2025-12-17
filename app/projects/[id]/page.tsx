@@ -40,9 +40,9 @@ const projects = [
     id: 2,
     title: 'Preferential Bayesian Optimization (PBO)',
     year: 2024,
-    description: 'Can the PBO model human preferences, suggest an optimal setting, and facilitate efficient decision-making for humans? Can biases potentially impede the efficacy of PBO?',
-    fullDescription: 'Using Bosch real-world data, I developed and tested PBO algorithms to efficiently optimize machinery settings for expert operators. This process involved modeling human preferences in decision-making and identifying cognitive biases for future human-in-the-loop experiments. I also conducted an experiment using simulated biased data, which demonstrated how bias can hinder the performance of the algorithms. For more information and results, please refer to the research project paper!',
-    image: '/images/projects/forrester_loop.png',
+    description: 'Can the PBO model human preferences, suggest an optimal setting, and facilitate efficient decision-making for humans? Can biases potentially impede the efficacy of PBO? Investigated the Human factor in optimization',
+    fullDescription: 'Optimizing with Subjective Preference\n\n' + 'Industrial machinery often requires tuning lots of parameters. Expert operators rely on intuition and "feel," which are difficult to quantify and require time and resources. Standard optimization algorithms fail here because there is no clear mathematical objective function to maximize.\n\n' + 'The Approach: Preferential Bayesian Optimization (PBO)\n\n' + 
+    'At the Bosch Center for Artificial Intelligence (BCAI), I utilized PBO to bridge this gap. The algorithm aims to present two machine settings and simply asks: Which feels better? This pairwise feedback loop allows the AI to construct a latent utility function of the human\'s preferences, iteratively converging on the optimal setting.\n\n' + 'The Human Bias\n\n' + 'Most PBO research assumes the human is rational. I challenged this assumption. I designed experiments to test algorithmic robustness against cognitive biases.\n\n' + '• Simulating Biases: I introduced simulated experiment representing human biases into the feedback loop.\n' + '• Finding: My results demonstrated that PBO algorithms degrade significantly when the human feedback is inconsistent. This highlights a critical need for "bias-aware" acquisition functions in Human-AI collaboration.',
     images: [
         '/images/projects/3_2_bosch_use_case_best.png',
         '/images/projects/3_6d_ackley_regret_bias.png',
@@ -54,15 +54,22 @@ const projects = [
   },
   {
     id: 3,
-    title: 'Student Dropout Prediction',
+    title: 'Student Dropout Prediction (Kalman Filter)',
     year: 2023,
     description: 'How can we improve the current dropout situation in STEM classes? Kalman Filter model for early identification of students at risk of dropping out, enabling timely intervention and support strategies',
-    fullDescription: 'In the first year of my master\'s degree, I worked as a research assistant at the Methods Center at the University of Tübingen. There, I developed a model to predict student dropouts in STEM classes using multivariate time-series analysis, specifically the Kalman Filter, to enhance the educational environment. The model combined a human-centered, psychometric approach, utilizing latent characteristics such as ability, motivation, and stress levels from questionnaires for prediction. The project received support from the Ministry of Education of Baden-Württemberg.',
+    fullDescription: 'The Problem: STEM Retention\n\n' + 
+    'High dropout rates in STEM fields are a persistent issue. \n\n' + 
+    'Methodology: Psychometrics + State Estimation\n\n' + 
+    'As a Research Assistant at the University of Tübingen Methods Center, I developed a prediction model supported by the Ministry of Education of Baden-Württemberg.\n\n' + 
+    '• Kalman Filter: I applied multivariate time-series analysis (specifically Kalman Filters) to model student engagement as an evolving trajectory rather than a fixed point.\n' + 
+    '• Latent Variable Integration: The model incorporated psychometric data, latent characteristics such as ability, motivation, and stress levels derived from longitudinal questionnaires.\n\n' + 
+    'Impact\n\n' + 'The system functions as an early warning, identifying at-risk students weeks before they drop out. This enables educators to deploy timely, personalized interventions.',
     image: '/images/projects/lyra.png',
     images: [
         '/images/projects/lyra_analysis.png',
     ],
-    topics: ['Machine Learning', 'Data Analysis', 'Social Science']
+    topics: ['Machine Learning', 'Data Analysis', 'Social Science'],
+    links: [{ label: 'Related Paper', url: '/forecasting_intraindividual_changes_of_affective_states_taking_into_account_interindividual_differences_using_intensive_longitudinal_data_from_a_university_student_dropout_study_in_math.pdf' }]
   },
   {
     id: 4,
