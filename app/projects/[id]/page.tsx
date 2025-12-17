@@ -5,15 +5,29 @@ import ProjectDetailClient from './ProjectDetailClient';
 const projects = [
   {
     id: 1,
-    title: 'Human-Centric Vehicle Configuration via AI Agents (Sim-DSE)',
+    title: 'Multi-Agent Negotiation for Human-Centric Vehicle Configuration (Sim-DSE)',
     year: 2025,
-    description: 'Collaborated with Porsche, formulating a Design Space framework for in-car automation based on multi-user interaction in automated vehicles. How should human-centered design be applied for human-vehicle interaction for all occupants?',
-    fullDescription: 'At Porsche AG, I am currently working on the Sim-DSE project as a thesis student in the Human-Centered AI Research group. Implicit interaction (i.e., gesture recognition) of multiple users has not been tackled in automotive research. The project identifies relevant in-vehicle interactions for multiple users and model a suitable decision space for in-car automation. We propose the decision making guideline with the implementation for multi-user automotive environments that enables the automatic orchestration of ubiquitous devices in real-time.\n' + '\n' +
-    'For Design Space axes, there are three axes: user action, system reaction and reasoning. User actions include all behaviors of the users that may occur in the car, such as sleeping or reading. System reactions include a vehicle`s responses to user actions, such as adjusting the seat or lowering the volume. Reasoning includes the underlying AI-based rationale for a system\'s reaction to user\'s actions. For example, if a user is sleeping, the system may lower the volume to avoid disturbing them. The reasoning axis helps to understand why the system reacts in a certain way to user actions.\n' + '\n' +
-    'Reasoning axis is the most important axis since it provides the context-aware understanding of user actions and system reactions. To augment the reasoning axis, I utilized AI agents for decision-making. In detail, I designed a multi-agent architecture where each occupant is represented by an individual agent that advocates for their preferences and needs to engage in collective decision-making through compromises, modeling the genuine human reasoning and communication. To do so, investigating AI reasoning was essential to validate whether it aligns with humans’, analyzing the underlying rationale of it for the system’s reaction (i.e., in-car modalities such as infotainment) to users’ action (i.e., in-car human behavior).\n' + '\n' +
-    'To validate this approach, I am conducting a two-part validation: simulation experiments testing collective decision-making in multi-user scenarios, and an online survey where participants judged whether agents’ reasoning aligns with human expectations. The preliminary results suggest emergent human-like considerations: agents independently proposed solutions like lowering speaker volume for sleeping passengers.​ Furthermore, it indicates that the multi-agent architecture has the potential to generate an optimal setting of in-car modalities while maintaining equality across user groups. By analyzing patterns of simulation and online survey results, I aim to augment the Design Space into a practical guideline for developers’ and designers’ decision-making.\n' + '\n' +
-    'For the user study, I am building a prototype based on this Design Space that integrates the system with in-car modalities using Model Context Protocol (MCP) and Home Assistant. It was my first time implementing hardware integration with software, which was challenging yet rewarding! The prototype will be evaluated in a user study to assess its effectiveness in real-world scenarios.\n' + '\n' +
-    'Simultaneously, I am brainstorming to develop a large language model for better reasoning based on reinforcement learning (e.g., reinforcement learning with human feedback (RLHF)) to enhance the system\'s contextual understanding and decision-making capabilities in complex multi-user scenarios. This involves fine-tuning the model to better grasp the nuances of human preferences.',
+    description: 'How do automated vehicles resolve passenger needs and preference? I developed a multi-agent framework where AI agents advocate for individual occupants to negotiate optimal cabin environments, bridging the gap between rigid automation and human fluidity.',
+    fullDescription: 
+'Autonomous vehicles handle the road, but not the room. When one passenger wants to sleep (dim lights, silence) while another works (bright lights, conference call), how should systems resolve passenger needs and preference?.\n\n' +
+
+'**Multi-Agent Negotiation Framework**\n\n' +
+
+'I architected a system where each occupant is represented by an AI agent that advocates for their preferences. Using Large Language Models (LLMs), these agents negotiate optimal cabin configurations through natural language reasoning, for example: "Lower volume to 15% for sleeping Passenger A, maintain 40% for Passenger B\'s call"\n\n' +
+
+'**Three-Axis Design Space:**\n' +
+'• *User Action*: Occupant behaviors (sleeping, reading, working)\n' +
+'• *System Reaction*: Vehicle responses (adjust seat, modify climate)\n' +
+'• *Reasoning*: AI-generated contextual justifications\n\n' +
+
+'**Validation Strategy**\n\n' +
+
+'I\'m conducting dual validation: (1) **Simulation experiments** testing decision-making across realistic scenarios, and (2) **Human alignment surveys** where participants judge whether agent reasoning matches human expectations. Preliminary results show agents propose solutions via consensus.\n\n' +
+
+'**Implementation**\n\n' +
+
+'I am building a physical prototype integrating the Model Context Protocol (MCP) and Home Assistant to control real hardware (e.g.,lighting). This hardware-software integration validates the framework beyond simulation. Currently brainstorming and exploring Reinforcement Learning techniques such as Reinforcement Learning from Human Feedback (RLHF) to fine-tune agent behavior based on online survey data.\n\n',
+
     image: '/images/projects/porsche_logo.svg',
     images: [
         '/images/projects/porsche_consensus.png',
