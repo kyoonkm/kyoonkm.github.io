@@ -52,7 +52,9 @@ const projects = [
     ],
     topics: ['Decision Making', 'Machine Learning', 'Data Analysis'],
     technologies: ['Python', 'BoTorch'],
-    links: [{ label: 'Paper', url: '/pbo.pdf' }]
+    links: [{ label: 'Paper', url: '/pbo.pdf' },
+      {label: 'Slides', url: 'https://docs.google.com/presentation/d/11JYZppfOevN_nZ8ZwXHcLriLgCKFmFgtKankOOoUSXw/edit?usp=sharing'}
+    ]
   },
   {
     id: 3,
