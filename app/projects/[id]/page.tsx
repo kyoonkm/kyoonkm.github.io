@@ -13,7 +13,7 @@ const projects = [
 
 'Multi-Agent Negotiation Framework\n\n' +
 
-'I architected a system where each occupant is represented by an AI agent that advocates for their preferences. Using Large Language Models (LLMs), these agents negotiate optimal cabin configurations through natural language reasoning, for example: "Lower volume to 15% for sleeping Passenger A, maintain 40% for Passenger B\'s call"\n\n' +
+'I architected a system where each occupant is represented by an AI agent that advocates for their preferences. Using Large Language Models (LLMs), these agents negotiate optimal cabin configurations through natural language reasoning, for example: "Lower volume to 15% for sleeping Passenger A, maintain ambient lighting for reading Passenger B"\n\n' +
 
 'Three-Axis Design Space:\n' +
 '• User Action: Occupant behaviors (sleeping, reading, working)\n' +
