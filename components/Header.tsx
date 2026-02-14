@@ -58,7 +58,7 @@ export default function Header() {
               <Link href="/projects" className="text-gray-700 hover:text-textGrayCustom transition-colors cursor-pointer">
                 Projects
               </Link>
-              <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-textGrayCustom transition-colors cursor-pointer">
+              <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-textGrayCustom transition-colors cursor-pointer">
                 CV
               </a>
             </div>
