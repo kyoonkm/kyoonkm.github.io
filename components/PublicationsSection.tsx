@@ -27,11 +27,20 @@ export default function PublicationsSection() {
 
   const publications = [
     {
-      id: 'carmony-device-orchestration',
+      id: 'sim-dse',
+      title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Design Space Exploration',
+      authors: 'Kayoon Kim*, Jan Henry Belz*',
+      venue: 'In manuscript, UIST 2026',
+      type: 'In manuscript',
+      link: null,
+      note: '*Equal Contribution'
+    },
+    {
+      id: 'sim-dse-poster',
       title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Design Space Exploration',
       authors: 'Jan Henry Belz*, Kayoon Kim*',
-      venue: 'In progress, IMWUT 2026',
-      type: 'In progress',
+      venue: 'Under review, CHI 2026 Poster',
+      type: 'Under review',
       link: null,
       note: '*Equal Contribution'
     },
