@@ -38,7 +38,7 @@ export default function PublicationsSection() {
   const publications: Publication[] = [
     {
       id: 'sim-dse',
-      title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Design Space Exploration',
+      title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Decision Space Exploration',
       authors: 'Kayoon Kim*, Jan Henry Belz*',
       venue: 'In manuscript, UIST 2026',
       type: 'In manuscript',
@@ -47,7 +47,7 @@ export default function PublicationsSection() {
     },
     {
       id: 'sim-dse-poster',
-      title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Design Space Exploration',
+      title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Decision Space Exploration',
       authors: 'Jan Henry Belz*, Kayoon Kim*',
       venue: 'Under review, CHI 2026 Poster',
       type: 'Under review',
