@@ -29,18 +29,9 @@ export default function PublicationsSection() {
     {
       id: 'sim-dse',
       title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Decision Space Exploration',
-      authors: 'Kayoon Kim*, Jan Henry Belz*',
+      authors: 'Jan Henry Belz*, Kayoon Kim*',
       venue: 'In manuscript, UIST 2026',
       type: 'In manuscript',
-      link: null,
-      note: '*Equal Contribution'
-    },
-    {
-      id: 'sim-dse-poster',
-      title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Decision Space Exploration',
-      authors: 'Jan Henry Belz*, Kayoon Kim*',
-      venue: 'Under review, CHI 2026 Poster',
-      type: 'Under review',
       link: null,
       note: '*Equal Contribution'
     },
