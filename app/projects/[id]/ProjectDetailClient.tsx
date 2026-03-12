@@ -34,6 +34,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
       'Data Analysis': 'bg-orange-100 text-orange-800 border-orange-200',
       'AI Agents': 'bg-cyan-100 text-cyan-800 border-cyan-200',
       'Social Science': 'bg-indigo-100 text-indigo-800 border-indigo-200',
+      'Social Simulation': 'bg-yellow-100 text-yellow-800 border-yellow-200',
     };
     return colors[topic as keyof typeof colors] || 'bg-gray-100 text-gray-700 border-gray-200';
   };
