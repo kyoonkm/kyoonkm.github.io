@@ -9,32 +9,40 @@ const projects = [
     year: 2025,
     description: 'How do automated vehicles resolve passenger needs and preference? I developed a multi-agent framework where AI agents advocate for individual occupants to negotiate optimal cabin environments, bridging the gap between rigid automation and human fluidity.',
     fullDescription: 
-'Autonomous vehicles handle the road, but not the room. When one passenger wants to sleep (dim lights, silence) while another works (bright lights, conference call), how should systems resolve passenger needs and preference?\n\n' +
+    'Autonomous vehicles handle the road, but not the room. When one passenger wants to sleep (dim lights, silence) while another works (bright lights, conference call), how should systems resolve passenger needs and preference?\n\n' +
 
 'Multi-Agent Negotiation Framework\n\n' +
 
 'I architected a system where each occupant is represented by an AI agent that advocates for their preferences. Using Large Language Models (LLMs), these agents negotiate optimal cabin configurations through natural language reasoning, for example: "Lower volume to 15% for sleeping Passenger A, maintain ambient lighting for reading Passenger B"\n\n' +
 
 'Three-Axis Design Space:\n' +
+
 '• User Action: Occupant behaviors (sleeping, reading, working)\n' +
+
 '• System Reaction: Vehicle responses (adjust seat, modify climate)\n' +
+
 '• Reasoning: AI-generated contextual justifications\n\n' +
 
 'Validation Strategy\n' +
 
-'I\'m conducting dual validation: (1) Simulation experiments testing decision-making across realistic scenarios, and (2) Human alignment surveys where participants judge whether agent reasoning matches human expectations. Preliminary results show agents propose solutions via consensus.\n\n' +
+'I conducted two-step validation: (1) simulation experiments that tested decision-making in realistic scenarios, and (2) human alignment surveys where participants judge whether the agents’ reasoning aligned with human expectations. The results indicated that the agents proposed reasonable solutions through consensus, with 96% of scenarios accepted by the participants.\n\n' +
 
-'Implementation\n' +
+'Validated Rationale Analysis\n' +
 
-'I am building a physical prototype integrating the Model Context Protocol (MCP) and Home Assistant to control real hardware (e.g.,lighting). This hardware-software integration validates the framework beyond simulation. Currently brainstorming and exploring Reinforcement Learning techniques such as Reinforcement Learning from Human Feedback (RLHF) to fine-tune agent behavior based on online survey data.\n\n',
+'I developed an NLP pipeline to analyze rationale that users agreed on. I parsed responses into context, setting, and rationale, extracted normalized verb-object phrases from rationales, and clustered them semantically using sentence embeddings and BERTopic. By weighting frequent phrases and filtering generic preference language, I identified the underlying contextual factors (Figure 2).\n\n' +
+
+'Contextual Inquiry (Field Test)\n' +
+
+'For real-world, field-test oriented application, I trained a compact in-car decision model in three stages. First, I performed supervised fine-tuning on scenarios that participants accepted (“Yes”) to teach the model to generate structured cabin settings with clear rationales. Next, I applied a Chain-of-Hindsight–style revision step using disagreed (“No”) feedback to learn targeted corrections, and finally used KTO preference alignment on balanced Yes/No labels to shift the model toward outputs that match human acceptability. To evaluate performance, I conducted a field test with interaction design experts at Porsche.\n\n',
 
     image: '/images/projects/porsche_logo.svg',
     images: [
         '/images/projects/porsche_consensus.png',
+        '/images/projects/reasoning_cluster.pdf',
     ],
-    topics: ['Decision Making', 'AI Agents'],
+    topics: ['Decision Making', 'AI Agents', 'Social Simulation'],
     technologies: ['Python', 'Autogen', 'Model Context Protocol'],
-    outcomes: ['Paper will be submitted to IMWUT 2026'],
+    outcomes: ['Paper will be submitted to UIST 2026'],
   },
   {
     id: 2,
