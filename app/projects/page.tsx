@@ -14,7 +14,7 @@ export default function Projects() {
       id: 1,
       title: 'Sim-DSE',
       year: 2025,
-      description: 'Implementing a context-aware system using AI agents for decision-making on optimal vehicle configurations and seamless human-vehicle interaction for all occupants',
+      description: 'How do automated vehicles resolve passenger needs and preference? Developed a multi-agent framework where AI agents advocate for individual occupants to negotiate optimal cabin environments, bridging the gap between rigid automation and human fluidity.',
       image: '/images/projects/porsche_logo.svg',
       topics: ['Decision Making', 'AI Agents', 'Social Simulation'],
     },
