@@ -40,7 +40,7 @@ const projects = [
         '/images/projects/porsche_consensus.png',
         '/images/projects/reasoning_cluster.pdf',
     ],
-    topics: ['Decision Making', 'AI Agents', 'Social Simulation'],
+    topics: ['Decision Making', 'AI Agents', 'Social Simulation', 'NLP'],
     technologies: ['Python', 'Autogen', 'Model Context Protocol'],
     outcomes: ['Paper will be submitted to UIST 2026'],
   },
