@@ -11,11 +11,11 @@ const projects = [
     fullDescription: 
     'Autonomous vehicles handle the road, but not the room. When one passenger wants to sleep (dim lights, silence) while another works (bright lights, conference call), how should systems resolve passenger needs and preference?\n\n' +
 
-'Multi-Agent Negotiation Framework\n\n' +
+'- Multi-Agent Negotiation Framework\n' +
 
 'I architected a system where each occupant is represented by an AI agent that advocates for their preferences. Using Large Language Models (LLMs), these agents negotiate optimal cabin configurations through natural language reasoning, for example: "Lower volume to 15% for sleeping Passenger A, maintain ambient lighting for reading Passenger B"\n\n' +
 
-'Three-Axis Design Space:\n' +
+'- Three-Axis Design Space:\n' +
 
 '• User Action: Occupant behaviors (sleeping, reading, working)\n' +
 
@@ -23,22 +23,21 @@ const projects = [
 
 '• Reasoning: AI-generated contextual justifications\n\n' +
 
-'Validation Strategy\n' +
+'- Validation Strategy\n' +
 
 'I conducted two-step validation: (1) simulation experiments that tested decision-making in realistic scenarios, and (2) human alignment surveys where participants judge whether the agents’ reasoning aligned with human expectations. The results indicated that the agents proposed reasonable solutions through consensus, with 96% of scenarios accepted by the participants.\n\n' +
 
-'Validated Rationale Analysis\n' +
+'- Validated Rationale Analysis\n' +
 
 'I developed an NLP pipeline to analyze rationale that users agreed on. I parsed responses into context, setting, and rationale, extracted normalized verb-object phrases from rationales, and clustered them semantically using sentence embeddings and BERTopic. By weighting frequent phrases and filtering generic preference language, I identified the underlying contextual factors (Figure 2).\n\n' +
 
-'Contextual Inquiry (Field Test)\n' +
-
+'- Contextual Inquiry (Field Test)\n' +
 'For real-world, field-test oriented application, I trained a compact in-car decision model in three stages. First, I performed supervised fine-tuning on scenarios that participants accepted (“Yes”) to teach the model to generate structured cabin settings with clear rationales. Next, I applied a Chain-of-Hindsight–style revision step using disagreed (“No”) feedback to learn targeted corrections, and finally used KTO preference alignment on balanced Yes/No labels to shift the model toward outputs that match human acceptability. To evaluate performance, I conducted a field test with interaction design experts at Porsche.\n\n',
 
     image: '/images/projects/porsche_logo.svg',
     images: [
         '/images/projects/porsche_consensus.png',
-        '/images/projects/reasoning_cluster.pdf',
+        '/images/projects/reasoning_cluster.png',
     ],
     topics: ['Decision Making', 'AI Agents', 'Social Simulation', 'NLP'],
     technologies: ['Python', 'Autogen', 'Model Context Protocol'],
