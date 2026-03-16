@@ -50,7 +50,7 @@ export default function HeroSection() {
             {/* Social Links */}
             <div className="flex justify-start items-center space-x-8">
               <a 
-                href="https://scholar.google.com/" 
+                href="https://scholar.google.com/citations?user=ZQQzsosAAAAJ&hl=en&oi=ao" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-12 h-12 flex items-center justify-center bg-backgroundCream border-2 border-gray-700 hover:bg-gray-700 rounded-full transition-all duration-300 cursor-pointer group"
