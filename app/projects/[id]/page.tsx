@@ -34,7 +34,7 @@ const projects = [
 '- Contextual Inquiry (Field Test)\n' +
 'For real-world, field-test oriented application, I trained a compact in-car decision model in three stages. First, I performed supervised fine-tuning on scenarios that participants accepted (“Yes”) to teach the model to generate structured cabin settings with clear rationales. Next, I applied a Chain-of-Hindsight–style revision step using disagreed (“No”) feedback to learn targeted corrections, and finally used KTO preference alignment on balanced Yes/No labels to shift the model toward outputs that match human acceptability. To evaluate performance, I conducted a field test with interaction design experts at Porsche.\n\n',
 
-    image: '/images/projects/porsche_logo.svg',
+    image: '/images/projects/reasoning_cluster.png',
     images: [
         '/images/projects/porsche_consensus.png',
         '/images/projects/reasoning_cluster.png',
