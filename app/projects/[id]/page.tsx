@@ -41,6 +41,9 @@ const projects = [
     ],
     topics: ['Decision Making', 'AI Agents', 'Social Simulation', 'NLP'],
     technologies: ['Python', 'Autogen', 'Model Context Protocol'],
+    links: [
+      {label: 'Slides', url: 'https://docs.google.com/presentation/d/11icBSOa2cB54j50gHfyy2_zW2EXgIT9zrvkm9vqrVJM/edit?usp=sharing'}
+    ],
     outcomes: ['Paper will be submitted to UIST 2026'],
   },
   {
