@@ -44,7 +44,7 @@ const projects = [
     links: [
       {label: 'Slides', url: 'https://docs.google.com/presentation/d/11icBSOa2cB54j50gHfyy2_zW2EXgIT9zrvkm9vqrVJM/edit?usp=sharing'}
     ],
-    outcomes: ['Paper will be submitted to AutoUI 2026'],
+    outcomes: ['Submitted to AutoUI 2026'],
   },
   {
     id: 2,
