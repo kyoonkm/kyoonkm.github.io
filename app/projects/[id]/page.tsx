@@ -36,8 +36,9 @@ const projects = [
 
     image: '/images/projects/reasoning_cluster.png',
     images: [
-        '/images/projects/porsche_consensus.png',
-        '/images/projects/reasoning_cluster.png',
+      '/images/projects/porsche_question.png',  
+      '/images/projects/porsche_consensus.png',
+
     ],
     topics: ['Decision Making', 'AI Agents', 'Social Simulation', 'NLP'],
     technologies: ['Python', 'Autogen', 'Model Context Protocol'],
