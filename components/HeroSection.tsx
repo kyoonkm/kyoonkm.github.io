@@ -42,7 +42,7 @@ export default function HeroSection() {
                 Kayoon Kim
               </h1>
               <p className="text-lg text-textGrayCustom leading-relaxed">
-                Hi! I'm Kayoon (Ga Yoon). I am a master's student studying Quantitative Data Science at the University of Tübingen. My research focuses on human-AI interaction, agent simulation, and decision-making. I will be in Barcelona during CHI 2026, I am excited to share my work and connect with others in the field!
+                Hi! I'm Kayoon (Ga Yoon). I am a master's student studying Quantitative Data Science at the University of Tübingen. My research focuses on human-agent interaction and responsible & safe AI.
               </p>
 
             </div>
