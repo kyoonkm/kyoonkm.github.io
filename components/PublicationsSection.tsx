@@ -30,8 +30,8 @@ export default function PublicationsSection() {
       id: 'sim-dse',
       title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Decision Space Exploration',
       authors: 'Jan Henry Belz*, Kayoon Kim*',
-      venue: 'Submitted, AutoUI 2026',
-      type: 'Submitted',
+      venue: 'AutoUI 2026 Works in Progress',
+      type: 'Poster',
       link: null,
       note: '*Equal Contribution'
     },
