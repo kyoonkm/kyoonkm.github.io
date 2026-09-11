@@ -46,7 +46,6 @@ function WorkRow({ w }: { w: Work }) {
         <span className="rn-yr">{w.year}</span>
         <span>
           <span className="rn-ti">{w.title}</span>
-          <span className="rn-su">{w.summary}</span>
           <span className="rn-ty">
             {w.type}
             {w.venue ? <> · <span className="rn-ve">{w.venue}</span></> : null}

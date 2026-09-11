@@ -50,7 +50,7 @@ export default function Header() {
         </div>
 
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-gray-100 pt-4">
+          <nav className="md:hidden mt-2 pb-4 pt-2">
             <div className="flex flex-col space-y-3">
               <Link href="/" className="text-gray-700 hover:text-textGrayCustom transition-colors cursor-pointer">
                 Home
