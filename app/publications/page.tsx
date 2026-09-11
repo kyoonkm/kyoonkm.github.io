@@ -1,175 +1,171 @@
-'use client';
-import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import Header from '../../components/Header'; 
+import type { Metadata } from 'next';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import { AREAS, WORKS, type AreaId, type Author, type Work } from '@/data/research-graph';
 
-interface Publication {
-  id: string;
-  title: string;
-  authors: string;
-  venue: string;
-  type: string;
-  abstract?: string;
-  fullContent?: string;
-  year?: number;
-  doi?: string;
-  publishedDate?: string;
-  link?: string | null;
-  note?: string;
-}
+export const metadata: Metadata = {
+  title: 'Publications — Kayoon Kim',
+  description:
+    'Peer-reviewed articles, conference and workshop papers, and manuscripts in preparation by Kayoon Kim.',
+};
 
-export default function PublicationsSection() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+const AREA_BY_ID = Object.fromEntries(AREAS.map((a) => [a.id, a])) as Record<
+  AreaId,
+  (typeof AREAS)[number]
+>;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setIsVisible(true);
-        });
-      },
-      { threshold: 0.2 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+/**
+ * Grouped by record type, newest first inside each group.
+ *
+ * The old page was flat reverse-chronological, which put four items dated 2026
+ * — a projected year for unpublished work — above the one peer-reviewed
+ * article. A committee skimming for thirty seconds never reached the evidence.
+ * Grouping is also the more honest arrangement, not the less: each group names
+ * exactly what its rows are, and `status` carries the rest per row.
+ */
+const GROUPS: { id: string; heading: string; types: Work['type'][] }[] = [
+  { id: 'journal', heading: 'Journal articles', types: ['Journal article'] },
+  { id: 'venue', heading: 'Conference & workshop', types: ['Poster'] },
+  {
+    id: 'preprint',
+    heading: 'Manuscripts & work in progress',
+    types: ['Manuscript', 'Work in progress'],
+  },
+];
 
-  // Ids match the work ids in data/research-graph.ts, so the hero graph can
-  // deep-link a node straight to its entry (e.g. /publications#hallmark).
-  const publications: Publication[] = [
-    {
-      id: 'hallmark',
-      title: 'HALLMARK: Diagnosing Three Failure Modes in LLM Citation Verifiers',
-      authors: 'Patrik Reizinger, Kayoon Kim, Wieland Brendel',
-      venue: 'Manuscript in preparation',
-      type: 'Manuscript',
-      year: 2026,
-      link: null,
-    },
-    {
-      id: 'design-ai',
-      title: 'Between Plausible and Viable: How Designers and Their Managers Rework Around AI That Performs It',
-      authors: 'Kayoon Kim, Jan Henry Belz, Hirokazu Shirado',
-      venue: 'Work in progress',
-      type: 'Work in Progress',
-      year: 2026,
-      link: null,
-    },
-    {
-      id: 'agent-norms',
-      title: 'Four Passengers, One Decision: How LLM Agents Negotiate and Form Norms in a Shared Car',
-      authors: 'Kayoon Kim',
-      venue: 'NeurIPS 2026 Social Agents Workshop',
-      type: 'Poster',
-      year: 2026,
-      link: null,
-      note: 'Under review',
-    },
-    {
-      id: 'sim-dse',
-      title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Decision Space Exploration',
-      authors: 'Jan Henry Belz*, Kayoon Kim*',
-      venue: 'AutomotiveUI 2026, Works in Progress',
-      type: 'Poster',
-      year: 2026,
-      link: null,
-      note: '*Equal Contribution'
-    },
-    {
-      id: 'petitions',
-      title: 'Mobilizing grievances in the internet age: The case of national online petitioning in South Korea, 2017\u20132022',
-      authors: 'Kayoon Kim, Chan S. Suh',
-      venue: 'PLOS ONE, 19(5): e0302373',
-      type: 'Journal Article',
-      abstract: 'This study examines how digital platforms have transformed civic engagement and political participation in South Korea through the analysis of national online petitioning systems from 2017 to 2022. We investigate the mechanisms through which citizens mobilize grievances and seek policy changes in the digital age.',
-      year: 2024,
-      doi: 'https://doi.org/10.1371/journal.pone.0302373',
-      publishedDate: 'May 16, 2024',
-      link: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0302373',
-    },
-    {
-      id: 'petition-claims',
-      title: 'Claiming for Rights: The Changing Landscape of Issues and Claims in the National Petition of South Korea, 2017\u20132020',
-      authors: 'Kayoon Kim',
-      venue: 'International Postgraduate and Academic Conference',
-      type: 'Poster',
-      year: 2021,
-      link: null,
-    }
-  ];
+const PUBLICATIONS = WORKS.filter((w) => w.type !== 'Project');
 
+const byYear = (a: Work, b: Work) => b.year - a.year;
+
+const formatDate = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+
+/**
+ * The byline. Kayoon renders at full ink so "first or co-first on four of six"
+ * is legible at a glance instead of requiring word-by-word parsing.
+ *
+ * The asterisk is decorative — `aria-hidden`, because a screen reader
+ * announcing "star" mid-name is noise. The note it refers to is rendered in
+ * the adjacent meta line rather than as a detached legend two rows down.
+ */
+function Byline({ authors }: { authors: Author[] }) {
   return (
-    <div className="min-h-screen bg-backgroundCream">
-      <Header />
-      <section ref={sectionRef} className="py-20" id="publications">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className={`text-center mb-16 transform transition-all duration-1000 ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}>
-            <h2 className="text-3xl font-bold text-textGrayCustom mb-4">Publications</h2>
-          </div>
-          <div className="space-y-12">
-            {publications.map((pub, index) => (
-              <div
-                key={index}
-                id={pub.id}
-                className={`scroll-mt-28 transform transition-all duration-500 hover:scale-105 cursor-pointer ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-                }`}
-                style={{ transitionDelay: `${index * 200}ms` }}
-              >
-                <div className="border-l-2 border-gray-700 pl-8 py-4">
-                  <div className="mb-4 flex items-center space-x-4">
-                    <span className="text-gray-600 text-xs font-medium uppercase tracking-wide hover:text-gray-800 transition-colors cursor-pointer">
-                      {pub.type}
-                    </span>
-                    <span className="text-gray-400">•</span>
-                    <span className="text-gray-500 text-xs font-medium">{pub.year}</span>
-                  </div>
-                  {pub.link ? (
-                    <a
-                      href={pub.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xl font-semibold text-textGrayCustom mb-3 leading-tight hover:text-gray-800 transition-colors cursor-pointer block"
-                    >
-                      {pub.title}
-                    </a>
-                  ) : (
-                    <h3 className="text-xl font-semibold text-textGrayCustom mb-3 leading-tight">{pub.title}</h3>
-                  )}
-                  <p className="text-sm text-textGrayCustom mb-2">{pub.authors}</p>
-                  <p className="text-sm text-gray-600 mb-4 font-medium">{pub.venue}</p>
-                  {pub.note && <p className="italic text-sm text-gray-600 mb-4">{pub.note}</p>}
-
-                  {pub.link && (
-                    <div className="flex items-center space-x-6">
-                      <a href={pub.link} target="_blank" rel="noopener noreferrer">
-                        <span className="text-base hover:text-gray-600 transition-colors cursor-pointer font-medium">
-                          Read Paper
-                        </span>
-                      </a>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-16 text-center">
-            <a
-              href="/CV_Kayoon_Kim.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center text-textGrayCustom hover:text-gray-600 transition-colors cursor-pointer text-base font-medium relative group"
-            >
-              Full CV (PDF)
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-textGrayCustom transition-all duration-300 group-hover:w-full"></span>
-            </a>
-          </div>
-        </div>
-      </section>
-    </div>
+    <span className="rn-au">
+      {authors.map((a, i) => (
+        <span key={a.name}>
+          {a.self ? <b className="rn-self">{a.name}</b> : a.name}
+          {a.equal ? <sup aria-hidden="true">*</sup> : null}
+          {i < authors.length - 1 ? ', ' : null}
+        </span>
+      ))}
+    </span>
   );
 }
 
+/**
+ * One citation. The title is a link only when there is somewhere to go — five
+ * of six have no public record yet, and the old page painted `cursor-pointer`
+ * on all six plus their type labels, twelve false affordances against two real
+ * links. A row that cannot be opened now says so by staying plain text.
+ */
+function PublicationRow({ w }: { w: Work }) {
+  const equal = w.authors?.some((a) => a.equal);
+  const meta = [w.type, w.venue, w.status].filter(Boolean) as string[];
+
+  return (
+    <li id={w.id} className="rn-pub">
+      <span className="rn-yr">{w.year}</span>
+
+      <span className="rn-pub-body">
+        {w.doi ? (
+          <a className="rn-ti" href={`https://doi.org/${w.doi}`} target="_blank" rel="noopener noreferrer">
+            {w.title}
+          </a>
+        ) : (
+          <span className="rn-ti">{w.title}</span>
+        )}
+
+        {w.authors ? <Byline authors={w.authors} /> : null}
+
+        <span className="rn-ty">
+          {meta.map((part, i) => (
+            <span key={part}>
+              {i > 0 ? ' · ' : null}
+              <span className={i === 1 ? 'rn-ve' : undefined}>{part}</span>
+            </span>
+          ))}
+          {w.published ? <> · Published {formatDate(w.published)}</> : null}
+          {equal ? <> · Equal contribution</> : null}
+        </span>
+
+        {w.doi ? <span className="rn-doi">doi.org/{w.doi}</span> : null}
+      </span>
+
+      <span className="rn-ds">
+        {w.areas.map((a) => (
+          <i key={a} data-area={a} aria-hidden="true" />
+        ))}
+        <span className="sr-only">{w.areas.map((a) => AREA_BY_ID[a].label).join(', ')}</span>
+      </span>
+    </li>
+  );
+}
+
+export default function PublicationsPage() {
+  const groups = GROUPS.map((g) => ({
+    ...g,
+    items: PUBLICATIONS.filter((w) => g.types.includes(w.type)).sort(byYear),
+  })).filter((g) => g.items.length > 0);
+
+  return (
+    <div className="min-h-screen">
+      <Header />
+
+      <main id="main" className="max-w-6xl mx-auto px-6">
+        <section className="rn-pubs" aria-labelledby="rn-pub-h">
+          <div className="rn-pub-head">
+            <h1 id="rn-pub-h">Publications</h1>
+            <p className="rn-showing">
+              {PUBLICATIONS.length} works, grouped by type
+            </p>
+          </div>
+
+          {groups.map((g) => (
+            <section key={g.id} className="rn-pub-group" aria-labelledby={`h-${g.id}`}>
+              <div className="rn-pub-group-head">
+                <h2 id={`h-${g.id}`}>{g.heading}</h2>
+                <span className="rn-showing">{g.items.length}</span>
+              </div>
+              <ol className="rn-pub-list">
+                {g.items.map((w) => (
+                  <PublicationRow key={w.id} w={w} />
+                ))}
+              </ol>
+            </section>
+          ))}
+
+          <p className="rn-work-foot">
+            <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
+              CV (PDF)
+            </a>
+            <a
+              href="https://scholar.google.com/citations?user=ZQQzsosAAAAJ&hl=en&oi=ao"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google Scholar
+            </a>
+            <a href="/projects">All projects</a>
+          </p>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}

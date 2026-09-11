@@ -1,22 +1,25 @@
 'use client';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+
+const NAV = [
+  { href: '/', label: 'Home' },
+  { href: '/publications', label: 'Publications' },
+  { href: '/projects', label: 'Projects' },
+];
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const pathname = usePathname();
 
   return (
-    <header className="fixed top-0 w-full bg-backgroundCream/95 backdrop-blur-sm z-50 transition-all duration-300">
+    <header className="rn-head">
+      {/* Every visit began by tabbing the whole header. */}
+      <a href="#main" className="rn-skip">
+        Skip to content
+      </a>
+
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* The wordmark, not an empty slot: this link used to ship with no
@@ -26,45 +29,48 @@ export default function Header() {
             Kayoon Kim
           </Link>
 
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-textGrayCustom hover:text-gray-600 transition-colors font-medium">
-              Home
-            </Link>
-            <Link href="/publications" className="text-textGrayCustom hover:text-gray-600 transition-colors font-medium">
-              Publications
-            </Link>
-            <Link href="/projects" className="text-textGrayCustom hover:text-gray-600 transition-colors font-medium">
-              Projects
-            </Link>
-            <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer" className="text-textGrayCustom hover:text-gray-600 transition-colors font-medium">
-              CV
+          <nav className="rn-nav hidden md:flex" aria-label="Primary">
+            {NAV.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                /* Nothing announced which page you were on: the nav styled all
+                   four items identically and carried no aria-current. */
+                aria-current={pathname === item.href ? 'page' : undefined}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
+              CV (PDF)
             </a>
           </nav>
 
           <button
-            className="md:hidden p-2 cursor-pointer"
+            className="rn-burger md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-expanded={isMenuOpen}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            <i className={`ri-${isMenuOpen ? 'close' : 'menu'}-line text-textGrayCustom`}></i>
+            <i className={`ri-${isMenuOpen ? 'close' : 'menu'}-line`} aria-hidden="true"></i>
           </button>
         </div>
 
         {isMenuOpen && (
-          <nav className="md:hidden mt-2 pb-4 pt-2">
-            <div className="flex flex-col space-y-3">
-              <Link href="/" className="text-gray-700 hover:text-textGrayCustom transition-colors cursor-pointer">
-                Home
+          <nav className="rn-nav rn-nav-m md:hidden" aria-label="Primary">
+            {NAV.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={pathname === item.href ? 'page' : undefined}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.label}
               </Link>
-              <Link href="/publications" className="text-gray-700 hover:text-textGrayCustom transition-colors cursor-pointer">
-                Publications
-              </Link>
-              <Link href="/projects" className="text-gray-700 hover:text-textGrayCustom transition-colors cursor-pointer">
-                Projects
-              </Link>
-              <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-textGrayCustom transition-colors cursor-pointer">
-                CV
-              </a>
-            </div>
+            ))}
+            <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
+              CV (PDF)
+            </a>
           </nav>
         )}
       </div>

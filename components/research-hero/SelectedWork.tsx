@@ -24,9 +24,24 @@ function track(name: string, params: Record<string, unknown>) {
   if (typeof gtag === 'function') gtag('event', name, params);
 }
 
+/**
+ * Type, then where, then how far along. A status that already names the type
+ * replaces it, so "Manuscript" never prints next to "Manuscript in
+ * preparation".
+ */
+function metaParts(w: Work) {
+  const restatesType = !!w.status && w.status.toLowerCase().includes(w.type.toLowerCase());
+  return [
+    restatesType ? null : { text: w.type, className: '' },
+    w.venue ? { text: w.venue, className: 'rn-ve' } : null,
+    w.status ? { text: w.status, className: 'rn-st' } : null,
+  ].filter(Boolean) as { text: string; className: string }[];
+}
+
 function WorkRow({ w }: { w: Work }) {
   const { focus, setHover } = useResearchState();
   const external = w.href.startsWith('http');
+  const meta = metaParts(w);
 
   return (
     <li>
@@ -46,8 +61,12 @@ function WorkRow({ w }: { w: Work }) {
         <span>
           <span className="rn-ti">{w.title}</span>
           <span className="rn-ty">
-            {w.type}
-            {w.venue ? <> · <span className="rn-ve">{w.venue}</span></> : null}
+            {meta.map((part, i) => (
+              <span key={part.text} className={part.className}>
+                {i ? ' · ' : ''}
+                {part.text}
+              </span>
+            ))}
           </span>
         </span>
         <span className="rn-ds">
@@ -92,13 +111,6 @@ export default function SelectedWork() {
       ) : (
         <p className="rn-empty">No publications in {label}.</p>
       )}
-      <p className="rn-work-foot">
-        <a href="/publications">All publications</a>
-        <a href="/projects">All projects</a>
-        <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
-          CV (PDF)
-        </a>
-      </p>
     </section>
   );
 }

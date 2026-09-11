@@ -36,6 +36,19 @@ export interface Method {
   label: string;
 }
 
+/**
+ * One name in a byline. `self` is the reader's fastest scan target on an
+ * academic page, so it is marked in the data rather than matched by string
+ * comparison at render time.
+ */
+export interface Author {
+  name: string;
+  /** Kayoon. Rendered at full ink and 600 weight. */
+  self?: boolean;
+  /** Shared first authorship. Renders the asterisk and the adjacent note. */
+  equal?: boolean;
+}
+
 export interface Work {
   id: string;
   title: string;
@@ -46,11 +59,26 @@ export interface Work {
   areas: AreaId[];
   methods?: string[];
   /**
-   * Where the work appeared. Must match the `venue` on app/publications.
-   * Omit when the work has no venue — `type` already carries "Project" and
-   * "Manuscript"; never restate the type here.
+   * Where the work appeared. Omit when the work has no venue — `type` already
+   * carries "Project" and "Manuscript"; never restate the type here.
    */
   venue?: string;
+  /**
+   * Review state, when it is not already implied by `type`. Kept separate from
+   * `venue` so /publications can render "where" and "how far along" as two
+   * different facts; folding a status into `venue` is what made the old page
+   * print "Manuscript" directly above "Manuscript in preparation".
+   */
+  status?: string;
+  /**
+   * The byline, in order. Optional because the Project entries on /projects
+   * are not citations and carry no published authorship.
+   */
+  authors?: Author[];
+  /** Bare DOI, no resolver prefix — the page builds the https://doi.org URL. */
+  doi?: string;
+  /** ISO date of record publication. Rendered as a human date. */
+  published?: string;
   /** Always labelled in the graph. Aim for 3–5. */
   featured?: boolean;
   /** At most 140 characters. */
@@ -112,6 +140,8 @@ export const WORKS: Work[] = [
     areas: ["society", "ai", "decisions"],
     methods: ["llm", "sim", "survey"],
     venue: "NeurIPS 2026 Social Agents Workshop",
+    status: "Under review",
+    authors: [{ name: "Kayoon Kim", self: true }],
     featured: true,
     summary:
       "LLM agents advocating for four passengers negotiate cabin settings, and settle on norms none of them held alone.",
@@ -126,6 +156,11 @@ export const WORKS: Work[] = [
     type: "Work in progress",
     areas: ["society", "decisions"],
     methods: ["interviews"],
+    authors: [
+      { name: "Kayoon Kim", self: true },
+      { name: "Jan Henry Belz" },
+      { name: "Hirokazu Shirado" },
+    ],
     featured: true,
     summary:
       "Interviews with designers and their managers on how design work is redistributed once AI can do part of it.",
@@ -140,6 +175,12 @@ export const WORKS: Work[] = [
     type: "Manuscript",
     areas: ["ai"],
     methods: ["llm", "eval"],
+    status: "Manuscript in preparation",
+    authors: [
+      { name: "Patrik Reizinger" },
+      { name: "Kayoon Kim", self: true },
+      { name: "Wieland Brendel" },
+    ],
     featured: true,
     summary:
       "Separates three distinct ways automated citation verifiers fail, and benchmarks models against each of them.",
@@ -155,6 +196,10 @@ export const WORKS: Work[] = [
     areas: ["ai", "decisions"],
     methods: ["sim", "survey"],
     venue: "AutomotiveUI 2026, Works in Progress",
+    authors: [
+      { name: "Jan Henry Belz", equal: true },
+      { name: "Kayoon Kim", self: true, equal: true },
+    ],
     featured: true,
     summary:
       "Simulation plus an online survey map the decision space for multi-occupant autonomous vehicles into design guidelines.",
@@ -170,6 +215,9 @@ export const WORKS: Work[] = [
     areas: ["society"],
     methods: ["nlp", "text", "stats"],
     venue: "PLOS ONE, 19(5): e0302373",
+    authors: [{ name: "Kayoon Kim", self: true }, { name: "Chan S. Suh" }],
+    doi: "10.1371/journal.pone.0302373",
+    published: "2024-05-16",
     featured: true,
     summary:
       "Six years of national online petitions, traced for which grievances mobilise and which stay unheard.",
@@ -257,6 +305,7 @@ export const WORKS: Work[] = [
     areas: ["society"],
     methods: ["text"],
     venue: "International Postgraduate and Academic Conference",
+    authors: [{ name: "Kayoon Kim", self: true }],
     summary:
       "Which claims South Koreans brought to the national petition platform, and how that repertoire shifted over four years.",
     href: "/publications#petition-claims",
