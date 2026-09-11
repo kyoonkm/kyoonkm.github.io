@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Instrument_Sans, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 /**
- * Satoshi carries the display voice — name, thesis, section headings. Geist
- * stays on body and UI, where its tighter fit suits the publication rows.
- * Self-hosted from public/fonts rather than Fontshare's CDN, so the page does
- * not block first paint on a third-party request.
+ * Satoshi carries the display voice — name, thesis, section headings —
+ * self-hosted from public/fonts rather than Fontshare's CDN, so the page does
+ * not block first paint on a third-party request. Instrument Sans carries body
+ * and UI.
  */
 const satoshi = localFont({
   src: [
@@ -20,8 +20,10 @@ const satoshi = localFont({
   variable: "--font-satoshi",
 });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+/* Body voice: more grip than Geist at small sizes, and it sits under Satoshi
+   without competing with it. */
+const bodySans = Instrument_Sans({
+  variable: "--font-body",
   subsets: ["latin"],
 });
 
@@ -47,7 +49,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.png" sizes="16x16" type="image/png" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${satoshi.variable} antialiased`}
+        className={`${bodySans.variable} ${geistMono.variable} ${satoshi.variable} antialiased`}
       >
         {children}
       </body>

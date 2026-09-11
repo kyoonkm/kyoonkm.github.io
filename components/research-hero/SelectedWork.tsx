@@ -38,46 +38,93 @@ function metaParts(w: Work) {
   ].filter(Boolean) as { text: string; className: string }[];
 }
 
+/**
+ * There is no /publications page any more, so a work's own href can point at a
+ * route that no longer exists. A DOI is the real destination where one exists;
+ * otherwise the row is plain text rather than a link into a 404.
+ */
+function destination(w: Work) {
+  if (w.doi) return `https://doi.org/${w.doi}`;
+  if (w.href.startsWith('/publications')) return null;
+  return w.href;
+}
+
+/** The byline is the citation detail /publications used to carry. */
+function Byline({ authors }: { authors: NonNullable<Work['authors']> }) {
+  const equal = authors.some((a) => a.equal);
+  return (
+    <span className="rn-au">
+      {authors.map((a, i) => (
+        <span key={a.name} className={a.self ? 'rn-self' : undefined}>
+          {i ? ', ' : ''}
+          {a.name}
+          {a.equal ? '*' : ''}
+        </span>
+      ))}
+      {equal ? <span className="rn-eq"> *equal contribution</span> : null}
+    </span>
+  );
+}
+
 function WorkRow({ w }: { w: Work }) {
   const { focus, setHover } = useResearchState();
-  const external = w.href.startsWith('http');
   const meta = metaParts(w);
+  const to = destination(w);
+  const external = !!to && to.startsWith('http');
+
+  const inner = (
+    <>
+      <span className="rn-yr">{w.year}</span>
+      <span>
+        <span className="rn-ti">{w.title}</span>
+        {w.authors ? <Byline authors={w.authors} /> : null}
+        <span className="rn-ty">
+          {meta.map((part, i) => (
+            <span key={part.text} className={part.className}>
+              {i ? ' · ' : ''}
+              {part.text}
+            </span>
+          ))}
+        </span>
+      </span>
+      <span className="rn-ds">
+        {w.areas.map((a) => (
+          <i key={a} data-area={a} aria-hidden="true" />
+        ))}
+        <span className="sr-only">
+          {w.areas.map((a) => AREA_BY_ID[a].label).join(', ')}
+        </span>
+      </span>
+    </>
+  );
+
+  const hover = {
+    onPointerEnter: (e: React.PointerEvent) => {
+      if (e.pointerType === 'mouse') setHover(w.id);
+    },
+    onPointerLeave: () => setHover(null),
+    onFocus: () => setHover(w.id),
+    onBlur: () => setHover(null),
+  };
+  const cls = `rn-row${w.id === focus ? ' is-on' : ''}`;
 
   return (
     <li>
-      <a
-        className={`rn-row${w.id === focus ? ' is-on' : ''}`}
-        href={w.href}
-        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        onPointerEnter={(e) => {
-          if (e.pointerType === 'mouse') setHover(w.id);
-        }}
-        onPointerLeave={() => setHover(null)}
-        onFocus={() => setHover(w.id)}
-        onBlur={() => setHover(null)}
-        onClick={() => track('research_map_open', { id: w.id, href: w.href })}
-      >
-        <span className="rn-yr">{w.year}</span>
-        <span>
-          <span className="rn-ti">{w.title}</span>
-          <span className="rn-ty">
-            {meta.map((part, i) => (
-              <span key={part.text} className={part.className}>
-                {i ? ' · ' : ''}
-                {part.text}
-              </span>
-            ))}
-          </span>
-        </span>
-        <span className="rn-ds">
-          {w.areas.map((a) => (
-            <i key={a} data-area={a} aria-hidden="true" />
-          ))}
-          <span className="sr-only">
-            {w.areas.map((a) => AREA_BY_ID[a].label).join(', ')}
-          </span>
-        </span>
-      </a>
+      {to ? (
+        <a
+          className={cls}
+          href={to}
+          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          {...hover}
+          onClick={() => track('research_map_open', { id: w.id, href: to })}
+        >
+          {inner}
+        </a>
+      ) : (
+        <div className={`${cls} is-flat`} tabIndex={0} {...hover}>
+          {inner}
+        </div>
+      )}
     </li>
   );
 }

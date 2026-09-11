@@ -39,6 +39,7 @@ body {
 
 body {
   color: var(--ink-2);
+  font-family: var(--font-body), system-ui, sans-serif;
 }
 
 html {
@@ -53,7 +54,7 @@ html {
 .rn-tip h3,
 .rn-mark,
 .rn-foot-name {
-  font-family: var(--font-satoshi), var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-satoshi), var(--font-body), system-ui, sans-serif;
 }
 
 .animate-fade-in {
@@ -409,6 +410,23 @@ html {
   max-width: 65ch;
 }
 
+/* Portrait beside the prose. The measure stays 65ch by widening the row, not
+   by squeezing the text. */
+.rn-bio-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  max-width: calc(65ch + 232px);
+}
+
+.rn-portrait {
+  flex: none;
+  width: 200px;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+}
+
 .rn-bio h2 {
   font-size: 1.35rem;
   font-weight: 700;
@@ -490,6 +508,14 @@ html {
   color: var(--ink);
   display: block;
 }
+/* A row with no destination is not a link, so it must not offer the cue. */
+.rn-row.is-flat {
+  cursor: default;
+}
+.rn-row.is-flat:hover .rn-ti {
+  text-decoration: none;
+}
+
 .rn-row:hover .rn-ti,
 .rn-row.is-on .rn-ti {
   text-decoration: underline;
@@ -559,7 +585,7 @@ html {
 }
 
 .rn-pubs h1 {
-  font-family: var(--font-satoshi), var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-satoshi), var(--font-body), system-ui, sans-serif;
   font-size: clamp(1.9rem, 1.4vw + 1.4rem, 2.3rem);
   font-weight: 700;
   letter-spacing: -0.025em;
@@ -580,7 +606,7 @@ html {
 }
 
 .rn-pub-group h2 {
-  font-family: var(--font-satoshi), var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-satoshi), var(--font-body), system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -808,6 +834,14 @@ a.rn-ti:hover {
   .rn-bio {
     padding-block: 24px 40px;
   }
+  .rn-bio-row {
+    flex-direction: column;
+    gap: 20px;
+    max-width: none;
+  }
+  .rn-portrait {
+    width: 132px;
+  }
   .rn-touch-hint {
     order: 3;
     display: block;
@@ -841,7 +875,7 @@ a.rn-ti:hover {
     scroll-behavior: auto;
   }
   /* Was scoped to `.rn-hero *, .rn-works *`, which silently excluded every
-     page without an rn-* ancestor — /publications honoured the preference
+     page without an rn-* ancestor — inner pages honoured the preference
      nowhere while the homepage honoured it everywhere. A preference kept on
      one route and dropped on the next is worse than never claiming it. */
   *,

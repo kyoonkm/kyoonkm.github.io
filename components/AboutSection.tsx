@@ -29,9 +29,18 @@ export default function AboutSection() {
     <section ref={sectionRef} className="rn-bio" id="bio">
       <div className="max-w-6xl mx-auto px-6">
         <div>
-          <div className={`rn-bio-col transform transition-all duration-700 ${
+          <div className={`rn-bio-col rn-bio-row transform transition-all duration-700 ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
           }`}>
+            <img
+              className="rn-portrait"
+              src="/images/kayoon-440.webp"
+              srcSet="/images/kayoon-440.webp 440w, /images/kayoon-880.webp 880w"
+              sizes="(max-width: 860px) 160px, 200px"
+              width={440}
+              height={528}
+              alt="Kayoon Kim"
+            />
             <div className="space-y-5">
               <h2>Bio</h2>
               <p>
