@@ -141,10 +141,6 @@ html {
    clicks they would leave a dead zone over the Society node. */
 .rn-phrase,
 .rn-filter-note button,
-.rn-icon {
-  pointer-events: auto;
-}
-
 .rn-hero h1 {
   font-size: clamp(2.4rem, 2.6vw + 1.1rem, 3.4rem);
   line-height: 1.02;
@@ -197,35 +193,6 @@ html {
   color: var(--ink-2);
   text-decoration: underline;
   text-underline-offset: 3px;
-}
-
-.rn-icons {
-  display: flex;
-  gap: 14px;
-  margin-top: 4px;
-}
-
-.rn-icon {
-  width: 40px;
-  height: 40px;
-  border: 1.25px solid var(--ink);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: var(--ink);
-  text-decoration: none;
-  background: var(--bg);
-  transition: background-color 0.15s, color 0.15s;
-}
-
-.rn-icon:hover {
-  background: var(--ink);
-  color: var(--bg);
-}
-
-.rn-icon svg {
-  width: 18px;
-  height: 18px;
 }
 
 /* Edges: straight lines only */

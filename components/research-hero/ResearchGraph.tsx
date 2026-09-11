@@ -58,6 +58,10 @@ export default function ResearchGraph() {
 
   const revRef = useRef<Record<string, number>>({});
   const hubBigRef = useRef(1);
+  /* Entrance progress 0..1, and a per-node hover lift. Both start settled so
+     that markup rendered without JS is the finished state, not a blank frame. */
+  const mountRef = useRef(1);
+  const liftRef = useRef<Record<string, number>>({});
   if (Object.keys(revRef.current).length === 0) {
     for (const n of graph.nodes) revRef.current[n.id] = n.kind === 'area' ? 1 : 0;
   }
@@ -87,12 +91,23 @@ export default function ResearchGraph() {
     const ease = (u: number) => 1 - Math.pow(1 - u, 3);
     let t = 0;
 
+    /* Arm the entrance here rather than at declaration: this runs only when JS
+       is alive, so a failed bundle leaves the server markup fully visible. */
+    if (!live.current.reducedMotion) mountRef.current = 0;
+
+    /* Two summed periods per axis, so the orbit never repeats visibly and the
+       nodes do not drift in lockstep. Amplitudes are in viewBox units: the
+       graph renders at roughly 0.9x, so 4 units reads as ~4px of travel. */
     const drift = (n: GraphNode) => {
       if (!t) return { x: 0, y: 0 };
-      const amp = n.kind === 'area' ? 1.2 : 2.2;
-      const w = (2 * Math.PI) / (9 + (n.index % 5));
+      const amp = n.kind === 'area' ? 3.4 : 6;
+      const w = (2 * Math.PI) / (11 + (n.index % 7));
+      const w2 = (2 * Math.PI) / (17 + (n.index % 5));
       const ph = n.index * 1.7;
-      return { x: amp * Math.sin(t * w + ph), y: amp * Math.cos(t * w * 0.8 + ph) };
+      return {
+        x: amp * (0.72 * Math.sin(t * w + ph) + 0.28 * Math.sin(t * w2 + ph * 0.6)),
+        y: amp * (0.72 * Math.cos(t * w * 0.8 + ph) + 0.28 * Math.cos(t * w2 * 1.3 + ph)),
+      };
     };
 
     const place = () => {
@@ -132,17 +147,32 @@ export default function ResearchGraph() {
         }
       }
 
+      /* Entrance: the three areas settle in first, each a beat after the last,
+         then the triangle draws between them. Everything else is ambient. */
+      const m = mountRef.current;
+      let ai = 0;
+
       for (const n of nodes) {
         const refs = nodeRefs.current[n.id];
         if (!refs?.outer) continue;
         const e = n.kind === 'area' ? 1 : ease(rev[n.id]);
         const p = cur[n.id];
+
+        let enter = 1;
+        if (n.kind === 'area') {
+          const stagger = ai++ * 0.16;
+          enter = ease(Math.min(1, Math.max(0, (m - stagger) / (1 - stagger || 1))));
+        }
+
+        const lift = liftRef.current[n.id] ?? 0;
+        const s = (0.35 + 0.65 * e) * (0.9 + 0.1 * enter) * (1 + 0.085 * lift);
         refs.outer.setAttribute(
           'transform',
-          `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) scale(${(0.35 + 0.65 * e).toFixed(3)})`,
+          `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) scale(${s.toFixed(3)})`,
         );
-        refs.outer.style.opacity = e.toFixed(3);
-        refs.outer.style.display = e < 0.01 ? 'none' : '';
+        const o = e * enter;
+        refs.outer.style.opacity = o.toFixed(3);
+        refs.outer.style.display = o < 0.01 ? 'none' : '';
       }
 
       for (const ed of edges) {
@@ -159,6 +189,9 @@ export default function ResearchGraph() {
         line.style.display = o < 0.01 ? 'none' : '';
       }
 
+      /* The triangle draws itself in after the areas land: dash the full span,
+         then retract the offset. */
+      const draw = ease(Math.min(1, Math.max(0, (m - 0.35) / 0.65)));
       for (const ed of triangle) {
         const line = edgeRefs.current[ed.id];
         if (!line) continue;
@@ -168,6 +201,14 @@ export default function ResearchGraph() {
         line.setAttribute('y1', a.y.toFixed(1));
         line.setAttribute('x2', b.x.toFixed(1));
         line.setAttribute('y2', b.y.toFixed(1));
+        if (draw < 0.999) {
+          const len = Math.hypot(b.x - a.x, b.y - a.y);
+          line.setAttribute('stroke-dasharray', len.toFixed(1));
+          line.setAttribute('stroke-dashoffset', (len * (1 - draw)).toFixed(1));
+        } else if (line.hasAttribute('stroke-dasharray')) {
+          line.removeAttribute('stroke-dasharray');
+          line.removeAttribute('stroke-dashoffset');
+        }
       }
 
       /* The idle pulse is the only hint that the area nodes are interactive. */
@@ -203,6 +244,23 @@ export default function ResearchGraph() {
       const { visible, open, focus, reducedMotion } = live.current;
       t = reducedMotion ? 0 : ts / 1000;
       const k = reducedMotion ? 1 : 0.13;
+
+      /* Exponential ease-out toward settled, so the entrance decelerates. */
+      mountRef.current = reducedMotion
+        ? 1
+        : mountRef.current > 0.999
+          ? 1
+          : mountRef.current + (1 - mountRef.current) * 0.045;
+
+      const lift = liftRef.current;
+      for (const n of nodes) {
+        const target = n.id === focus ? 1 : 0;
+        const prev = lift[n.id] ?? 0;
+        const d = target - prev;
+        lift[n.id] =
+          reducedMotion || Math.abs(d) < 0.004 ? target : prev + d * 0.18;
+      }
+
       const rev = revRef.current;
       for (const n of nodes) {
         if (n.kind === 'area') continue;
