@@ -38,15 +38,10 @@ function metaParts(w: Work) {
   ].filter(Boolean) as { text: string; className: string }[];
 }
 
-/**
- * There is no /publications page any more, so a work's own href can point at a
- * route that no longer exists. A DOI is the real destination where one exists;
- * otherwise the row is plain text rather than a link into a 404.
- */
+/** A DOI is the better destination when one exists; otherwise the work's
+ *  own entry on /publications. */
 function destination(w: Work) {
-  if (w.doi) return `https://doi.org/${w.doi}`;
-  if (w.href.startsWith('/publications')) return null;
-  return w.href;
+  return w.doi ? `https://doi.org/${w.doi}` : w.href;
 }
 
 /** The byline is the citation detail /publications used to carry. */
