@@ -28,7 +28,7 @@ export default function SelectedWork() {
   const rows = ROWS.filter((w) => !area || w.areas.includes(area));
 
   return (
-    <section className="rn-work" aria-labelledby="rn-work-h">
+    <section className="rn-works" aria-labelledby="rn-work-h">
       <div className="rn-work-head">
         <h2 id="rn-work-h">Selected work</h2>
         <p className="rn-showing">
@@ -58,8 +58,11 @@ export default function SelectedWork() {
                 <span>
                   <span className="rn-ti">{w.title}</span>
                   <span className="rn-su">{w.summary}</span>
+                  <span className="rn-ty">
+                    {w.type}
+                    {w.venue ? <> · <span className="rn-ve">{w.venue}</span></> : null}
+                  </span>
                 </span>
-                <span className="rn-ty">{w.type}</span>
                 <span className="rn-ds">
                   {w.areas.map((a) => (
                     <i key={a} data-area={a} aria-hidden="true" />

@@ -81,18 +81,25 @@ html {
 
 .rn-hero {
   position: relative;
-  /* 700px of graph plus clearance for the site's fixed header. */
-  min-height: 740px;
+  /* Compressed so "Selected work" — the page's actual evidence — clears the
+     fold on a 800px-tall laptop instead of starting at y≈768. */
+  min-height: 600px;
   overflow: hidden;
 }
 
 .rn-net {
   position: absolute;
   /* Starts below the fixed header, so top-row labels are never hidden by it. */
-  top: 80px;
+  top: 72px;
   right: 0;
-  width: 62%;
-  height: calc(100% - 80px);
+  /* Height-driven: the viewBox aspect sets the width, so the shorter hero
+     shrinks the graph instead of letterboxing it inside a 62% band. */
+  height: calc(100% - 72px);
+  aspect-ratio: 740 / 650;
+  width: auto;
+  /* Caps how far left the graph can creep between 860px and ~1100px, where
+     the text column and the network would otherwise collide. */
+  max-width: 52%;
   display: block;
   z-index: 0;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%);
@@ -102,15 +109,15 @@ html {
 .rn-hero-inner {
   position: relative;
   z-index: 2;
-  padding-block: 160px 80px;
+  padding-block: 112px 40px;
   pointer-events: none;
 }
 
 .rn-intro {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 30rem;
+  gap: 24px;
+  max-width: 34rem;
 }
 
 /* Only the interactive bits capture the pointer. The h1 and status line
@@ -122,9 +129,11 @@ html {
   pointer-events: auto;
 }
 
+/* The thesis sentence leads, not the name: it is the one line a reader needs
+   to remember, so it outranks the h1 in the type scale. */
 .rn-hero h1 {
-  font-size: clamp(2.3rem, 3vw + 1rem, 3.1rem);
-  line-height: 1.05;
+  font-size: clamp(1.75rem, 1.4vw + 0.85rem, 2.05rem);
+  line-height: 1.1;
   font-weight: 650;
   letter-spacing: -0.03em;
   color: var(--ink);
@@ -135,15 +144,16 @@ html {
   font-size: 14px;
   line-height: 1.65;
   color: var(--ink-3);
-  margin: 0;
+  margin: -12px 0 0;
 }
 
 .rn-thesis {
-  font-size: clamp(1.15rem, 0.8vw + 0.95rem, 1.35rem);
-  line-height: 1.55;
+  font-size: clamp(1.65rem, 2vw + 0.75rem, 2.4rem);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
   color: var(--ink);
   margin: 0;
-  max-width: 26ch;
+  max-width: 22ch;
   text-wrap: balance;
 }
 
@@ -154,7 +164,7 @@ html {
   font: inherit;
   cursor: pointer;
   color: var(--ink);
-  background: linear-gradient(transparent 60%, var(--c) 60%);
+  background: linear-gradient(transparent 64%, var(--c) 64%);
 }
 
 .rn-phrase:hover,
@@ -165,7 +175,7 @@ html {
 .rn-filter-note {
   font-size: 13px;
   color: var(--ink-3);
-  margin: -8px 0 0;
+  margin: -16px 0 0;
   min-height: 1.3em;
 }
 
@@ -394,8 +404,8 @@ html {
 }
 
 /* Selected work list */
-.rn-work {
-  padding-block: 28px 72px;
+.rn-works {
+  padding-block: 32px 80px;
   border-top: 1px solid var(--line);
 }
 .rn-work-head {
@@ -403,10 +413,10 @@ html {
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 6px 24px;
-  margin-bottom: 6px;
+  gap: 8px 24px;
+  margin-bottom: 8px;
 }
-.rn-work h2 {
+.rn-works h2 {
   font-size: 1.35rem;
   font-weight: 600;
   margin: 0;
@@ -427,7 +437,7 @@ html {
   display: grid;
   text-decoration: none;
   color: inherit;
-  grid-template-columns: 3.2rem minmax(0, 1fr) 8.5rem 2.6rem;
+  grid-template-columns: 3.2rem minmax(0, 1fr) 2.6rem;
   gap: 16px;
   align-items: baseline;
   width: 100%;
@@ -435,7 +445,7 @@ html {
   background: none;
   border: 0;
   border-bottom: 1px solid var(--line);
-  padding: 13px 0;
+  padding: 12px 0;
   cursor: pointer;
 }
 .rn-row .rn-yr {
@@ -460,9 +470,17 @@ html {
   display: block;
   margin-top: 1px;
 }
+/* Type and venue sit under the title rather than in their own column, so the
+   credential survives every breakpoint instead of being display:none on
+   mobile. Venue is the field an academic reader ranks by. */
 .rn-row .rn-ty {
   font-size: 13px;
   color: var(--ink-3);
+  display: block;
+  margin-top: 4px;
+}
+.rn-row .rn-ve {
+  color: var(--ink-2);
 }
 .rn-row .rn-ds {
   display: flex;
@@ -497,7 +515,7 @@ html {
 }
 
 .rn-hero :focus-visible,
-.rn-work :focus-visible {
+.rn-works :focus-visible {
   outline: 1.5px solid var(--ink);
   outline-offset: 3px;
   border-radius: 3px;
@@ -518,14 +536,18 @@ html {
   }
   .rn-hero-inner {
     order: 1;
-    padding-block: 112px 8px;
+    padding-block: 104px 8px;
   }
   .rn-net {
     order: 2;
     position: static;
     top: auto;
+    /* Stacked: width-driven again, so the desktop height/aspect/cap must all
+       be released or the graph would sit at 52% of a phone screen. */
     width: 100%;
+    max-width: none;
     height: auto;
+    aspect-ratio: auto;
     -webkit-mask-image: none;
     mask-image: none;
   }
@@ -553,9 +575,7 @@ html {
   }
   .rn-row {
     grid-template-columns: 2.8rem minmax(0, 1fr) 2.4rem;
-  }
-  .rn-row .rn-ty {
-    display: none;
+    gap: 12px;
   }
 }
 
@@ -564,7 +584,7 @@ html {
     scroll-behavior: auto;
   }
   .rn-hero *,
-  .rn-work * {
+  .rn-works * {
     transition: none !important;
   }
 }

@@ -45,6 +45,12 @@ export interface Work {
   type: WorkType;
   areas: AreaId[];
   methods?: string[];
+  /**
+   * Where the work appeared. Must match the `venue` on app/publications.
+   * Omit when the work has no venue — `type` already carries "Project" and
+   * "Manuscript"; never restate the type here.
+   */
+  venue?: string;
   /** Always labelled in the graph. Aim for 3–5. */
   featured?: boolean;
   /** At most 140 characters. */
@@ -105,6 +111,7 @@ export const WORKS: Work[] = [
     type: "Poster",
     areas: ["society", "ai", "decisions"],
     methods: ["llm", "sim", "survey"],
+    venue: "NeurIPS 2026 Social Agents Workshop",
     featured: true,
     summary:
       "LLM agents advocating for four passengers negotiate cabin settings, and settle on norms none of them held alone.",
@@ -147,6 +154,7 @@ export const WORKS: Work[] = [
     type: "Poster",
     areas: ["ai", "decisions"],
     methods: ["sim", "survey"],
+    venue: "AutomotiveUI 2026, Works in Progress",
     featured: true,
     summary:
       "Simulation plus an online survey map the decision space for multi-occupant autonomous vehicles into design guidelines.",
@@ -161,9 +169,10 @@ export const WORKS: Work[] = [
     type: "Journal article",
     areas: ["society"],
     methods: ["nlp", "text", "stats"],
+    venue: "PLOS ONE, 19(5): e0302373",
     featured: true,
     summary:
-      "Six years of national online petitions, traced for which grievances mobilise and which stay unheard. PLOS ONE 19(5).",
+      "Six years of national online petitions, traced for which grievances mobilise and which stay unheard.",
     href: "/publications#petitions",
   },
   {
@@ -247,6 +256,7 @@ export const WORKS: Work[] = [
     type: "Poster",
     areas: ["society"],
     methods: ["text"],
+    venue: "International Postgraduate and Academic Conference",
     summary:
       "Which claims South Koreans brought to the national petition platform, and how that repertoire shifted over four years.",
     href: "/publications#petition-claims",

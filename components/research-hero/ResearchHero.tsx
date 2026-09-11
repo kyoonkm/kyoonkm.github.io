@@ -85,13 +85,13 @@ export default function ResearchHero() {
         <div className="max-w-6xl mx-auto px-6 rn-hero-inner">
           <div className="rn-intro">
             <h1 id="rn-name">Kayoon Kim</h1>
+            {/* The old keyword line ("Human–AI interaction, social agents and
+                responsible AI") said the same thing as the thesis sentence
+                directly below it, so it read as noise. Affiliation only. */}
             <p className="rn-status">
-              Human–AI interaction, social agents and responsible AI
+              Robust Machine Learning Group, ELLIS Institute Tübingen
               <br />
-              M.S. Quantitative Data Science, University of Tübingen · Robust ML Group, ELLIS
-              Institute Tübingen
-              <br />
-              Applying to PhD programs for Fall 2027
+              M.S. Quantitative Data Science, University of Tübingen
             </p>
             <ThesisPhrases />
             <div className="rn-icons">
