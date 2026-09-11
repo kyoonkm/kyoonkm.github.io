@@ -1,0 +1,502 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kayoon Kim Research Map</title>
+<meta name="description" content="Prototype of an interactive research-network hero for kyoonkm.github.io, using sample projects.">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#ffffff; --ink:#262626; --ink-2:#555555; --ink-3:#8f8f8f; --line:#ededed;
+  --edge:#e3e3e3; --edge-hot:#9b9b9b;
+  --method:#f2f2f2; --method-s:#d0d0d0;
+  /* Palette: rose · sky · butter */
+  --society:#f5c6ce; --society-s:#de95a3;
+  --ai:#c3dcf1;      --ai-s:#8db8dc;
+  --decisions:#f3e0a2; --decisions-s:#d4b85e;
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--ink-2);font-family:var(--sans);font-size:16px;line-height:1.6;margin:0;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px;border-radius:3px}
+.wrap{max-width:72rem;margin-inline:auto;padding-inline:24px}
+
+.proto{font-size:11px;color:var(--ink-3);padding-top:12px}
+.nav{display:flex;justify-content:flex-end;padding-block:8px;position:relative;z-index:3}
+.nav nav{display:flex;gap:28px;font-size:14px}
+.nav nav a{text-decoration:none;color:var(--ink-2)}
+.nav nav a:hover{color:var(--ink)}
+
+.hero{position:relative;min-height:700px;overflow:hidden}
+#net{position:absolute;top:0;right:0;width:62%;height:100%;display:block;z-index:0;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%);mask-image:linear-gradient(90deg,transparent 0,#000 9%)}
+.hero-inner{position:relative;z-index:2;padding-block:160px 80px;pointer-events:none}
+.intro{display:flex;flex-direction:column;gap:20px;max-width:30rem}
+.intro > *{pointer-events:auto}
+h1{font-size:clamp(2.3rem,3vw + 1rem,3.1rem);line-height:1.05;font-weight:650;letter-spacing:-.03em;color:var(--ink);margin:0}
+.status{font-size:14px;line-height:1.65;color:var(--ink-3);margin:0}
+.thesis{font-size:clamp(1.15rem,.8vw + .95rem,1.35rem);line-height:1.55;color:var(--ink);margin:0;max-width:24ch;text-wrap:balance}
+.phrase{border:0;padding:0 1px;margin:0;cursor:pointer;color:var(--ink);background:linear-gradient(transparent 60%,var(--c) 60%)}
+.phrase:hover,.phrase[aria-pressed="true"]{background:linear-gradient(transparent 8%,var(--c) 8%)}
+.filter-note{font-size:13px;color:var(--ink-3);margin:-8px 0 0;min-height:1.3em}
+.filter-note button{background:none;border:0;padding:0;margin-left:6px;cursor:pointer;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px}
+.icons{display:flex;gap:14px;margin-top:4px}
+.icon{width:40px;height:40px;border:1.25px solid var(--ink);border-radius:50%;display:grid;place-items:center;color:var(--ink);text-decoration:none;background:var(--bg);transition:background-color .15s,color .15s}
+.icon:hover{background:var(--ink);color:var(--bg)}
+.icon svg{width:18px;height:18px}
+
+.edge{stroke:var(--edge);stroke-width:1.1;transition:stroke .2s,opacity .2s}
+.edge.tri{stroke:#ececec;stroke-width:1}
+.edge.hot{stroke:var(--edge-hot);stroke-width:1.4}
+.edge.dim{opacity:.3}
+.nd{cursor:pointer;transition:opacity .2s;-webkit-tap-highlight-color:transparent}
+.nd:focus{outline:none}
+.nd .hit{fill:transparent}
+.nd .body{stroke-width:1.2}
+.nd .ring{fill:none;stroke:var(--edge-hot);stroke-width:1.2;opacity:0;transition:opacity .15s}
+.nd.on .ring,.nd:focus-visible .ring{opacity:1}
+.nd .pulse{fill:none;stroke-width:1.2;pointer-events:none}
+.nd:focus-visible{outline:none}
+.nd text{font-size:13px;fill:var(--ink-2);paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round;pointer-events:none;opacity:0;transition:opacity .25s}
+.nd.hub text{font-size:15px;font-weight:600;fill:var(--ink);opacity:1}
+.nd.hub text tspan{font-weight:400;fill:var(--ink-3)}
+.nd.method text{font-size:11.5px;fill:var(--ink-3);font-style:italic}
+.nd.show text{opacity:1}
+.nd.on text{fill:var(--ink)}
+.nd.dim{opacity:.2}
+.touch-hint{display:none;font-size:12px;color:var(--ink-3);text-align:center;margin:0}
+
+.tip{position:absolute;z-index:4;width:290px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;box-shadow:0 6px 24px rgba(0,0,0,.06);pointer-events:none}
+.tip.pinned{pointer-events:auto}
+.tip .eyebrow{font-size:12px;color:var(--ink-3);margin:0 0 2px}
+.tip h3{font-size:15px;line-height:1.35;font-weight:600;margin:0 0 4px;color:var(--ink);text-wrap:balance}
+.tip p{margin:0 0 8px;font-size:13.5px;line-height:1.5}
+.tip .meta{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;font-size:12px;color:var(--ink-3)}
+.tag{display:inline-flex;align-items:center;gap:5px}
+.tag::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c);border:1px solid var(--cs)}
+.go{font-weight:500;color:var(--ink);text-underline-offset:3px;margin-left:auto;font-size:13px}
+
+
+.work{padding-block:28px 72px;border-top:1px solid var(--line)}
+.work-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 24px;margin-bottom:6px}
+.work h2{font-size:1.35rem;font-weight:600;margin:0;color:var(--ink);letter-spacing:-.01em}
+.showing{font-size:13px;color:var(--ink-3);margin:0}
+#list{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:3.2rem minmax(0,1fr) 8.5rem 2.6rem;gap:16px;align-items:baseline;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:13px 0;cursor:pointer}
+.row .yr{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.row .ti{font-weight:500;color:var(--ink);display:block}
+.row:hover .ti,.row.on .ti{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.row .su{font-size:14px;color:var(--ink-3);display:block;margin-top:1px}
+.row .ty{font-size:13px;color:var(--ink-3)}
+.row .ds{display:flex;gap:3px;justify-content:flex-end}
+.row .ds i{width:9px;height:9px;border-radius:50%;background:var(--c);border:1px solid var(--cs);display:block}
+.sample{font-size:11px;color:var(--ink-3);font-style:italic;font-weight:400;margin-left:6px}
+footer{border-top:1px solid var(--line);padding-block:22px;font-size:12px;color:var(--ink-3)}
+
+[data-hub="society"]{--c:var(--society);--cs:var(--society-s)}
+[data-hub="ai"]{--c:var(--ai);--cs:var(--ai-s)}
+[data-hub="decisions"]{--c:var(--decisions);--cs:var(--decisions-s)}
+
+@media (hover:none){ .touch-hint{display:block} }
+@media (max-width:860px){
+  .hero{min-height:0;display:flex;flex-direction:column;overflow:visible}
+  .hero-inner{order:1;padding-block:24px 8px}
+  #net{order:2;position:static;width:100%;height:auto;-webkit-mask-image:none;mask-image:none}
+  .touch-hint{order:3;display:block;margin-bottom:12px}
+  .tip{order:4;position:static;width:auto;margin:0 24px 24px;box-shadow:none}
+  .nd text{font-size:24px;stroke-width:6px}
+  .nd.hub text{font-size:26px}
+  .nd.method text{opacity:0!important}
+  .row{grid-template-columns:2.8rem minmax(0,1fr) 2.4rem}
+  .row .ty{display:none}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head><body>
+
+<div class="wrap proto">Prototype · every project shown is sample data
+</div>
+<header class="wrap nav">
+  <nav aria-label="Main"><a href="#">Home</a><a href="#">Publications</a><a href="#">Projects</a><a href="#">CV</a></nav>
+</header>
+
+<section class="hero" id="hero" aria-labelledby="name">
+  <svg id="net" viewBox="480 10 740 650" preserveAspectRatio="xMidYMid meet" role="group" aria-label="Research network: three areas; hover or select an area to reveal its sample works and methods"></svg>
+  <div class="wrap hero-inner">
+    <div class="intro">
+      <h1 id="name">Kayoon Kim</h1>
+      <p class="status">HCI + AI researcher<br>Applying to PhD programs for Fall 2027</p>
+      <p class="thesis">Studying <button type="button" class="phrase" data-hub="society" aria-pressed="false">society</button> with <button type="button" class="phrase" data-hub="ai" aria-pressed="false">AI agents &amp; ML</button>, for <button type="button" class="phrase" data-hub="decisions" aria-pressed="false">better human decisions</button>.</p>
+      <p class="filter-note" id="fnote" aria-live="polite"></p>
+      <div class="icons">
+        <a class="icon" href="#" title="CV (PDF)" aria-label="CV (PDF)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></a>
+        <a class="icon" href="#" title="Google Scholar" aria-label="Google Scholar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5 12 4l10 5.5L12 15z"/><path d="M6 11.7V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-4.3"/><path d="M22 9.5V15"/></svg></a>
+        <a class="icon" href="#" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 9.2h3V19H5zM6.5 4.6a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4zM10.2 9.2h2.9v1.4c.5-.8 1.6-1.6 3.2-1.6 3 0 3.6 1.9 3.6 4.5V19h-3v-4.9c0-1.2 0-2.7-1.7-2.7s-2 1.3-2 2.6v5h-3z"/></svg></a>
+        <a class="icon" href="#" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+        <a class="icon" href="#" title="Email" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></a>
+      </div>    </div>
+  </div>
+  <p class="touch-hint">Tap an area to explore</p>
+  <div class="tip" id="tip" hidden></div>
+</section>
+
+<main class="wrap">
+  <section class="work" aria-labelledby="work-h">
+    <div class="work-head"><h2 id="work-h">Selected work</h2><p class="showing" id="showing"></p></div>
+    <ol id="list"></ol>
+  </section>
+</main>
+<footer class="wrap">Research network prototype for kyoonkm.github.io · sample data only</footer>
+
+<script>
+(() => {
+  const AREAS = [
+    { id: "society",   label: "Society",         x: 705,  y: 170, labelSide: "above", blurb: "Sociology and computational social science: how people organise, voice grievances and form norms." },
+    { id: "ai",        label: "AI agents & ML",  x: 1085, y: 205, labelSide: "above", blurb: "LLM agents, preference learning, and testing whether AI tools can be trusted." },
+    { id: "decisions", label: "Human decisions", x: 885,  y: 520, labelSide: "below", blurb: "HCI and decision support: tools that help people choose well, alone and together." }
+  ];
+  // Sample data. Every entry is fictional placeholder content.
+  const WORKS = [
+    { id: "n1",  title: "Norm Formation in Agent Collectives", short: "Agent norms", year: 2026, type: "Workshop paper", areas: ["society","ai"], featured: true, methods: ["llm","sim"],
+      summary: "How groups of LLM agents settle on shared rules when their members' preferences conflict." },
+    { id: "n2",  title: "Shared-Space Negotiation Simulator", short: "Negotiation sim", year: 2025, type: "Project", areas: ["ai","decisions"], featured: true, methods: ["llm","sim","survey"],
+      summary: "Agents negotiate settings for people sharing a small space; a user study judges whether the outcomes feel fair." },
+    { id: "n3",  title: "Preference Learning Under Human Bias", short: "Biased feedback", year: 2024, type: "Project", areas: ["ai","decisions"], methods: ["bo","sim"],
+      summary: "Stress-tests a pairwise preference-learning loop with simulated, inconsistent human feedback." },
+    { id: "n4",  title: "Civic Petition Topic Atlas", short: "Petition atlas", year: 2024, type: "Journal article", areas: ["society","ai"], featured: true, methods: ["nlp"],
+      summary: "Topic models over five years of national online petitions, tracing which grievances rise and fall." },
+    { id: "n5",  title: "AI in Design Teams", short: "AI in design teams", year: 2026, type: "Work in progress", areas: ["society","decisions"], featured: true, methods: ["interviews","pd"],
+      summary: "Interviews with designers and their managers on how work is redistributed once AI can do part of it." },
+    { id: "n6",  title: "Citation Reliability Benchmark", short: "Citation checks", year: 2026, type: "Preprint", areas: ["ai"], methods: ["llm","nlp"],
+      summary: "A benchmark for spotting where automated citation checkers fail." },
+    { id: "n7",  title: "Early-Warning Dropout Model", short: "Dropout model", year: 2023, type: "Project", areas: ["society","ai"], methods: ["stats"],
+      summary: "A state-space model that flags students at risk of leaving STEM courses early enough to help." },
+    { id: "n8",  title: "Crisis Data Accessibility Audit", short: "Data audit", year: 2021, type: "Project", areas: ["society"], methods: ["stats","data"],
+      summary: "Maps what public crisis data leaves out, and who is missing as a result." },
+    { id: "n9",  title: "Collective Memory Archive", short: "Memory archive", year: 2020, type: "Project", areas: ["society"], methods: ["nlp"],
+      summary: "Gathers community accounts of a public crisis into a searchable archive." },
+    { id: "n10", title: "Auto-Labeling Pipeline", short: "Auto-labeling", year: 2023, type: "Project", areas: ["ai"], methods: ["data"],
+      summary: "Semi-automatic labeling that cut annotation time for an internal dataset." },
+    { id: "n11", title: "Participatory Design Workshop", short: "Design workshop", year: 2025, type: "Talk", areas: ["decisions"], methods: ["pd"],
+      summary: "A workshop format where end users sketch how shared systems should decide on their behalf." },
+    { id: "n12", title: "Human–Agent Trust Survey", short: "Trust survey", year: 2026, type: "Poster", areas: ["society","ai","decisions"], featured: true, methods: ["llm","survey"],
+      summary: "A large survey on when people accept decisions that AI agents make for a group." },
+    { id: "n13", title: "Operator Decision Dashboard", short: "Operator dashboard", year: 2024, type: "Project", areas: ["decisions"], methods: ["bo","interviews"],
+      summary: "A dashboard that helps machine operators compare settings side by side." }
+  ];
+  const METHODS = [
+    { id: "llm", label: "LLMs" }, { id: "sim", label: "simulation" }, { id: "nlp", label: "NLP" },
+    { id: "survey", label: "surveys" }, { id: "interviews", label: "interviews" }, { id: "bo", label: "Bayesian opt." },
+    { id: "stats", label: "statistical modelling" }, { id: "pd", label: "participatory design" }, { id: "data", label: "data pipelines" }
+  ];
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = document.getElementById("net"), hero = document.getElementById("hero"), tip = document.getElementById("tip");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)"), narrow = matchMedia("(max-width: 860px)");
+  const areaById = Object.fromEntries(AREAS.map(a => [a.id, a]));
+  const workById = Object.fromEntries(WORKS.map(w => [w.id, w]));
+  const state = { hover: null, selected: null, area: null, hoverArea: null };
+  const track = (name, params) => { if (typeof window.gtag === "function") window.gtag("event", name, params); };
+
+  // ---------- Graph ----------
+  const nodes = [
+    ...AREAS.map(a => ({ id: a.id, kind: "hub", label: a.label, ref: a })),
+    ...WORKS.map(w => ({ id: w.id, kind: "work", label: w.short, ref: w })),
+    ...METHODS.map(m => ({ id: "m-" + m.id, kind: "method", label: m.label, ref: m }))
+  ];
+  const nodeById = Object.fromEntries(nodes.map(n => [n.id, n]));
+  const edges = [];
+  WORKS.forEach(w => {
+    w.areas.forEach(a => edges.push({ a: w.id, b: a }));
+    (w.methods || []).forEach(m => edges.push({ a: w.id, b: "m-" + m }));
+  });
+  const adj = {}; nodes.forEach(n => adj[n.id] = new Set());
+  edges.forEach(e => { adj[e.a].add(e.b); adj[e.b].add(e.a); });
+  const tri = [["society","ai"],["ai","decisions"],["decisions","society"]];
+
+  // ---------- Deterministic layout ----------
+  function layout() {
+    const cx = AREAS.reduce((s, a) => s + a.x, 0) / 3, cy = AREAS.reduce((s, a) => s + a.y, 0) / 3;
+    const P = {};
+    AREAS.forEach(a => P[a.id] = { x: a.x, y: a.y });
+    const groups = {};
+    WORKS.forEach(w => { const k = [...w.areas].sort().join("+"); (groups[k] = groups[k] || []).push(w); });
+    Object.entries(groups).forEach(([key, list]) => {
+      const hs = key.split("+").map(id => areaById[id]);
+      list.forEach((w, k) => {
+        const off = k - (list.length - 1) / 2; let x, y;
+        if (hs.length === 1) { const h = hs[0], ang = Math.atan2(h.y - cy, h.x - cx) + off * 0.9; x = h.x + 135 * Math.cos(ang); y = h.y + 135 * Math.sin(ang); }
+        else if (hs.length === 2) {
+          const [a, b] = hs; let mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2; mx += (cx - mx) * .22; my += (cy - my) * .22;
+          const len = Math.hypot(b.x - a.x, b.y - a.y); x = mx + (b.x - a.x) / len * off * 120; y = my + (b.y - a.y) / len * off * 120;
+        } else { x = cx; y = cy; }
+        P[w.id] = { x, y, tx: x, ty: y };
+      });
+    });
+    METHODS.forEach((m, i) => {
+      const ws = WORKS.filter(w => (w.methods || []).includes(m.id));
+      let x = ws.reduce((s, w) => s + P[w.id].x, 0) / ws.length, y = ws.reduce((s, w) => s + P[w.id].y, 0) / ws.length;
+      const ang = i * 2.39996; x += 55 * Math.cos(ang); y += 55 * Math.sin(ang);
+      P["m-" + m.id] = { x, y, tx: x, ty: y };
+    });
+    const ids = nodes.filter(n => n.kind !== "hub").map(n => n.id);
+    for (let it = 0; it < 400; it++) {
+      for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) {
+        const p = P[ids[i]], q = P[ids[j]]; let dx = q.x - p.x, dy = q.y - p.y; const d = Math.hypot(dx, dy) || .01, min = 86;
+        if (d < min) { const s = (min - d) / 2; dx /= d; dy /= d; p.x -= dx * s; p.y -= dy * s; q.x += dx * s; q.y += dy * s; }
+      }
+      ids.forEach(id => {
+        const p = P[id];
+        AREAS.forEach(a => { const dx = p.x - a.x, dy = p.y - a.y, d = Math.hypot(dx, dy) || .01; if (d < 108) { p.x = a.x + dx / d * 108; p.y = a.y + dy / d * 108; } });
+        p.x += (p.tx - p.x) * .025; p.y += (p.ty - p.y) * .025;
+        p.x = Math.min(1175, Math.max(540, p.x)); p.y = Math.min(625, Math.max(45, p.y));
+      });
+    }
+    return P;
+  }
+  const POS = layout();
+
+  // ---------- Build SVG ----------
+  const el = (t, at = {}, par) => { const e = document.createElementNS(NS, t); for (const k in at) e.setAttribute(k, at[k]); if (par) par.appendChild(e); return e; };
+  const bg = el("rect", { x: -2000, y: -2000, width: 6000, height: 6000, fill: "transparent" }, svg);
+  const gE = el("g", {}, svg), gN = el("g", {}, svg);
+  const triEls = tri.map(([a, b]) => ({ a, b, el: el("line", { class: "edge tri" }, gE) }));
+  edges.forEach(e => e.el = el("line", { class: "edge" }, gE));
+
+  nodes.forEach((n, i) => {
+    const deg = adj[n.id].size;
+    n.r = n.kind === "hub" ? 26 : n.kind === "method" ? 4 + 1.5 * Math.sqrt(deg) : 6 + 2.2 * Math.sqrt(deg);
+    n.outer = el("g", {}, gN);
+    const g = el("g", { class: `nd ${n.kind}`, tabindex: "0", role: "button", "aria-pressed": "false" }, n.outer);
+    g.setAttribute("aria-label", n.kind === "work" ? `${n.ref.title}, ${n.ref.type}, ${n.ref.year}` : n.kind === "hub" ? `${n.label}: show its work` : `Method: ${n.label}`);
+    n.hitC = el("circle", { class: "hit", r: n.r + 12 }, g);
+    if (n.kind === "hub") n.pulse = el("circle", { class: "pulse", r: n.r, style: `stroke:var(--${n.id}-s)`, opacity: 0 }, g);
+    if (n.kind === "work" && n.ref.areas.length > 1) {
+      const m = n.ref.areas.length, r = n.r;
+      n.ref.areas.forEach((a, k) => {
+        const a0 = -Math.PI / 2 + k * 2 * Math.PI / m, a1 = a0 + 2 * Math.PI / m;
+        el("path", { d: `M0 0L${(r*Math.cos(a0)).toFixed(2)} ${(r*Math.sin(a0)).toFixed(2)}A${r} ${r} 0 0 1 ${(r*Math.cos(a1)).toFixed(2)} ${(r*Math.sin(a1)).toFixed(2)}Z`, style: `fill:var(--${a})` }, g);
+      });
+      el("circle", { class: "body", r, fill: "none", style: "stroke:var(--method-s)" }, g);
+    } else {
+      const key = n.kind === "hub" ? n.id : n.kind === "work" ? n.ref.areas[0] : null;
+      n.body = el("circle", { class: "body", r: n.r, style: key ? `fill:var(--${key});stroke:var(--${key}-s)` : "fill:var(--method);stroke:var(--method-s)" }, g);
+    }
+    n.ringC = el("circle", { class: "ring", r: n.r + 4 }, g);
+    const t = el("text", {}, g); t.textContent = n.label;
+    if (n.kind === "hub") { const c = el("tspan", {}, t); c.textContent = "  " + WORKS.filter(w => w.areas.includes(n.id)).length; }
+    n.g = g; n.t = t; n.i = i;
+
+    g.addEventListener("pointerenter", e => {
+      if (e.pointerType !== "mouse") return;
+      clearTimeout(collapseTimer);
+      if (n.kind === "hub") state.hoverArea = n.id; else state.hover = n.id;
+      update();
+    });
+    g.addEventListener("pointerleave", () => { if (state.hover === n.id) { state.hover = null; update(); } });
+    g.addEventListener("focus", () => { if (n.kind === "hub") state.hoverArea = n.id; else state.hover = n.id; update(); });
+    g.addEventListener("blur", () => { if (state.hover === n.id) { state.hover = null; update(); } });
+    const act = () => {
+      if (n.kind === "hub") setArea(state.area === n.id ? null : n.id);
+      else { state.selected = state.selected === n.id ? null : n.id; if (state.selected) track("research_map_node", { id: n.id }); update(); }
+    };
+    g.addEventListener("click", e => { e.stopPropagation(); act(); });
+    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); act(); } });
+  });
+  bg.addEventListener("click", () => { state.selected = null; update(); });
+
+  // Collapse the hover-expanded cluster shortly after the pointer leaves the graph
+  let collapseTimer = 0;
+  svg.addEventListener("pointerenter", () => clearTimeout(collapseTimer));
+  svg.addEventListener("pointerleave", () => {
+    clearTimeout(collapseTimer);
+    collapseTimer = setTimeout(() => { state.hoverArea = null; update(); }, 700);
+  });
+
+  // ---------- Label placement (computed once for the fully expanded graph, so labels never collide) ----------
+  const VB = { x0: 485, x1: 1215, y0: 15, y1: 655 };
+  function placeLabels() {
+    const big = narrow.matches;
+    const occupied = nodes.map(n => { const p = POS[n.id], r = n.r + 2; return { x0: p.x - r, x1: p.x + r, y0: p.y - r, y1: p.y + r, id: n.id }; });
+    const hit = (b, self) => b.x0 < VB.x0 || b.x1 > VB.x1 || b.y0 < VB.y0 || b.y1 > VB.y1 ||
+      occupied.some(o => o.id !== self && b.x0 < o.x1 && b.x1 > o.x0 && b.y0 < o.y1 && b.y1 > o.y0);
+    nodes.filter(n => n.kind === "hub").forEach(n => {
+      const p = POS[n.id], fs = big ? 26 : 15, w = (n.label.length + 3) * fs * .6, below = n.ref.labelSide === "below";
+      const y = below ? n.r + fs + 4 : -n.r - 10;
+      n.lab = { below, fs };
+      n.t.setAttribute("x", 0); n.t.setAttribute("y", y); n.t.setAttribute("text-anchor", "middle");
+      occupied.push({ x0: p.x - w / 2, x1: p.x + w / 2, y0: p.y + y - fs, y1: p.y + y + 4, id: n.id + "-l" });
+    });
+    const order = [...nodes.filter(n => n.kind === "work" && n.ref.featured), ...nodes.filter(n => n.kind === "work" && !n.ref.featured), ...nodes.filter(n => n.kind === "method")];
+    order.forEach(n => {
+      const p = POS[n.id], fs = big ? 24 : (n.kind === "method" ? 11.5 : 13), w = n.label.length * fs * .58, h = fs * 1.15, g = n.r + 5;
+      const cands = [
+        { b: { x0: p.x + g, x1: p.x + g + w, y0: p.y - h / 2, y1: p.y + h / 2 }, x: g, y: fs * .35, a: "start" },
+        { b: { x0: p.x - g - w, x1: p.x - g, y0: p.y - h / 2, y1: p.y + h / 2 }, x: -g, y: fs * .35, a: "end" },
+        { b: { x0: p.x - w / 2, x1: p.x + w / 2, y0: p.y + n.r + 3, y1: p.y + n.r + 3 + h }, x: 0, y: n.r + fs, a: "middle" },
+        { b: { x0: p.x - w / 2, x1: p.x + w / 2, y0: p.y - n.r - 3 - h, y1: p.y - n.r - 3 }, x: 0, y: -n.r - 6, a: "middle" }
+      ];
+      const inB = c => c.b.x0 >= VB.x0 && c.b.x1 <= VB.x1 && c.b.y0 >= VB.y0 && c.b.y1 <= VB.y1;
+      const c = cands.find(c => !hit(c.b, n.id)) || cands.find(inB) || cands[0];
+      n.t.setAttribute("x", c.x); n.t.setAttribute("y", c.y); n.t.setAttribute("text-anchor", c.a);
+      if (!big || n.kind === "work") occupied.push({ ...c.b, id: n.id + "-l" });
+    });
+  }
+
+  // ---------- Visibility (progressive reveal) ----------
+  let VIS = new Set(AREAS.map(a => a.id)), OPEN = new Set();
+  function computeVisible() {
+    const open = new Set();
+    if (state.hoverArea) open.add(state.hoverArea);
+    if (state.area) open.add(state.area);
+    const focus = state.hover || state.selected;
+    if (focus && nodeById[focus].kind === "work") nodeById[focus].ref.areas.forEach(a => open.add(a));
+    const vis = new Set(AREAS.map(a => a.id));
+    WORKS.forEach(w => { if (w.areas.some(a => open.has(a))) vis.add(w.id); });
+    // Methods stay hidden until a work (or method) is focused, so an opened area shows only its works
+    if (focus) { vis.add(focus); adj[focus].forEach(x => vis.add(x)); }
+    VIS = vis; OPEN = open;
+  }
+
+  // ---------- Animation: reveal + drift + pulse ----------
+  const rev = {}; nodes.forEach(n => rev[n.id] = n.kind === "hub" ? 1 : 0);
+  // Area nodes are large at rest and shrink when anything opens, making room for works and links
+  const HUB_BIG = 46, HUB_SMALL = 26;
+  let hubBig = 1;
+  const ease = u => 1 - Math.pow(1 - u, 3);
+  let t = 0;
+  const drift = n => {
+    if (!t) return { x: 0, y: 0 };
+    const amp = n.kind === "hub" ? 1.2 : 2.2, w = 2 * Math.PI / (9 + n.i % 5), ph = n.i * 1.7;
+    return { x: amp * Math.sin(t * w + ph), y: amp * Math.cos(t * w * .8 + ph) };
+  };
+  function place() {
+    const cur = {};
+    nodes.filter(n => n.kind === "hub").forEach(n => { const d = drift(n); cur[n.id] = { x: POS[n.id].x + d.x, y: POS[n.id].y + d.y }; });
+    const originOf = n => {
+      if (n.kind === "work") { const a = n.ref.areas.find(a => OPEN.has(a)) || n.ref.areas[0]; return cur[a]; }
+      const w = [...adj[n.id]].find(id => VIS.has(id)) || [...adj[n.id]][0]; return cur[w] || POS[w];
+    };
+    ["work", "method"].forEach(kind => nodes.filter(n => n.kind === kind).forEach(n => {
+      const d = drift(n), f = { x: POS[n.id].x + d.x, y: POS[n.id].y + d.y }, o = originOf(n), e = ease(rev[n.id]);
+      cur[n.id] = { x: o.x + (f.x - o.x) * e, y: o.y + (f.y - o.y) * e };
+    }));
+    nodes.forEach(n => {
+      const e = n.kind === "hub" ? 1 : ease(rev[n.id]), p = cur[n.id];
+      n.outer.setAttribute("transform", `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) scale(${(0.35 + 0.65 * e).toFixed(3)})`);
+      n.outer.style.opacity = e.toFixed(3);
+      n.outer.style.display = e < 0.01 ? "none" : "";
+    });
+    edges.forEach(ed => {
+      const a = cur[ed.a], b = cur[ed.b], o = Math.min(rev[ed.a], rev[ed.b]);
+      ed.el.setAttribute("x1", a.x.toFixed(1)); ed.el.setAttribute("y1", a.y.toFixed(1)); ed.el.setAttribute("x2", b.x.toFixed(1)); ed.el.setAttribute("y2", b.y.toFixed(1));
+      ed.el.setAttribute("stroke-opacity", ease(o).toFixed(3)); ed.el.style.display = o < 0.01 ? "none" : "";
+    });
+    triEls.forEach(te => { const a = cur[te.a], b = cur[te.b]; te.el.setAttribute("x1", a.x); te.el.setAttribute("y1", a.y); te.el.setAttribute("x2", b.x); te.el.setAttribute("y2", b.y); });
+    // Gentle pulse on the three area nodes while nothing is open: the only hint that they're interactive
+    const idle = !OPEN.size && !(state.hover || state.selected) && !reduceMotion.matches;
+    const hr = HUB_SMALL + (HUB_BIG - HUB_SMALL) * ease(hubBig);
+    nodes.filter(n => n.kind === "hub").forEach((n, k) => {
+      n.body.setAttribute("r", hr.toFixed(2)); n.hitC.setAttribute("r", (hr + 12).toFixed(2)); n.ringC.setAttribute("r", (hr + 4).toFixed(2));
+      if (n.lab) n.t.setAttribute("y", (n.lab.below ? hr + n.lab.fs + 4 : -hr - 10).toFixed(2));
+      if (!idle) { n.pulse.setAttribute("opacity", 0); return; }
+      const ph = ((t + k * 1.1) % 3.3) / 3.3;
+      n.pulse.setAttribute("r", (hr + 16 * ph).toFixed(2)); n.pulse.setAttribute("opacity", (0.45 * (1 - ph)).toFixed(3));
+    });
+  }
+  let raf = 0, visible = true;
+  function frame(ts) {
+    t = reduceMotion.matches ? 0 : ts / 1000;
+    nodes.forEach(n => { if (n.kind === "hub") return; const target = VIS.has(n.id) ? 1 : 0, d = target - rev[n.id]; rev[n.id] = Math.abs(d) < 0.004 ? target : rev[n.id] + d * (reduceMotion.matches ? 1 : 0.13); });
+    { const target = (OPEN.size || state.hover || state.selected) ? 0 : 1, d = target - hubBig; hubBig = Math.abs(d) < 0.004 ? target : hubBig + d * (reduceMotion.matches ? 1 : 0.12); }
+    place();
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { cancelAnimationFrame(raf); if (visible) raf = requestAnimationFrame(frame); }
+  reduceMotion.addEventListener?.("change", start);
+  if ("IntersectionObserver" in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; start(); }).observe(svg);
+
+  // ---------- Thesis phrases, list ----------
+  const phrases = [...document.querySelectorAll(".phrase")];
+  phrases.forEach(p => p.addEventListener("click", () => setArea(state.area === p.dataset.hub ? null : p.dataset.hub)));
+  phrases.forEach(p => p.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") { clearTimeout(collapseTimer); state.hoverArea = p.dataset.hub; update(); } }));
+  phrases.forEach(p => p.addEventListener("pointerleave", () => { collapseTimer = setTimeout(() => { state.hoverArea = null; update(); }, 700); }));
+  const fnote = document.getElementById("fnote");
+  const list = document.getElementById("list"), showing = document.getElementById("showing");
+  const rows = [...WORKS].sort((a, b) => b.year - a.year || (b.featured - a.featured)).map(w => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.className = "row"; b.id = `row-${w.id}`;
+    b.innerHTML = `<span class="yr">${w.year}</span><span><span class="ti">${w.title}<span class="sample">sample</span></span><span class="su">${w.summary}</span></span><span class="ty">${w.type}</span><span class="ds" aria-hidden="true">${w.areas.map(a => `<i data-hub="${a}"></i>`).join("")}</span>`;
+    b.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") { state.hover = w.id; update(); } });
+    b.addEventListener("pointerleave", () => { if (state.hover === w.id) { state.hover = null; update(); } });
+    b.addEventListener("click", () => { state.selected = w.id; update(); hero.scrollIntoView({ block: "start", behavior: reduceMotion.matches ? "auto" : "smooth" }); });
+    li.appendChild(b); list.appendChild(li); return { w, li, b };
+  });
+
+  function setArea(id) { state.area = id; state.selected = null; if (id) track("research_map_area", { area: id }); update(); }
+  document.addEventListener("keydown", e => { if (e.key === "Escape") { state.hover = state.selected = state.area = state.hoverArea = null; update(); } });
+
+  // ---------- Tooltip ----------
+  let tipFor = null;
+  function tipHTML(n) {
+    if (n.kind === "work") {
+      const w = n.ref;
+      return `<p class="eyebrow">${w.type} · ${w.year} · sample</p><h3>${w.title}</h3><p>${w.summary}</p>
+        <div class="meta">${w.areas.map(a => `<span class="tag" data-hub="${a}">${areaById[a].label}</span>`).join("")}<a class="go" href="#" onclick="return false">Open →</a></div>`;
+    }
+    if (n.kind === "hub") { const c = WORKS.filter(w => w.areas.includes(n.id)).length; return `<p class="eyebrow">Area · ${c} works</p><h3>${n.label}</h3><p>${n.ref.blurb}</p>`; }
+    return `<p class="eyebrow">Method · used in ${adj[n.id].size} works</p><h3 style="font-style:italic;font-weight:500">${n.label}</h3>`;
+  }
+  function positionTip() {
+    if (tip.hidden || !tipFor || narrow.matches) { tip.style.left = tip.style.top = ""; return; }
+    const n = nodeById[tipFor], m = svg.getScreenCTM(), hr = hero.getBoundingClientRect();
+    const scr = id => ({ x: m.a * POS[id].x + m.e - hr.left, y: m.d * POS[id].y + m.f - hr.top });
+    const s0 = scr(n.id), r = (n.kind === "hub" ? HUB_SMALL : n.r) * m.a, W = 290, H = tip.offsetHeight, gap = 18, nb = adj[n.id];
+    // Try right, left, below, above; pick the side covering the fewest visible nodes
+    const cands = [
+      { x: s0.x + r + gap, y: s0.y - 24 }, { x: s0.x - r - gap - W, y: s0.y - 24 },
+      { x: s0.x - W / 2, y: s0.y + r + gap }, { x: s0.x - W / 2, y: s0.y - r - gap - H }
+    ].map(c => ({ x: Math.max(12, Math.min(c.x, hr.width - W - 12)), y: Math.max(12, Math.min(c.y, hr.height - H - 12)) }));
+    const pts = [...VIS].map(id => ({ ...scr(id), w: nodeById[id].kind === "hub" ? 6 : nb.has(id) ? 3 : 1, pad: nodeById[id].kind === "hub" ? 40 : 12 }));
+    const cost = c => pts.reduce((s, p) => s + (p.x > c.x - p.pad && p.x < c.x + W + p.pad && p.y > c.y - p.pad && p.y < c.y + H + p.pad ? p.w : 0), 0)
+      + (s0.x > c.x - r && s0.x < c.x + W + r && s0.y > c.y - r && s0.y < c.y + H + r ? 99 : 0);
+    const best = cands.reduce((a, c) => cost(c) < cost(a) ? c : a);
+    tip.style.left = best.x + "px"; tip.style.top = best.y + "px";
+  }
+  addEventListener("resize", positionTip);
+
+  // ---------- State -> view ----------
+  function update() {
+    computeVisible();
+    const focus = state.hover || state.selected, area = state.area;
+    const nb = focus ? new Set([focus, ...adj[focus]]) : null;
+    nodes.forEach(n => {
+      const dim = !!focus && !nb.has(n.id);
+      n.g.classList.toggle("dim", dim);
+      n.g.classList.toggle("on", n.id === focus);
+      const show = n.kind === "hub" || (VIS.has(n.id) && (!narrow.matches || n.id === focus));
+      n.g.classList.toggle("show", show);
+      n.g.setAttribute("aria-pressed", String(n.id === state.selected || (n.kind === "hub" && n.id === area)));
+    });
+    edges.forEach(e => {
+      const hot = !!focus && (e.a === focus || e.b === focus);
+      e.el.classList.toggle("hot", hot); e.el.classList.toggle("dim", !!focus && !hot);
+    });
+    phrases.forEach(p => p.setAttribute("aria-pressed", String(p.dataset.hub === area)));
+    fnote.innerHTML = area ? `Showing ${areaById[area].label}<button type="button" id="clear">Show all</button>` : "";
+    if (area) document.getElementById("clear").addEventListener("click", () => setArea(null));
+
+    let shown = 0;
+    rows.forEach(({ w, li, b }) => { const v = !area || w.areas.includes(area); li.hidden = !v; if (v) shown++; b.classList.toggle("on", w.id === focus); });
+    showing.textContent = area ? `${shown} of ${WORKS.length} in ${areaById[area].label}` : `${WORKS.length} works, newest first`;
+
+    if (focus) {
+      if (tipFor !== focus) { tip.innerHTML = tipHTML(nodeById[focus]); tipFor = focus; }
+      tip.hidden = false; tip.classList.toggle("pinned", focus === state.selected); positionTip();
+    } else { tip.hidden = true; tipFor = null; }
+  }
+
+  narrow.addEventListener?.("change", () => { placeLabels(); update(); });
+  placeLabels(); update(); place(); start();
+})();
+</script>
+</body></html>

@@ -3,7 +3,548 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------------------------------------------------------ */
+/* Tokens (white only; see PRD §9)                                     */
+/* ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --ink: #262626;
+  --ink-2: #555555;
+  /* PRD §9 specifies #8f8f8f, but that is 2.9:1 on white and fails §10's
+     4.5:1 floor (and Lighthouse's contrast audit). #767676 is the lightest
+     grey that passes at 4.54:1. Revert this one line to match §9 exactly. */
+  --ink-3: #767676;
+  --line: #ededed;
+  --edge: #e3e3e3;
+  --edge-hot: #9b9b9b;
+  --method: #f2f2f2;
+  --method-s: #d0d0d0;
+
+  /* Palette: rose · sky · butter */
+  --society: #f5c6ce;
+  --society-s: #de95a3;
+  --ai: #c3dcf1;
+  --ai-s: #8db8dc;
+  --decisions: #f3e0a2;
+  --decisions-s: #d4b85e;
+  /* Fills sit lighter than the prototype's flat pastels. */
+  --fill-op: 0.62;
+}
+
+html,
 body {
-  background-color: #FAF9F6;
-  color: #4A4A4A;   /* Or try #515151 or #5A5A5A for a warm, easy-to-read gray */
+  background: var(--bg);
+}
+
+body {
+  color: var(--ink-2);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.animate-fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Research-network hero                                               */
+/* ------------------------------------------------------------------ */
+
+[data-area='society'] {
+  --c: var(--society);
+  --cs: var(--society-s);
+}
+[data-area='ai'] {
+  --c: var(--ai);
+  --cs: var(--ai-s);
+}
+[data-area='decisions'] {
+  --c: var(--decisions);
+  --cs: var(--decisions-s);
+}
+
+.rn-hero {
+  position: relative;
+  /* 700px of graph plus clearance for the site's fixed header. */
+  min-height: 740px;
+  overflow: hidden;
+}
+
+.rn-net {
+  position: absolute;
+  /* Starts below the fixed header, so top-row labels are never hidden by it. */
+  top: 80px;
+  right: 0;
+  width: 62%;
+  height: calc(100% - 80px);
+  display: block;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 9%);
+}
+
+.rn-hero-inner {
+  position: relative;
+  z-index: 2;
+  padding-block: 160px 80px;
+  pointer-events: none;
+}
+
+.rn-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 30rem;
+}
+
+/* Only the interactive bits capture the pointer. The h1 and status line
+   overlap the graph's left edge at ~900px, and if their line boxes ate
+   clicks they would leave a dead zone over the Society node. */
+.rn-phrase,
+.rn-filter-note button,
+.rn-icon {
+  pointer-events: auto;
+}
+
+.rn-hero h1 {
+  font-size: clamp(2.3rem, 3vw + 1rem, 3.1rem);
+  line-height: 1.05;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.rn-status {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink-3);
+  margin: 0;
+}
+
+.rn-thesis {
+  font-size: clamp(1.15rem, 0.8vw + 0.95rem, 1.35rem);
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+  max-width: 26ch;
+  text-wrap: balance;
+}
+
+.rn-phrase {
+  border: 0;
+  padding: 0 1px;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  color: var(--ink);
+  background: linear-gradient(transparent 60%, var(--c) 60%);
+}
+
+.rn-phrase:hover,
+.rn-phrase[aria-pressed='true'] {
+  background: linear-gradient(transparent 8%, var(--c) 8%);
+}
+
+.rn-filter-note {
+  font-size: 13px;
+  color: var(--ink-3);
+  margin: -8px 0 0;
+  min-height: 1.3em;
+}
+
+.rn-filter-note button {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-left: 6px;
+  font: inherit;
+  cursor: pointer;
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rn-icons {
+  display: flex;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.rn-icon {
+  width: 40px;
+  height: 40px;
+  border: 1.25px solid var(--ink);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  text-decoration: none;
+  background: var(--bg);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.rn-icon:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.rn-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Edges: straight lines only */
+.rn-edge {
+  stroke: var(--edge);
+  stroke-width: 1.1;
+  transition: stroke 0.2s, opacity 0.2s;
+}
+.rn-edge.rn-tri {
+  stroke: #ececec;
+  stroke-width: 1;
+}
+.rn-edge.is-hot {
+  stroke: var(--edge-hot);
+  stroke-width: 1.4;
+}
+.rn-edge.is-dim {
+  opacity: 0.3;
+}
+
+/* Nodes */
+.rn-nd {
+  cursor: pointer;
+  transition: opacity 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.rn-nd:focus {
+  outline: none;
+}
+.rn-hit {
+  fill: transparent;
+}
+.rn-body {
+  stroke-width: 1.2;
+  fill: var(--c, var(--method));
+  fill-opacity: var(--fill-op);
+  stroke: var(--cs, var(--method-s));
+}
+.rn-body.rn-split {
+  fill: none;
+  fill-opacity: 1;
+  stroke: #cdcdcd;
+}
+.rn-slice {
+  fill: var(--c);
+  fill-opacity: var(--fill-op);
+  stroke: none;
+}
+.rn-method .rn-body {
+  fill: var(--method);
+  fill-opacity: 1;
+  stroke: var(--method-s);
+}
+.rn-ring {
+  fill: none;
+  stroke: var(--edge-hot);
+  stroke-width: 1.2;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.rn-nd.is-on .rn-ring,
+.rn-nd:focus-visible .rn-ring {
+  opacity: 1;
+}
+.rn-pulse {
+  fill: none;
+  stroke: var(--cs);
+  stroke-width: 1.2;
+  pointer-events: none;
+}
+.rn-nd:focus-visible {
+  outline: none;
+}
+
+.rn-nd text {
+  font-size: 13px;
+  fill: var(--ink-2);
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.rn-area text {
+  font-size: 15px;
+  font-weight: 600;
+  fill: var(--ink);
+  opacity: 1;
+}
+.rn-area text tspan {
+  font-weight: 400;
+  fill: var(--ink-3);
+}
+.rn-method text {
+  font-size: 11.5px;
+  fill: var(--ink-3);
+  font-style: italic;
+}
+.rn-nd.is-shown text {
+  opacity: 1;
+}
+.rn-nd.is-on text {
+  fill: var(--ink);
+}
+.rn-nd.is-dim {
+  opacity: 0.2;
+}
+
+.rn-touch-hint {
+  display: none;
+  font-size: 12px;
+  color: var(--ink-3);
+  text-align: center;
+  margin: 0;
+}
+
+/* Tooltip card */
+.rn-tip {
+  position: absolute;
+  z-index: 4;
+  width: 290px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+.rn-tip.is-pinned {
+  pointer-events: auto;
+}
+.rn-tip .rn-eyebrow {
+  font-size: 12px;
+  color: var(--ink-3);
+  margin: 0 0 2px;
+}
+.rn-tip h3 {
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.rn-tip h3.rn-method-name {
+  font-style: italic;
+  font-weight: 500;
+}
+.rn-tip p {
+  margin: 0 0 8px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.rn-tip .rn-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.rn-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.rn-tag::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--c);
+  border: 1px solid var(--cs);
+}
+.rn-go {
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-left: auto;
+  font-size: 13px;
+}
+
+/* Selected work list */
+.rn-work {
+  padding-block: 28px 72px;
+  border-top: 1px solid var(--line);
+}
+.rn-work-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 24px;
+  margin-bottom: 6px;
+}
+.rn-work h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.rn-showing {
+  font-size: 13px;
+  color: var(--ink-3);
+  margin: 0;
+}
+.rn-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rn-row {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr) 8.5rem 2.6rem;
+  gap: 16px;
+  align-items: baseline;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 13px 0;
+  cursor: pointer;
+}
+.rn-row .rn-yr {
+  font-size: 13px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.rn-row .rn-ti {
+  font-weight: 500;
+  color: var(--ink);
+  display: block;
+}
+.rn-row:hover .rn-ti,
+.rn-row.is-on .rn-ti {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+.rn-row .rn-su {
+  font-size: 14px;
+  color: var(--ink-3);
+  display: block;
+  margin-top: 1px;
+}
+.rn-row .rn-ty {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.rn-row .rn-ds {
+  display: flex;
+  gap: 3px;
+  justify-content: flex-end;
+}
+.rn-row .rn-ds i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--c);
+  border: 1px solid var(--cs);
+  display: block;
+}
+
+.rn-hero :focus-visible,
+.rn-work :focus-visible {
+  outline: 1.5px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (hover: none) {
+  .rn-touch-hint {
+    display: block;
+  }
+}
+
+@media (max-width: 860px) {
+  .rn-hero {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+  .rn-hero-inner {
+    order: 1;
+    padding-block: 112px 8px;
+  }
+  .rn-net {
+    order: 2;
+    position: static;
+    top: auto;
+    width: 100%;
+    height: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .rn-touch-hint {
+    order: 3;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .rn-tip {
+    order: 4;
+    position: static;
+    width: auto;
+    margin: 0 24px 24px;
+    box-shadow: none;
+  }
+  .rn-nd text {
+    font-size: 24px;
+    stroke-width: 6px;
+  }
+  .rn-area text {
+    font-size: 26px;
+  }
+  .rn-method text {
+    opacity: 0 !important;
+  }
+  .rn-row {
+    grid-template-columns: 2.8rem minmax(0, 1fr) 2.4rem;
+  }
+  .rn-row .rn-ty {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rn-hero *,
+  .rn-work * {
+    transition: none !important;
+  }
 }
