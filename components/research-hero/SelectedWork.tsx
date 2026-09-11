@@ -12,13 +12,12 @@ const byYear = (a: Work, b: Work) =>
   b.year - a.year || Number(!!b.featured) - Number(!!a.featured);
 
 /**
- * Split, not filtered: publications and projects are ranked on different
- * scales, and showing them in one list made a PLOS ONE article and a
- * coursework project look equivalent. Both lists together still cover every
- * node in the graph, so hovering any node highlights a row somewhere.
+ * Publications only. Projects live on /projects, linked from the foot below;
+ * mixing them here made a PLOS ONE article and a coursework project look
+ * equivalent. Note the graph above still plots the full corpus, so hovering a
+ * project node highlights no row.
  */
 const PUBLICATIONS = WORKS.filter((w) => w.type !== 'Project').sort(byYear);
-const PROJECTS = WORKS.filter((w) => w.type === 'Project').sort(byYear);
 
 function track(name: string, params: Record<string, unknown>) {
   const gtag = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
@@ -72,57 +71,34 @@ export default function SelectedWork() {
   const { area } = useResearchState();
 
   const pubs = PUBLICATIONS.filter((w) => !area || w.areas.includes(area));
-  const projects = PROJECTS.filter((w) => !area || w.areas.includes(area));
   const label = area ? AREA_BY_ID[area].label : null;
 
   return (
-    <>
-      <section className="rn-works" aria-labelledby="rn-pub-h">
-        <div className="rn-work-head">
-          <h2 id="rn-pub-h">Publications</h2>
-          <p className="rn-showing">
-            {label
-              ? `${pubs.length} of ${PUBLICATIONS.length} in ${label}`
-              : `${PUBLICATIONS.length} publications, newest first`}
-          </p>
-        </div>
-        {pubs.length ? (
-          <ol className="rn-list">
-            {pubs.map((w) => (
-              <WorkRow key={w.id} w={w} />
-            ))}
-          </ol>
-        ) : (
-          <p className="rn-empty">No publications in {label}.</p>
-        )}
-      </section>
-
-      <section className="rn-works" aria-labelledby="rn-proj-h">
-        <div className="rn-work-head">
-          <h2 id="rn-proj-h">Projects</h2>
-          <p className="rn-showing">
-            {label
-              ? `${projects.length} of ${PROJECTS.length} in ${label}`
-              : `${PROJECTS.length} projects, newest first`}
-          </p>
-        </div>
-        {projects.length ? (
-          <ol className="rn-list">
-            {projects.map((w) => (
-              <WorkRow key={w.id} w={w} />
-            ))}
-          </ol>
-        ) : (
-          <p className="rn-empty">No projects in {label}.</p>
-        )}
-        <p className="rn-work-foot">
-          <a href="/publications">All publications</a>
-          <a href="/projects">All projects</a>
-          <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
-            CV (PDF)
-          </a>
+    <section className="rn-works" aria-labelledby="rn-pub-h">
+      <div className="rn-work-head">
+        <h2 id="rn-pub-h">Publications</h2>
+        <p className="rn-showing">
+          {label
+            ? `${pubs.length} of ${PUBLICATIONS.length} in ${label}`
+            : `${PUBLICATIONS.length} publications, newest first`}
         </p>
-      </section>
-    </>
+      </div>
+      {pubs.length ? (
+        <ol className="rn-list">
+          {pubs.map((w) => (
+            <WorkRow key={w.id} w={w} />
+          ))}
+        </ol>
+      ) : (
+        <p className="rn-empty">No publications in {label}.</p>
+      )}
+      <p className="rn-work-foot">
+        <a href="/publications">All publications</a>
+        <a href="/projects">All projects</a>
+        <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
+          CV (PDF)
+        </a>
+      </p>
+    </section>
   );
 }

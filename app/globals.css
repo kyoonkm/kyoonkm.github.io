@@ -472,7 +472,7 @@ html {
 /* Selected work list */
 .rn-works {
   padding-top: 8px;
-  padding-bottom: 40px;
+  padding-bottom: 56px;
 }
 .rn-work-head {
   display: flex;
@@ -560,12 +560,6 @@ html {
   color: var(--ink-3);
   margin: 0;
   padding: 10px 0;
-}
-
-/* Peers under one filter: same hairline, a little more room below for the
-   footer links that close the pair. */
-.rn-works + .rn-works {
-  padding-bottom: 56px;
 }
 
 .rn-work-foot {
