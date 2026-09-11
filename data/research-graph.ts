@@ -245,7 +245,7 @@ export const WORKS: Work[] = [
     methods: ["llm"],
     summary:
       "Fine-tuning on human feedback data to improve reasoning in a real-world in-vehicle application.",
-    href: "/projects",
+    href: "/projects/1",
   },
   {
     id: "dropout",
@@ -290,10 +290,10 @@ export const WORKS: Work[] = [
     year: 2021,
     type: "Project",
     areas: ["decisions"],
-    methods: ["eval", "stats"],
+    methods: ["stats"],
     summary:
-      "Implements and evaluates recommendation algorithms, judged on whether they improve the choice rather than the click.",
-    href: "/projects",
+      "Implementations of the standard recommendation algorithms, each paired with a review of the paper it comes from.",
+    href: "/projects/8",
   },
   {
     id: "petition-claims",

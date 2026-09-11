@@ -143,7 +143,10 @@ html {
    overlap the graph's left edge at ~900px, and if their line boxes ate
    clicks they would leave a dead zone over the Society node. */
 .rn-phrase,
-.rn-filter-note button,
+.rn-filter-note button {
+  pointer-events: auto;
+}
+
 .rn-hero h1 {
   font-size: clamp(2.4rem, 2.6vw + 1.1rem, 3.4rem);
   line-height: 1.02;
@@ -541,7 +544,8 @@ html {
 }
 /* A state, not a venue: italic keeps "Under review" from scanning as a
    place the work appeared. */
-.rn-row .rn-st {
+.rn-row .rn-st,
+.rn-pub .rn-st {
   font-style: italic;
 }
 .rn-row .rn-ds {
@@ -574,29 +578,10 @@ html {
    with the one peer-reviewed article at y~1129. These rules reuse the row
    rhythm of .rn-row so the canonical list is no longer sparser than the
    homepage summary that links to it. */
-.rn-pubs {
-  /* Clears the 56px fixed header without the old py-20's dead 56px. */
-  padding-top: 96px;
-  padding-bottom: 8px;
-}
-
-.rn-pub-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 4px 24px;
-  margin-bottom: 32px;
-}
-
-.rn-pubs h1 {
-  font-family: var(--font-satoshi), var(--font-body), system-ui, sans-serif;
-  font-size: clamp(1.9rem, 1.4vw + 1.4rem, 2.3rem);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.1;
-  color: var(--ink);
-  margin: 0;
+/* Header clearance and the h1 come from .rn-page / .rn-page-head, shared with
+   /projects and 404, so the inner pages open on one rhythm. */
+.rn-pubs .rn-page-head {
+  margin-bottom: 26px;
 }
 
 .rn-pub-group + .rn-pub-group {
@@ -630,7 +615,7 @@ html {
    which is where most of that 61% whitespace actually came from. */
 .rn-pub {
   display: grid;
-  grid-template-columns: 3.2rem minmax(0, 68ch) 2.6rem;
+  grid-template-columns: 3.2rem minmax(0, 68ch);
   justify-content: start;
   gap: 16px;
   align-items: baseline;
@@ -679,6 +664,11 @@ a.rn-ti:hover {
   color: var(--ink);
 }
 
+/* The equal-contribution note is a footnote, not part of the byline. */
+.rn-eq {
+  color: var(--ink-3);
+}
+
 .rn-au sup {
   font-size: 0.7em;
   line-height: 0;
@@ -706,22 +696,6 @@ a.rn-ti:hover {
   overflow-wrap: anywhere;
 }
 
-.rn-pub .rn-ds {
-  display: flex;
-  gap: 3px;
-  justify-content: flex-end;
-}
-
-.rn-pub .rn-ds i {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--c);
-  border: 1px solid var(--cs);
-  display: block;
-}
-
-.rn-pubs 
 .rn-pubs :focus-visible {
   outline: 1.5px solid var(--ink);
   outline-offset: 3px;
@@ -729,18 +703,9 @@ a.rn-ti:hover {
 }
 
 @media (max-width: 860px) {
-  .rn-pubs {
-    padding-top: 88px;
-  }
   .rn-pub {
     grid-template-columns: 2.8rem minmax(0, 1fr);
-    gap: 4px 12px;
-  }
-  /* The area dots move under the text rather than squeezing the measure. */
-  .rn-pub .rn-ds {
-    grid-column: 2;
-    justify-content: flex-start;
-    margin-top: 2px;
+    gap: 12px;
   }
 }
 

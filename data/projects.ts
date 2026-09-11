@@ -284,12 +284,20 @@ export const PROJECTS: Project[] = [
     id: 8,
     title: "Recommender Systems for Human Decision-Making",
     year: 2021,
-    question: "Do recommenders improve the choice, or only the click?",
+    question:
+      "Working through the standard recommender algorithms, one implementation at a time.",
+    context: "Internship study project",
     status: "Completed",
     areas: ["decisions"],
+    /* A small study project. It used to claim it evaluated whether recommenders
+       "improve the choice rather than the click", which is a research finding
+       this work does not have; the repository is the honest artefact. */
     summary:
-      "Implements and evaluates recommendation algorithms, judged on whether they improve the choice rather than the click.",
-    topics: ["Decision Making", "Machine Learning", "Data Analysis"],
+      "Implementations of the standard recommendation algorithms, each paired with a review of the paper it comes from. Written up during an internship.",
+    topics: ["Machine Learning", "Data Analysis"],
+    links: [
+      { label: "GitHub", url: "https://github.com/kyoonkm/2021-RecSys" },
+    ],
   },
 ];
 
