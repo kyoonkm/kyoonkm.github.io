@@ -1311,7 +1311,19 @@ a.rn-ti:hover {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+    /* Transitions survive, clipped. Reduced motion means less movement, not
+       the loss of the feedback that confirms an action: at 0.01ms a hover, a
+       focus ring and a filter change all snapped with no acknowledgement.
+       The graph's spatial motion is switched off in JS, where it can be done
+       precisely, rather than by flattening every transition on the page. */
+    transition-duration: 120ms !important;
+  }
+
+  /* Except movement itself, which is what the preference is actually about. */
+  .rn-icon,
+  .rn-skip,
+  .rn-portrait {
+    transition-property: opacity, color, background-color, border-color !important;
   }
 }

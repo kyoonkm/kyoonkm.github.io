@@ -68,9 +68,11 @@ export default function ResearchGraph() {
 
   /* Latest derived state, read by the animation loop without restarting it. */
   const live = useRef({ visible, open, focus, reducedMotion });
+  const hoverRef = useRef(hover);
   useLayoutEffect(() => {
     live.current = { visible, open, focus, reducedMotion };
-  }, [visible, open, focus, reducedMotion]);
+    hoverRef.current = hover;
+  }, [visible, open, focus, reducedMotion, hover]);
 
   const getRefs = (id: string): NodeRefs =>
     (nodeRefs.current[id] ??= {
@@ -109,6 +111,22 @@ export default function ResearchGraph() {
         y: amp * (0.72 * Math.cos(t * w * 0.8 + ph) + 0.28 * Math.cos(t * w2 * 1.3 + ph)),
       };
     };
+
+    /* Distance from a node to the area it blooms out of, normalised across the
+       graph. Drives the stagger: near works arrive first, far works trail, so
+       an area opens as a wavefront travelling outward rather than a puff. */
+    const spread: Record<string, number> = {};
+    {
+      let max = 1;
+      for (const n of nodes) {
+        if (n.kind === 'area') continue;
+        const home = n.kind === 'work' ? byId[n.areas[0]] : byId[(adjacency[n.id] ?? [])[0]];
+        const d = home ? Math.hypot(n.x - home.x, n.y - home.y) : 0;
+        spread[n.id] = d;
+        if (d > max) max = d;
+      }
+      for (const id in spread) spread[id] /= max;
+    }
 
     const place = () => {
       const { visible, open, focus, reducedMotion } = live.current;
@@ -180,12 +198,22 @@ export default function ResearchGraph() {
         if (!line) continue;
         const a = cur[ed.a];
         const b = cur[ed.b];
-        const o = Math.min(rev[ed.a], rev[ed.b]);
+        const o = ease(Math.min(rev[ed.a], rev[ed.b]));
         line.setAttribute('x1', a.x.toFixed(1));
         line.setAttribute('y1', a.y.toFixed(1));
         line.setAttribute('x2', b.x.toFixed(1));
         line.setAttribute('y2', b.y.toFixed(1));
-        line.setAttribute('stroke-opacity', ease(o).toFixed(3));
+        /* The edge is the claim of membership, so it draws from the area
+           outward rather than fading in place. */
+        if (o < 0.995) {
+          const len = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+          line.setAttribute('stroke-dasharray', len.toFixed(1));
+          line.setAttribute('stroke-dashoffset', (len * (1 - o)).toFixed(1));
+        } else if (line.hasAttribute('stroke-dasharray')) {
+          line.removeAttribute('stroke-dasharray');
+          line.removeAttribute('stroke-dashoffset');
+        }
+        line.setAttribute('stroke-opacity', Math.min(1, o * 1.6).toFixed(3));
         line.style.display = o < 0.01 ? 'none' : '';
       }
 
@@ -233,9 +261,9 @@ export default function ResearchGraph() {
           refs.pulse.setAttribute('opacity', '0');
           continue;
         }
-        const ph = ((t + i * 1.1) % 3.3) / 3.3;
-        refs.pulse.setAttribute('r', (hr + 16 * ph).toFixed(2));
-        refs.pulse.setAttribute('opacity', (0.45 * (1 - ph)).toFixed(3));
+        const ph = ((t + i * 1.3) % 3.8) / 3.8;
+        refs.pulse.setAttribute('r', (hr + 22 * ph).toFixed(2));
+        refs.pulse.setAttribute('opacity', (0.62 * (1 - ph) * (1 - ph)).toFixed(3));
       }
     };
 
@@ -243,7 +271,6 @@ export default function ResearchGraph() {
     const frame = (ts: number) => {
       const { visible, open, focus, reducedMotion } = live.current;
       t = reducedMotion ? 0 : ts / 1000;
-      const k = reducedMotion ? 1 : 0.13;
 
       /* Exponential ease-out toward settled, so the entrance decelerates. */
       mountRef.current = reducedMotion
@@ -252,9 +279,11 @@ export default function ResearchGraph() {
           ? 1
           : mountRef.current + (1 - mountRef.current) * 0.045;
 
+      /* Lift follows hover, not focus: focus includes the pinned node, which
+         left a pinned circle permanently enlarged. */
       const lift = liftRef.current;
       for (const n of nodes) {
-        const target = n.id === focus ? 1 : 0;
+        const target = n.id === hoverRef.current ? 1 : 0;
         const prev = lift[n.id] ?? 0;
         const d = target - prev;
         lift[n.id] =
@@ -265,6 +294,14 @@ export default function ResearchGraph() {
       for (const n of nodes) {
         if (n.kind === 'area') continue;
         const target = visible.has(n.id) ? 1 : 0;
+        /* Opening is a wavefront — near nodes lead, far nodes trail — and
+           closing is uniform and quicker, because dismissal should not feel
+           as consequential as discovery. */
+        const k = reducedMotion
+          ? 1
+          : target
+            ? 0.19 - 0.11 * spread[n.id]
+            : 0.26;
         const d = target - rev[n.id];
         rev[n.id] = Math.abs(d) < 0.004 ? target : rev[n.id] + d * k;
       }
