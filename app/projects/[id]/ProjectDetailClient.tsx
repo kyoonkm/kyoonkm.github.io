@@ -1,176 +1,154 @@
 'use client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+
+import Link from 'next/link';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
+import { AREAS, type AreaId } from '@/data/research-graph';
+import type { Project } from '@/data/projects';
 
-interface Project {
-  id: number;
-  title: string;
-  year: number;
-  description: string;
-  fullDescription?: string;
-  image: string;
-  images?: string[];
-  topics: string[];
-  technologies?: string[];
-  outcomes?: string[];
-  links?: { label: string; url: string }[];
-}
+const AREA_BY_ID = Object.fromEntries(AREAS.map((a) => [a.id, a])) as Record<
+  AreaId,
+  (typeof AREAS)[number]
+>;
 
-interface ProjectDetailClientProps {
-  project: Project;
-}
-
-export default function ProjectDetailClient({ project }: ProjectDetailClientProps) {
-  const router = useRouter();
-
-  const getTopicColor = (topic: string) => {
-    const colors = {
-      'Decision Making': 'bg-blue-100 text-blue-800 border-blue-200',
-      'Machine Learning': 'bg-green-100 text-green-800 border-green-200',
-      'Public Health': 'bg-red-100 text-red-800 border-red-200',
-      'NLP': 'bg-purple-100 text-purple-800 border-purple-200',
-      'Data Analysis': 'bg-orange-100 text-orange-800 border-orange-200',
-      'AI Agents': 'bg-cyan-100 text-cyan-800 border-cyan-200',
-      'Social Science': 'bg-indigo-100 text-indigo-800 border-indigo-200',
-      'Social Simulation': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-    };
-    return colors[topic as keyof typeof colors] || 'bg-gray-100 text-gray-700 border-gray-200';
-  };
-
+export default function ProjectDetailClient({ project }: { project: Project }) {
   return (
-    <div className="max-w-4xl mx-auto px-6">
-      <button 
-        onClick={() => router.back()}
-        className="flex items-center text-textGrayCustom hover:text-textGrayCustom/75 mb-8 group"
-      >
-        <i className="ri-arrow-left-line mr-2 group-hover:-translate-x-1 transition-transform"></i>
-        Back to Projects
-      </button>
+    <div className="max-w-6xl mx-auto px-6">
+      {/* A Link, not router.back(). Arriving from the hero graph or from a
+          search result, "Back to projects" used to send people to the home
+          page or off the site entirely. */}
+      <Link href="/projects" className="rn-back">
+        &larr; Back to projects
+      </Link>
 
-      <div className="mb-8">
-        <div className="flex items-center gap-4 mb-4">
-          <h1 className="text-4xl font-bold text-textGrayCustom">{project.title}</h1>
-          <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
-            {project.year}
-          </span>
-        </div>
-        
-        <div className="flex flex-wrap gap-2 mb-6">
-          {project.topics.map((topic, index) => (
-            <span 
-              key={index}
-              className={`px-3 py-1 rounded-full text-sm font-medium border ${getTopicColor(topic)}`}
-            >
-              {topic}
+      <article className="rn-detail">
+        <h1>{project.title}</h1>
+
+        <div className="rn-detail-meta">
+          <span>{project.year}</span>
+          <span>{project.status}</span>
+          {project.areas.map((a) => (
+            <span key={a} className="rn-tag" data-area={a}>
+              {AREA_BY_ID[a].label}
             </span>
           ))}
         </div>
-      </div>
-      
-      <div className="mb-8">
-        <Zoom>
-          <img
-            src={project.image} 
-            alt={project.title}
-            className="w-full h-64 md:h-80 object-cover rounded-2xl shadow-lg cursor-zoom-in"
-          />
-        </Zoom>
-      </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
-        <div className="md:col-span-2">
-          <h2 className="text-2xl font-semibold text-textGrayCustom mb-4">Overview</h2>
-          <div className="prose max-w-none">
-            <p className="text-textGrayCustom leading-relaxed whitespace-pre-line">
-              {project.fullDescription || project.description}
-            </p>
+        <p className="rn-detail-lede">{project.summary}</p>
+
+        {project.image && (
+          <div className="rn-hero-fig">
+            <Zoom>
+              {/* Decorative: the h1 directly above already names the work. */}
+              <img
+                src={project.image}
+                alt=""
+                width={1800}
+                height={1013}
+                decoding="async"
+              />
+            </Zoom>
           </div>
+        )}
 
-          {project.images && project.images.length > 0 && (
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold text-textGrayCustom mb-4">Project Gallery</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {project.images.filter(img => img !== project.image).map((img, i) => (
-                  <div key={i} className="relative">
-                    <Zoom>
-                      <img 
-                        src={img}
-                        alt={`${project.title} image ${i + 1}`}
-                        className="w-full h-48 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-zoom-in"
-                      />
-                    </Zoom>
-                  </div>
+        {project.fullDescription && (
+          <>
+            <h2>Overview</h2>
+            <p className="rn-prose">{project.fullDescription}</p>
+          </>
+        )}
+
+        {project.images && project.images.length > 0 && (
+          <>
+            <h3>Figures</h3>
+            <div className="rn-gal">
+              {project.images
+                .filter((img) => img !== project.image)
+                .map((img, i) => (
+                  <Zoom key={img}>
+                    <img
+                      src={img}
+                      alt={`${project.title}, figure ${i + 1}`}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </Zoom>
                 ))}
-              </div>
             </div>
-          )}
+          </>
+        )}
 
-          {project.technologies && (
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold text-textGrayCustom mb-4">Technologies Used</h3>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech, i) => (
-                  <span key={i} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium">{tech}</span>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="space-y-6">
-          <div className="bg-backgroundCream p-6 rounded-2xl">
-            <h3 className="font-semibold text-textGrayCustom mb-4">Project Details</h3>
-            <div className="space-y-3">
-              <div>
-                <span className="text-sm text-gray-500">Year</span>
-                <p className="font-medium text-textGrayCustom">{project.year}</p>
-              </div>
-              <div>
-                <span className="text-sm text-gray-500">Status</span>
-                <p className="font-medium text-textGrayCustom">{project.year >= 2025 ? 'In Progress' : 'Completed'}</p>
-              </div>
-            </div>
-          </div>
-
-          {project.outcomes && (
-            <div className="bg-green-50 p-6 rounded-2xl">
-              <h3 className="font-semibold text-textGrayCustom mb-4">Key Outcomes</h3>
-              <ul className="space-y-2">
-                {project.outcomes.map((outcome, i) => (
-                  <li key={i} className="text-sm text-gray-700 flex items-start">
-                    <i className="ri-check-line text-green-600 mr-2 mt-0.5 flex-shrink-0"></i>
-                    {outcome}
+        <dl className="rn-facts">
+          <div className="rn-fact">
+            <dt>Topics</dt>
+            <dd>
+              <ul className="rn-chips">
+                {project.topics.map((topic) => (
+                  <li key={topic} className="rn-chip">
+                    {topic}
                   </li>
                 ))}
               </ul>
+            </dd>
+          </div>
+
+          {project.technologies && (
+            <div className="rn-fact">
+              <dt>Built with</dt>
+              <dd>{project.technologies.join(', ')}</dd>
+            </div>
+          )}
+
+          {project.outcomes && (
+            <div className="rn-fact">
+              <dt>Outcome</dt>
+              <dd>
+                <ul>
+                  {project.outcomes.map((outcome) => (
+                    <li key={outcome}>{outcome}</li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          )}
+
+          {project.context && (
+            <div className="rn-fact">
+              <dt>Where</dt>
+              <dd>{project.context}</dd>
             </div>
           )}
 
           {project.links && (
-            <div>
-              <h3 className="font-semibold text-textGrayCustom mb-4">Links</h3>
-              <div className="space-y-2">
-                {project.links.map((link, i) => (
-                  <a 
-                    key={i}
-                    href={link.url}
-                    className="flex items-center text-blue-600 hover:text-blue-800 text-sm"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i className="ri-external-link-line mr-2"></i>
-                    {link.label}
-                  </a>
-                ))}
-              </div>
+            <div className="rn-fact">
+              <dt>Links</dt>
+              <dd>
+                <ul>
+                  {project.links.map((link) => (
+                    <li key={link.url}>
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </dd>
             </div>
           )}
-        </div>
-      </div>
+        </dl>
+
+        <p className="rn-work-foot">
+          <Link href="/projects">All projects</Link>
+          <Link href="/publications">All publications</Link>
+          <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
+            CV (PDF)
+          </a>
+        </p>
+      </article>
     </div>
   );
 }
-
-

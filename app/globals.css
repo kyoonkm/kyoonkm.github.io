@@ -53,7 +53,9 @@ html {
 .rn-bio h2,
 .rn-tip h3,
 .rn-mark,
-.rn-foot-name {
+.rn-page-head h1,
+.rn-detail h1,
+.rn-detail h2 {
   font-family: var(--font-satoshi), var(--font-body), system-ui, sans-serif;
 }
 
@@ -752,23 +754,10 @@ a.rn-ti:hover {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  justify-content: space-between;
   gap: 20px 40px;
 }
 
-.rn-foot-name {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  margin: 0;
-}
 
-.rn-foot-where {
-  font-size: 14px;
-  color: var(--ink-3);
-  margin: 2px 0 0;
-}
 
 .rn-foot-nav {
   display: flex;
@@ -798,10 +787,453 @@ a.rn-ti:hover {
 
 .rn-foot :focus-visible,
 .rn-hero :focus-visible,
-.rn-works :focus-visible {
+.rn-works :focus-visible,
+.rn-page :focus-visible,
+.rn-skip:focus-visible {
   outline: 1.5px solid var(--ink);
   outline-offset: 3px;
   border-radius: 3px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Inner pages: /projects, /projects/[id], 404                        */
+/* ------------------------------------------------------------------ */
+
+/* The header is fixed, so every inner page clears it here rather than each
+   page inventing its own pt-32. */
+.rn-page {
+  display: block;
+  padding-block: 104px 8px;
+}
+
+.rn-page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-bottom: 14px;
+}
+
+/* Left-aligned at the container edge, like the h1 and the publication rows
+   on the home page. A centred title on one page and a flush-left title on
+   the next read as two different sites. */
+.rn-page-head h1 {
+  font-size: clamp(1.9rem, 1.4vw + 1.4rem, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin: 0;
+}
+
+.rn-lede {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ink-2);
+  margin: 0 0 22px;
+  max-width: 58ch;
+}
+
+/* Area filter: the same three areas as the hero graph, as three toggles.
+   The page used to carry a sort select, a nine-option dropdown, a chip stack
+   and a result count to govern seven items. */
+.rn-areafilter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 10px;
+  margin: 0 0 6px;
+}
+
+.rn-areabtn {
+  font: inherit;
+  font-size: 13.5px;
+  line-height: 1;
+  color: var(--ink-2);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 13px 7px 11px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.rn-areabtn::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--c);
+  border: 1px solid var(--cs);
+  flex: none;
+}
+.rn-areabtn:hover {
+  border-color: var(--edge-hot);
+  color: var(--ink);
+}
+.rn-areabtn[aria-pressed='true'] {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.rn-clear {
+  font: inherit;
+  font-size: 13px;
+  color: var(--ink-3);
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-left: 4px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.rn-clear:hover {
+  color: var(--ink);
+}
+
+/* Project list. Rows, not cards: seven same-size shadowed rectangles gave an
+   AutoUI submission and a coursework script identical weight, and put a
+   192px-tall image above the title in every one of them. */
+.rn-plist {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+}
+
+.rn-prow {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr) 196px;
+  gap: 24px;
+  align-items: start;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+}
+.rn-plist > li:last-child .rn-prow {
+  border-bottom: 1px solid var(--line);
+}
+
+.rn-pyr {
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+
+.rn-pmain {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.rn-pti {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+.rn-prow:hover .rn-pti {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+/* The question, not a 40-word paragraph. The long version is the detail
+   page's job; here it only has to earn the click. */
+.rn-pq {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin: 6px 0 0;
+  max-width: 56ch;
+}
+
+/* Venue, outcome and where the work was done — the fields an academic reader
+   actually ranks by. They were in the data and shown on no card. */
+.rn-pmeta {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-3);
+  margin: 8px 0 0;
+}
+.rn-pmeta strong {
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.rn-pfig {
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.rn-pfig img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--method);
+  transition: border-color 0.2s;
+}
+.rn-prow:hover .rn-pfig img {
+  border-color: var(--edge-hot);
+}
+
+.rn-ds {
+  display: flex;
+  gap: 3px;
+}
+.rn-ds i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--c);
+  border: 1px solid var(--cs);
+  display: block;
+}
+
+/* Project detail */
+.rn-back {
+  display: inline-block;
+  font-size: 13.5px;
+  color: var(--ink-3);
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+.rn-back:hover {
+  color: var(--ink);
+}
+
+.rn-detail {
+  max-width: 68ch;
+}
+
+.rn-detail h1 {
+  font-size: clamp(1.7rem, 1.2vw + 1.3rem, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.rn-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.rn-detail-lede {
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  color: var(--ink-2);
+  margin: 18px 0 0;
+}
+
+.rn-detail h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 40px 0 10px;
+}
+
+.rn-detail h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 32px 0 10px;
+}
+
+.rn-prose {
+  font-size: 15.5px;
+  line-height: 1.72;
+  color: var(--ink-2);
+  margin: 0;
+  white-space: pre-line;
+}
+
+.rn-hero-fig {
+  margin: 26px 0 0;
+}
+.rn-hero-fig img,
+.rn-gal img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--method);
+  cursor: zoom-in;
+}
+.rn-hero-fig img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: top;
+}
+
+.rn-gal {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+}
+.rn-gal img {
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: top;
+}
+
+.rn-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.rn-chip {
+  font-size: 12.5px;
+  line-height: 1;
+  color: var(--ink-2);
+  background: var(--method);
+  border: 1px solid var(--method-s);
+  border-radius: 999px;
+  padding: 6px 11px;
+}
+
+.rn-facts {
+  margin: 30px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 18px 28px;
+}
+.rn-fact dt {
+  font-size: 12.5px;
+  color: var(--ink-3);
+  margin: 0 0 3px;
+}
+.rn-fact dd {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+}
+.rn-fact ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rn-fact a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--edge);
+}
+.rn-fact a:hover {
+  border-bottom-color: var(--ink);
+}
+
+/* Nav links used two different grey pairs — textGrayCustom/gray-600 on
+   desktop and gray-700/textGrayCustom on mobile — for the same link. */
+/* Header. The markup uses .rn-head/.rn-nav/.rn-burger; these rules were
+   missing, which left the bar unpositioned and the nav unstyled. */
+.rn-head {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: saturate(1.4) blur(8px);
+  -webkit-backdrop-filter: saturate(1.4) blur(8px);
+}
+
+.rn-nav {
+  align-items: center;
+  gap: 28px;
+}
+
+.rn-nav a {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.rn-nav a:hover {
+  color: var(--ink);
+}
+.rn-nav a[aria-current='page'] {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+/* Mobile panel: the same links, stacked. */
+.rn-nav-m {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 0 8px;
+}
+
+.rn-burger {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-right: -8px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Skip link: the site had no way past the fixed header's five tab stops. */
+.rn-skip {
+  position: absolute;
+  left: 24px;
+  top: 12px;
+  z-index: 60;
+  transform: translateY(-200%);
+  background: var(--bg);
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 13.5px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 0.15s;
+}
+.rn-skip:focus {
+  transform: translateY(0);
 }
 
 @media (hover: none) {
@@ -867,6 +1299,33 @@ a.rn-ti:hover {
   .rn-row {
     grid-template-columns: 2.8rem minmax(0, 1fr) 2.4rem;
     gap: 12px;
+  }
+
+  /* Two columns at 375px: the year moves to its own line above the title so
+     the measure does not collapse to ~24 characters. */
+  .rn-prow {
+    grid-template-columns: minmax(0, 1fr) 92px;
+    gap: 4px 14px;
+    padding: 20px 0;
+  }
+  .rn-pyr {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .rn-pmain {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .rn-pfig {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+  }
+  .rn-gal {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rn-page {
+    padding-block: 96px 8px;
   }
 }
 

@@ -15,11 +15,13 @@ export default function Home() {
     <ResearchStateProvider>
       <div className="min-h-screen">
         <Header />
-        <ResearchHero />
-        <AboutSection />
-        <div className="max-w-6xl mx-auto px-6">
-          <SelectedWork />
-        </div>
+        <main id="main">
+          <ResearchHero />
+          <AboutSection />
+          <div className="max-w-6xl mx-auto px-6">
+            <SelectedWork />
+          </div>
+        </main>
         <Footer />
       </div>
     </ResearchStateProvider>

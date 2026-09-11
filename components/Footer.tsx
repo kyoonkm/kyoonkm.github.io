@@ -1,18 +1,14 @@
 /**
- * The page used to stop dead on the last publication row: no contact, no
- * location, no date. Contact is a Gmail address on purpose — the institutional
- * one expires with the affiliation, and a dead address is worse than none.
+ * The page used to stop dead on the last publication row with no contact and
+ * no date. The name is deliberately absent: it already appears in the header
+ * wordmark and the h1. Contact is a Gmail address on purpose — the
+ * institutional one expires with the affiliation.
  */
 export default function Footer() {
   return (
     <footer className="rn-foot">
       <div className="max-w-6xl mx-auto px-6">
         <div className="rn-foot-grid">
-          <div>
-            <p className="rn-foot-name">Kayoon Kim</p>
-            <p className="rn-foot-where">Tübingen, Germany</p>
-          </div>
-
           <nav className="rn-foot-nav" aria-label="Elsewhere">
             <a href="mailto:kyoonkm@gmail.com">kyoonkm@gmail.com</a>
             <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
