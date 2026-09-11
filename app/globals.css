@@ -393,6 +393,22 @@ html {
 }
 
 /* ------------------------------------------------------------------ */
+/* Header wordmark                                                     */
+/* ------------------------------------------------------------------ */
+
+.rn-mark {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.rn-mark:hover {
+  opacity: 0.65;
+}
+
+/* ------------------------------------------------------------------ */
 /* Bio                                                                 */
 /* ------------------------------------------------------------------ */
 
@@ -436,7 +452,8 @@ html {
 
 /* Selected work list */
 .rn-works {
-  padding-block: 32px 80px;
+  padding-top: 32px;
+  padding-bottom: 40px;
   border-top: 1px solid var(--line);
 }
 .rn-work-head {
@@ -527,6 +544,20 @@ html {
   display: block;
 }
 
+.rn-empty {
+  font-size: 14px;
+  color: var(--ink-3);
+  margin: 0;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Peers under one filter: same hairline, a little more room below for the
+   footer links that close the pair. */
+.rn-works + .rn-works {
+  padding-bottom: 56px;
+}
+
 .rn-work-foot {
   display: flex;
   flex-wrap: wrap;
@@ -545,6 +576,64 @@ html {
   border-bottom-color: var(--ink);
 }
 
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.rn-foot {
+  border-top: 1px solid var(--line);
+  padding-block: 32px 48px;
+}
+
+.rn-foot-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px 40px;
+}
+
+.rn-foot-name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.rn-foot-where {
+  font-size: 14px;
+  color: var(--ink-3);
+  margin: 2px 0 0;
+}
+
+.rn-foot-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  font-size: 14px;
+}
+
+.rn-foot-nav a {
+  color: var(--ink-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--edge);
+  padding-bottom: 2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.rn-foot-nav a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.rn-foot-meta {
+  font-size: 13px;
+  color: var(--ink-3);
+  margin: 28px 0 0;
+}
+
+.rn-foot :focus-visible,
 .rn-hero :focus-visible,
 .rn-works :focus-visible {
   outline: 1.5px solid var(--ink);

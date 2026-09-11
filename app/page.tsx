@@ -3,6 +3,7 @@ import ResearchHero from '../components/research-hero/ResearchHero';
 import SelectedWork from '../components/research-hero/SelectedWork';
 import { ResearchStateProvider } from '../components/research-hero/useResearchState';
 import AboutSection from '../components/AboutSection';
+import Footer from '../components/Footer';
 
 /**
  * Order is vision -> evidence: the hero states the thesis, the bio explains
@@ -19,6 +20,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <SelectedWork />
         </div>
+        <Footer />
       </div>
     </ResearchStateProvider>
   );

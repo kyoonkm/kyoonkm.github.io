@@ -19,8 +19,11 @@ export default function Header() {
     <header className="fixed top-0 w-full bg-backgroundCream/95 backdrop-blur-sm z-50 transition-all duration-300">
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="hover:opacity-70 transition-opacity">
-            {/* Put your logo/image here */}
+          {/* The wordmark, not an empty slot: this link used to ship with no
+              accessible name as the first tab stop on every page, and past the
+              hero the name appeared nowhere on screen. */}
+          <Link href="/" className="rn-mark">
+            Kayoon Kim
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
