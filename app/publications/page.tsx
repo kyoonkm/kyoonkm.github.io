@@ -35,28 +35,67 @@ export default function PublicationsSection() {
     return () => observer.disconnect();
   }, []);
 
+  // Ids match the work ids in data/research-graph.ts, so the hero graph can
+  // deep-link a node straight to its entry (e.g. /publications#hallmark).
   const publications: Publication[] = [
+    {
+      id: 'hallmark',
+      title: 'HALLMARK: Diagnosing Three Failure Modes in LLM Citation Verifiers',
+      authors: 'Patrik Reizinger, Kayoon Kim, Wieland Brendel',
+      venue: 'Manuscript in preparation',
+      type: 'Manuscript',
+      year: 2026,
+      link: null,
+    },
+    {
+      id: 'design-ai',
+      title: 'Between Plausible and Viable: How Designers and Their Managers Rework Around AI That Performs It',
+      authors: 'Kayoon Kim, Jan Henry Belz, Hirokazu Shirado',
+      venue: 'Work in progress',
+      type: 'Work in Progress',
+      year: 2026,
+      link: null,
+    },
+    {
+      id: 'agent-norms',
+      title: 'Four Passengers, One Decision: How LLM Agents Negotiate and Form Norms in a Shared Car',
+      authors: 'Kayoon Kim',
+      venue: 'NeurIPS 2026 Social Agents Workshop',
+      type: 'Poster',
+      year: 2026,
+      link: null,
+      note: 'Under review',
+    },
     {
       id: 'sim-dse',
       title: 'Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Decision Space Exploration',
       authors: 'Jan Henry Belz*, Kayoon Kim*',
-      venue: 'AutoUI 2026 Works in Progress',
+      venue: 'AutomotiveUI 2026, Works in Progress',
       type: 'Poster',
+      year: 2026,
       link: null,
       note: '*Equal Contribution'
     },
     {
-      id: 'mobilizing-grievances-korea',
-      title: 'Mobilizing grievances in the internet age: The case of national online petitioning in South Korea, 2017–2022',
+      id: 'petitions',
+      title: 'Mobilizing grievances in the internet age: The case of national online petitioning in South Korea, 2017\u20132022',
       authors: 'Kayoon Kim, Chan S. Suh',
-      venue: 'PLOS ONE, 2024',
+      venue: 'PLOS ONE, 19(5): e0302373',
       type: 'Journal Article',
       abstract: 'This study examines how digital platforms have transformed civic engagement and political participation in South Korea through the analysis of national online petitioning systems from 2017 to 2022. We investigate the mechanisms through which citizens mobilize grievances and seek policy changes in the digital age.',
-      fullContent: 'The advent of digital technologies has fundamentally altered how citizens engage with government and express political grievances. This comprehensive study analyzes the South Korean national online petitioning system, examining patterns of citizen participation, issue mobilization, and government responsiveness over a five-year period from 2017 to 2022. Through quantitative analysis of petition data and qualitative examination of successful mobilization cases, we reveal how digital platforms enable new forms of collective action while also presenting unique challenges for democratic participation. Our findings contribute to understanding the evolving relationship between technology, civic engagement, and democratic governance in the digital age.',
       year: 2024,
       doi: 'https://doi.org/10.1371/journal.pone.0302373',
       publishedDate: 'May 16, 2024',
       link: 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0302373',
+    },
+    {
+      id: 'petition-claims',
+      title: 'Claiming for Rights: The Changing Landscape of Issues and Claims in the National Petition of South Korea, 2017\u20132020',
+      authors: 'Kayoon Kim',
+      venue: 'International Postgraduate and Academic Conference',
+      type: 'Poster',
+      year: 2021,
+      link: null,
     }
   ];
 
@@ -75,7 +114,7 @@ export default function PublicationsSection() {
               <div
                 key={index}
                 id={pub.id}
-                className={`transform transition-all duration-500 hover:scale-105 cursor-pointer ${
+                className={`scroll-mt-28 transform transition-all duration-500 hover:scale-105 cursor-pointer ${
                   isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
                 }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
@@ -119,10 +158,12 @@ export default function PublicationsSection() {
           </div>
           <div className="mt-16 text-center">
             <a
-              href="/publications"
+              href="/CV_Kayoon_Kim.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center text-textGrayCustom hover:text-gray-600 transition-colors cursor-pointer text-base font-medium relative group"
             >
-              View All Publications
+              Full CV (PDF)
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-textGrayCustom transition-all duration-300 group-hover:w-full"></span>
             </a>
           </div>

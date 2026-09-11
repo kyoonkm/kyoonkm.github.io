@@ -12,12 +12,18 @@ const ROWS = [...WORKS].sort(
   (a, b) => b.year - a.year || Number(!!b.featured) - Number(!!a.featured),
 );
 
+function track(name: string, params: Record<string, unknown>) {
+  const gtag = (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag;
+  if (typeof gtag === 'function') gtag('event', name, params);
+}
+
 /**
  * The full non-visual equivalent of the graph: every work, with its areas,
- * synced to the same hover / pin / filter state.
+ * hover-synced to the same state. Each row links to the work itself, so this
+ * list doubles as the home page's publication listing.
  */
 export default function SelectedWork() {
-  const { area, focus, setHover, togglePinned, reducedMotion } = useResearchState();
+  const { area, focus, setHover } = useResearchState();
 
   const rows = ROWS.filter((w) => !area || w.areas.includes(area));
 
@@ -32,41 +38,48 @@ export default function SelectedWork() {
         </p>
       </div>
       <ol className="rn-list">
-        {rows.map((w) => (
-          <li key={w.id}>
-            <button
-              type="button"
-              className={`rn-row${w.id === focus ? ' is-on' : ''}`}
-              onPointerEnter={(e) => {
-                if (e.pointerType === 'mouse') setHover(w.id);
-              }}
-              onPointerLeave={() => setHover(null)}
-              onFocus={() => setHover(w.id)}
-              onBlur={() => setHover(null)}
-              onClick={() => {
-                togglePinned(w.id);
-                document.querySelector('.rn-hero')?.scrollIntoView({
-                  block: 'start',
-                  behavior: reducedMotion ? 'auto' : 'smooth',
-                });
-              }}
-            >
-              <span className="rn-yr">{w.year}</span>
-              <span>
-                <span className="rn-ti">{w.title}</span>
-                <span className="rn-su">{w.summary}</span>
-              </span>
-              <span className="rn-ty">{w.type}</span>
-              <span className="rn-ds">
-                {w.areas.map((a) => (
-                  <i key={a} data-area={a} aria-hidden="true" />
-                ))}
-                <span className="sr-only">{w.areas.map((a) => AREA_BY_ID[a].label).join(', ')}</span>
-              </span>
-            </button>
-          </li>
-        ))}
+        {rows.map((w) => {
+          const external = w.href.startsWith('http');
+          return (
+            <li key={w.id}>
+              <a
+                className={`rn-row${w.id === focus ? ' is-on' : ''}`}
+                href={w.href}
+                {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                onPointerEnter={(e) => {
+                  if (e.pointerType === 'mouse') setHover(w.id);
+                }}
+                onPointerLeave={() => setHover(null)}
+                onFocus={() => setHover(w.id)}
+                onBlur={() => setHover(null)}
+                onClick={() => track('research_map_open', { id: w.id, href: w.href })}
+              >
+                <span className="rn-yr">{w.year}</span>
+                <span>
+                  <span className="rn-ti">{w.title}</span>
+                  <span className="rn-su">{w.summary}</span>
+                </span>
+                <span className="rn-ty">{w.type}</span>
+                <span className="rn-ds">
+                  {w.areas.map((a) => (
+                    <i key={a} data-area={a} aria-hidden="true" />
+                  ))}
+                  <span className="sr-only">
+                    {w.areas.map((a) => AREA_BY_ID[a].label).join(', ')}
+                  </span>
+                </span>
+              </a>
+            </li>
+          );
+        })}
       </ol>
+      <p className="rn-work-foot">
+        <a href="/publications">All publications</a>
+        <a href="/projects">All projects</a>
+        <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
+          CV (PDF)
+        </a>
+      </p>
     </section>
   );
 }

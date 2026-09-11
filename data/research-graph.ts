@@ -108,7 +108,7 @@ export const WORKS: Work[] = [
     featured: true,
     summary:
       "LLM agents advocating for four passengers negotiate cabin settings, and settle on norms none of them held alone.",
-    href: "/publications",
+    href: "/publications#agent-norms",
   },
   {
     id: "design-ai",
@@ -122,7 +122,7 @@ export const WORKS: Work[] = [
     featured: true,
     summary:
       "Interviews with designers and their managers on how design work is redistributed once AI can do part of it.",
-    href: "/publications",
+    href: "/publications#design-ai",
   },
   {
     id: "hallmark",
@@ -136,7 +136,7 @@ export const WORKS: Work[] = [
     featured: true,
     summary:
       "Separates three distinct ways automated citation verifiers fail, and benchmarks models against each of them.",
-    href: "/publications",
+    href: "/publications#hallmark",
   },
   {
     id: "sim-dse",
@@ -150,7 +150,7 @@ export const WORKS: Work[] = [
     featured: true,
     summary:
       "Simulation plus an online survey map the decision space for multi-occupant autonomous vehicles into design guidelines.",
-    href: "/projects/1",
+    href: "/publications#sim-dse",
   },
   {
     id: "petitions",
@@ -164,7 +164,7 @@ export const WORKS: Work[] = [
     featured: true,
     summary:
       "Six years of national online petitions, traced for which grievances mobilise and which stay unheard. PLOS ONE 19(5).",
-    href: "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0302373",
+    href: "/publications#petitions",
   },
   {
     id: "pbo",
@@ -249,7 +249,7 @@ export const WORKS: Work[] = [
     methods: ["text"],
     summary:
       "Which claims South Koreans brought to the national petition platform, and how that repertoire shifted over four years.",
-    href: "/projects/7",
+    href: "/publications#petition-claims",
   },
   {
     id: "covid-memory",

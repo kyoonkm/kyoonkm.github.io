@@ -425,6 +425,8 @@ html {
 }
 .rn-row {
   display: grid;
+  text-decoration: none;
+  color: inherit;
   grid-template-columns: 3.2rem minmax(0, 1fr) 8.5rem 2.6rem;
   gap: 16px;
   align-items: baseline;
@@ -474,6 +476,24 @@ html {
   background: var(--c);
   border: 1px solid var(--cs);
   display: block;
+}
+
+.rn-work-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px 0 0;
+  font-size: 14px;
+}
+.rn-work-foot a {
+  color: var(--ink-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+.rn-work-foot a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
 }
 
 .rn-hero :focus-visible,
