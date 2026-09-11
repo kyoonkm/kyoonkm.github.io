@@ -81,43 +81,42 @@ html {
 
 .rn-hero {
   position: relative;
-  /* Compressed so "Selected work" — the page's actual evidence — clears the
-     fold on a 800px-tall laptop instead of starting at y≈768. */
-  min-height: 600px;
+  /* Short enough that the bio clears the fold, tall enough to give the
+     network real size — it is height-limited, not width-limited. */
+  min-height: 640px;
+  display: flex;
+  align-items: center;
   overflow: hidden;
 }
 
 .rn-net {
   position: absolute;
   /* Starts below the fixed header, so top-row labels are never hidden by it. */
-  top: 72px;
+  top: 56px;
   right: 0;
-  /* Height-driven: the viewBox aspect sets the width, so the shorter hero
-     shrinks the graph instead of letterboxing it inside a 62% band. */
-  height: calc(100% - 72px);
-  aspect-ratio: 740 / 650;
-  width: auto;
-  /* Caps how far left the graph can creep between 860px and ~1100px, where
-     the text column and the network would otherwise collide. */
-  max-width: 52%;
+  width: 62%;
+  height: calc(100% - 56px);
   display: block;
   z-index: 0;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 9%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 7%);
 }
 
 .rn-hero-inner {
   position: relative;
   z-index: 2;
-  padding-block: 112px 40px;
+  width: 100%;
+  padding-block: 72px 32px;
   pointer-events: none;
 }
 
 .rn-intro {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  max-width: 34rem;
+  gap: 20px;
+  /* Narrow: the text column no longer carries affiliation lines, and a tight
+     measure keeps the gap to the network small on wide screens. */
+  max-width: 27rem;
 }
 
 /* Only the interactive bits capture the pointer. The h1 and status line
@@ -129,31 +128,21 @@ html {
   pointer-events: auto;
 }
 
-/* The thesis sentence leads, not the name: it is the one line a reader needs
-   to remember, so it outranks the h1 in the type scale. */
 .rn-hero h1 {
-  font-size: clamp(1.75rem, 1.4vw + 0.85rem, 2.05rem);
-  line-height: 1.1;
+  font-size: clamp(2.4rem, 2.6vw + 1.1rem, 3.4rem);
+  line-height: 1.02;
   font-weight: 650;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   color: var(--ink);
   margin: 0;
-}
-
-.rn-status {
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--ink-3);
-  margin: -12px 0 0;
 }
 
 .rn-thesis {
-  font-size: clamp(1.65rem, 2vw + 0.75rem, 2.4rem);
-  line-height: 1.22;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.2rem, 0.7vw + 0.95rem, 1.4rem);
+  line-height: 1.45;
   color: var(--ink);
   margin: 0;
-  max-width: 22ch;
+  max-width: 24ch;
   text-wrap: balance;
 }
 
@@ -164,7 +153,7 @@ html {
   font: inherit;
   cursor: pointer;
   color: var(--ink);
-  background: linear-gradient(transparent 64%, var(--c) 64%);
+  background: linear-gradient(transparent 60%, var(--c) 60%);
 }
 
 .rn-phrase:hover,
@@ -175,7 +164,7 @@ html {
 .rn-filter-note {
   font-size: 13px;
   color: var(--ink-3);
-  margin: -16px 0 0;
+  margin: -12px 0 0;
   min-height: 1.3em;
 }
 
@@ -403,6 +392,48 @@ html {
   font-size: 13px;
 }
 
+/* ------------------------------------------------------------------ */
+/* Bio                                                                 */
+/* ------------------------------------------------------------------ */
+
+.rn-bio {
+  padding-block: 8px 56px;
+}
+
+/* Left-aligned at the container edge, so the h1, the bio and the publication
+   rows all share one left edge. 65ch is the readable measure; the old
+   centred max-w-4xl ran to ~112 characters with no fixed return point. */
+.rn-bio-col {
+  max-width: 65ch;
+}
+
+.rn-bio h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.rn-bio p {
+  font-size: 15.5px;
+  line-height: 1.72;
+  color: var(--ink-2);
+  margin: 0;
+}
+
+/* Matches .rn-work-foot a — the bio's outbound links were the only blue on
+   the site and read as a different, unrelated page. */
+.rn-link {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--edge);
+  transition: border-color 0.15s;
+}
+.rn-link:hover {
+  border-bottom-color: var(--ink);
+}
+
 /* Selected work list */
 .rn-works {
   padding-block: 32px 80px;
@@ -532,6 +563,7 @@ html {
     min-height: 0;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     overflow: visible;
   }
   .rn-hero-inner {
@@ -542,14 +574,13 @@ html {
     order: 2;
     position: static;
     top: auto;
-    /* Stacked: width-driven again, so the desktop height/aspect/cap must all
-       be released or the graph would sit at 52% of a phone screen. */
     width: 100%;
-    max-width: none;
     height: auto;
-    aspect-ratio: auto;
     -webkit-mask-image: none;
     mask-image: none;
+  }
+  .rn-bio {
+    padding-block: 24px 40px;
   }
   .rn-touch-hint {
     order: 3;

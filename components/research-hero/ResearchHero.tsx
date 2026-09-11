@@ -1,7 +1,5 @@
 import ResearchGraph from './ResearchGraph';
-import SelectedWork from './SelectedWork';
 import ThesisPhrases from './ThesisPhrases';
-import { ResearchStateProvider } from './useResearchState';
 
 interface IconLink {
   label: string;
@@ -73,26 +71,19 @@ const ICONS: IconLink[] = [
 ];
 
 /**
- * The hero: static text column on the left, the research network filling the
- * right 62%, and the "Selected work" list below. Geometry is computed by
- * lib/research-graph-layout.ts, so the SVG is server-rendered markup.
+ * The hero: name and thesis sentence on the left, the research network filling
+ * the right 62%. Geometry is computed by lib/research-graph-layout.ts, so the
+ * SVG is server-rendered markup. The affiliation lines used to sit under the
+ * h1; they are carried by the bio instead, which states them in context.
  */
 export default function ResearchHero() {
   return (
-    <ResearchStateProvider>
+    <>
       <section className="rn-hero" aria-labelledby="rn-name">
         <ResearchGraph />
         <div className="max-w-6xl mx-auto px-6 rn-hero-inner">
           <div className="rn-intro">
             <h1 id="rn-name">Kayoon Kim</h1>
-            {/* The old keyword line ("Human–AI interaction, social agents and
-                responsible AI") said the same thing as the thesis sentence
-                directly below it, so it read as noise. Affiliation only. */}
-            <p className="rn-status">
-              Robust Machine Learning Group, ELLIS Institute Tübingen
-              <br />
-              M.S. Quantitative Data Science, University of Tübingen
-            </p>
             <ThesisPhrases />
             <div className="rn-icons">
               {ICONS.map((icon) => (
@@ -113,9 +104,6 @@ export default function ResearchHero() {
           </div>
         </div>
       </section>
-      <div className="max-w-6xl mx-auto px-6">
-        <SelectedWork />
-      </div>
-    </ResearchStateProvider>
+    </>
   );
 }

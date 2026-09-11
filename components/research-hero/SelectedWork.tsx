@@ -8,7 +8,12 @@ const AREA_BY_ID = Object.fromEntries(AREAS.map((a) => [a.id, a])) as Record<
   (typeof AREAS)[number]
 >;
 
-const ROWS = [...WORKS].sort(
+/**
+ * Publications only. Everything typed "Project" lives on /projects; mixing the
+ * two here made a PLOS ONE article and a coursework project look equivalent.
+ * The graph above still carries the full corpus, projects included.
+ */
+const ROWS = WORKS.filter((w) => w.type !== 'Project').sort(
   (a, b) => b.year - a.year || Number(!!b.featured) - Number(!!a.featured),
 );
 
@@ -30,11 +35,11 @@ export default function SelectedWork() {
   return (
     <section className="rn-works" aria-labelledby="rn-work-h">
       <div className="rn-work-head">
-        <h2 id="rn-work-h">Selected work</h2>
+        <h2 id="rn-work-h">Publications</h2>
         <p className="rn-showing">
           {area
-            ? `${rows.length} of ${WORKS.length} in ${AREA_BY_ID[area].label}`
-            : `${WORKS.length} works, newest first`}
+            ? `${rows.length} of ${ROWS.length} in ${AREA_BY_ID[area].label}`
+            : `${ROWS.length} publications, newest first`}
         </p>
       </div>
       <ol className="rn-list">

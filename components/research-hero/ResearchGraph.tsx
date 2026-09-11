@@ -356,7 +356,9 @@ export default function ResearchGraph() {
         ref={svgRef}
         className="rn-net"
         viewBox={VIEW_BOX}
-        preserveAspectRatio="xMidYMid meet"
+        // Left-anchored, not centred: the 62% band is wider than the graph's
+        // aspect allows, and centring opened dead space between name and graph.
+        preserveAspectRatio="xMinYMid meet"
         role="group"
         aria-label="Research network: three research areas. Hover or select an area to reveal its works and methods. The Selected work list below holds the same information."
         onPointerEnter={cancelClose}
