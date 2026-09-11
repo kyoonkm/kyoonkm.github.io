@@ -34,11 +34,11 @@ export default function AboutSection() {
           }`}>
             <img
               className="rn-portrait"
-              src="/images/kayoon-440.webp"
-              srcSet="/images/kayoon-440.webp 440w, /images/kayoon-880.webp 880w"
-              sizes="(max-width: 860px) 160px, 200px"
-              width={440}
-              height={528}
+              src="/images/kayoon-320.webp"
+              srcSet="/images/kayoon-320.webp 320w, /images/kayoon-640.webp 640w"
+              sizes="(max-width: 860px) 132px, 176px"
+              width={320}
+              height={320}
               alt="Kayoon Kim"
             />
             <div className="space-y-5">

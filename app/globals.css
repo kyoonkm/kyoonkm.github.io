@@ -418,14 +418,17 @@ html {
   display: flex;
   align-items: flex-start;
   gap: 32px;
-  max-width: calc(65ch + 232px);
+  max-width: calc(65ch + 208px);
 }
 
+/* Round: the square frame put a hard rectangle of beach next to the prose.
+   A circle keeps the face and lets the ocean fall away at the edges. */
 .rn-portrait {
   flex: none;
-  width: 200px;
-  height: auto;
-  border-radius: 4px;
+  width: 176px;
+  height: 176px;
+  border-radius: 50%;
+  object-fit: cover;
   display: block;
 }
 
@@ -1273,6 +1276,7 @@ a.rn-ti:hover {
   }
   .rn-portrait {
     width: 132px;
+    height: 132px;
   }
   .rn-touch-hint {
     order: 3;
