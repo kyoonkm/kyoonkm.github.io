@@ -17,7 +17,6 @@ export type WorkType =
   | "Journal article"
   | "Manuscript"
   | "Work in progress"
-  | "Talk"
   | "Poster"
   | "Project";
 
@@ -302,7 +301,7 @@ export const WORKS: Work[] = [
       "Claiming for Rights: The Changing Landscape of Issues and Claims in the National Petition of South Korea, 2017–2020",
     short: "Petition claims",
     year: 2021,
-    type: "Talk",
+    type: "Poster",
     areas: ["society"],
     methods: ["text"],
     venue:

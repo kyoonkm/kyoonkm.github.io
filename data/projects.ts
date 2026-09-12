@@ -296,7 +296,7 @@ export const PROJECTS: Project[] = [
       'Key Insights\n\n' +
       'Using Natural Language Processing (NLP), I mapped the landscape of Korean social conflict. The results revealed that digital petitions were not random noise but structured responses to specific systemic failures: predominantly digital sex crimes, patriarchy, and political polarization. Comparing the petition contents with those of the White House E-petition, We the People, revealed cultural differences.\n\n' +
       'Academic Evolution\n\n' +
-      'What began as a student research project involving messy, unstructured data scraping evolved into an academic contribution. I refined the methodology over several years, leading to a talk at the 2021 International Postgraduate and Academic Conference, held at Chung-Ang University on 19 February 2021, and eventual publication in the journal PLOS ONE in 2024.',
+      'What began as a student research project involving messy, unstructured data scraping evolved into an academic contribution. I refined the methodology over several years, leading to a poster at the 2021 International Postgraduate and Academic Conference — a joint postgraduate meeting across Japan, Korea and Taiwan — hosted by Chung-Ang University on 19 February 2021, and eventual publication in the journal PLOS ONE in 2024.',
     image: "/images/projects/petitions.webp",
     thumb: "/images/projects/thumbs/petitions.webp",
     links: [
