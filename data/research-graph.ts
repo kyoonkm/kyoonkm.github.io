@@ -151,7 +151,7 @@ export const WORKS: Work[] = [
     id: "design-ai",
     title:
       "Between Plausible and Viable: How Designers and Their Managers Rework Around AI That Performs It",
-    short: "AI in design",
+    short: "AI in organization",
     year: 2026,
     type: "Work in progress",
     areas: ["society", "decisions"],
