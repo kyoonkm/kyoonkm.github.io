@@ -51,6 +51,26 @@ export default function ResearchGraph() {
     unpin,
   } = useResearchState();
 
+  /* The one node that carries tabIndex=0. Starts on the first area, follows
+     the arrow keys, and never points at a hidden node. */
+  const [roving, setRoving] = useState<string>(() => graph.nodes[0]?.id ?? '');
+
+  const tabbable = graph.nodes.filter((n) => n.kind === 'area' || visible.has(n.id));
+  const rovingValid = tabbable.some((n) => n.id === roving);
+  const rovingId = rovingValid ? roving : (tabbable[0]?.id ?? '');
+
+  const moveRoving = useCallback(
+    (from: string, step: number) => {
+      const ids = tabbable.map((n) => n.id);
+      const i = ids.indexOf(from);
+      if (i < 0) return;
+      const next = ids[(i + step + ids.length) % ids.length];
+      setRoving(next);
+      nodeRefs.current[next]?.outer?.querySelector<SVGGElement>('.rn-nd')?.focus();
+    },
+    [tabbable],
+  );
+
   const svgRef = useRef<SVGSVGElement | null>(null);
   const tipRef = useRef<HTMLDivElement | null>(null);
   const nodeRefs = useRef<Record<string, NodeRefs>>({});
@@ -139,21 +159,15 @@ export default function ResearchGraph() {
         cur[n.id] = { x: n.x + d.x, y: n.y + d.y };
       }
 
-      /* A work blooms out of its open area node; a method blooms out of the
-         first visible work that uses it. */
+      /* A work blooms out of the open area node it belongs to. */
       const originOf = (n: GraphNode) => {
-        if (n.kind === 'work') {
-          const a = n.areas.find((a) => open.has(a)) ?? n.areas[0];
-          return cur[a];
-        }
-        const neighbours = adjacency[n.id] ?? [];
-        const w = neighbours.find((id) => visible.has(id)) ?? neighbours[0];
-        return cur[w] ?? byId[w];
+        const a = n.areas.find((a) => open.has(a)) ?? n.areas[0];
+        return cur[a];
       };
 
-      for (const kind of ['work', 'method'] as const) {
+      {
         for (const n of nodes) {
-          if (n.kind !== kind) continue;
+          if (n.kind !== 'work') continue;
           const d = drift(n);
           const final = { x: n.x + d.x, y: n.y + d.y };
           const o = originOf(n);
@@ -455,7 +469,7 @@ export default function ResearchGraph() {
         // aspect allows, and centring opened dead space between name and graph.
         preserveAspectRatio="xMinYMid meet"
         role="group"
-        aria-label="Research network: three research areas. Hover or select an area to reveal its works and methods. The Selected work list below holds the same information."
+        aria-label="Research network: three research areas. Select an area to reveal its work. Every publication is also listed in full under Publications below."
         onPointerEnter={cancelClose}
         onPointerLeave={closeAreaSoon}
       >
@@ -531,15 +545,23 @@ export default function ResearchGraph() {
                     .filter(Boolean)
                     .join(' ')}
                   data-area={isArea ? n.id : n.areas[0]}
-                  tabIndex={0}
+                  /* Roving: exactly one node is tabbable, so the graph costs a
+                     single Tab stop instead of 25, and the tab ring no longer
+                     grows as focusing an area reveals its works. */
+                  tabIndex={n.id === rovingId ? 0 : -1}
                   role="button"
-                  aria-pressed={pressed}
+                  {...(isArea
+                    ? { 'aria-expanded': open.has(n.id as AreaId) }
+                    : { 'aria-pressed': pressed })}
                   aria-label={n.ariaLabel}
                   onPointerEnter={(e) => {
                     if (e.pointerType === 'mouse') enter(n);
                   }}
                   onPointerLeave={() => leave(n)}
-                  onFocus={() => enter(n)}
+                  onFocus={() => {
+                    setRoving(n.id);
+                    enter(n);
+                  }}
                   onBlur={() => leave(n)}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -549,7 +571,17 @@ export default function ResearchGraph() {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
                       activate(n);
+                      return;
                     }
+                    const step =
+                      e.key === 'ArrowRight' || e.key === 'ArrowDown'
+                        ? 1
+                        : e.key === 'ArrowLeft' || e.key === 'ArrowUp'
+                          ? -1
+                          : 0;
+                    if (!step) return;
+                    e.preventDefault();
+                    moveRoving(n.id, step);
                   }}
                 >
                   <circle
@@ -601,7 +633,7 @@ export default function ResearchGraph() {
                     textAnchor={label.anchor}
                   >
                     {n.label}
-                    {isArea && <tspan>{`  ${n.count}`}</tspan>}
+                    {isArea && <tspan>{`  ${n.count} ${n.count === 1 ? 'paper' : 'papers'}`}</tspan>}
                   </text>
                 </g>
               </g>
@@ -618,27 +650,25 @@ export default function ResearchGraph() {
         hidden={!focusNode || focusNode.kind === 'area'}
         style={tipPos ? { left: tipPos.left, top: tipPos.top } : undefined}
       >
-        {focusNode && focusNode.kind !== 'area' && <TipBody node={focusNode} degree={(graph.adjacency[focusNode.id] ?? []).length} />}
+        {focusNode && focusNode.kind !== 'area' && <TipBody node={focusNode} />}
       </div>
     </>
   );
 }
 
-function TipBody({ node, degree }: { node: GraphNode; degree: number }) {
-  if (node.kind === 'method') {
-    return (
-      <>
-        <p className="rn-eyebrow">Method · used in {degree} works</p>
-        <h3 className="rn-method-name">{node.label}</h3>
-      </>
-    );
-  }
+function TipBody({ node }: { node: GraphNode }) {
   const w = node.work!;
   const external = w.href.startsWith('http');
+  /* Venue and status, matching metaParts() in SelectedWork: the tooltip used
+     to show type and year only, omitting the field an academic reader ranks
+     on. A status that already names the type replaces it. */
+  const restatesType = !!w.status && w.status.toLowerCase().includes(w.type.toLowerCase());
   return (
     <>
       <p className="rn-eyebrow">
-        {w.type} · {w.year}
+        {restatesType ? null : <>{w.type} · </>}
+        {w.venue ? <>{w.venue} · </> : null}
+        {w.status ? <em>{w.status}</em> : w.year}
       </p>
       <h3>{w.title}</h3>
       <p>{w.summary}</p>

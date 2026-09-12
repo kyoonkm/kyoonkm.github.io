@@ -10,14 +10,17 @@ import ThesisPhrases from './ThesisPhrases';
 export default function ResearchHero() {
   return (
     <>
+      {/* The graph renders after the intro so a keyboard or screen-reader user
+          reaches the name first; .rn-net is position:absolute, so the visual
+          order is unchanged. */}
       <section className="rn-hero" aria-labelledby="rn-name">
-        <ResearchGraph />
         <div className="max-w-6xl mx-auto px-6 rn-hero-inner">
           <div className="rn-intro">
             <h1 id="rn-name">Kayoon Kim</h1>
             <ThesisPhrases />
           </div>
         </div>
+        <ResearchGraph />
       </section>
     </>
   );

@@ -247,11 +247,6 @@ html {
   fill-opacity: var(--fill-op);
   stroke: none;
 }
-.rn-method .rn-body {
-  fill: var(--method);
-  fill-opacity: 1;
-  stroke: var(--method-s);
-}
 .rn-ring {
   fill: none;
   stroke: var(--edge-hot);
@@ -293,11 +288,6 @@ html {
 .rn-area text tspan {
   font-weight: 400;
   fill: var(--ink-3);
-}
-.rn-method text {
-  font-size: 11.5px;
-  fill: var(--ink-3);
-  font-style: italic;
 }
 .rn-nd.is-shown text {
   opacity: 1;
@@ -344,10 +334,6 @@ html {
   margin: 0 0 4px;
   color: var(--ink);
   text-wrap: balance;
-}
-.rn-tip h3.rn-method-name {
-  font-style: italic;
-  font-weight: 500;
 }
 .rn-tip p {
   margin: 0 0 8px;
@@ -1262,10 +1248,7 @@ a.rn-ti:hover {
   .rn-area text {
     font-size: 26px;
   }
-  .rn-method text {
-    opacity: 0 !important;
-  }
-  .rn-row {
+    .rn-row {
     grid-template-columns: 2.8rem minmax(0, 1fr) 2.4rem;
     gap: 12px;
   }

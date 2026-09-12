@@ -17,10 +17,10 @@ export default function Home() {
         <Header />
         <main id="main">
           <ResearchHero />
-          <AboutSection />
           <div className="max-w-6xl mx-auto px-6">
             <SelectedWork />
           </div>
+          <AboutSection />
         </main>
         <Footer />
       </div>

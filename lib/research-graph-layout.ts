@@ -23,7 +23,7 @@ export const AREA_R_REST = 46;
 export const AREA_R_OPEN = 26;
 export const MOBILE_QUERY = "(max-width: 860px)";
 
-export type NodeKind = "area" | "work" | "method";
+export type NodeKind = "area" | "work";
 
 export interface GraphNode {
   id: string;
@@ -39,7 +39,6 @@ export interface GraphNode {
   areas: AreaId[];
   area?: Area;
   work?: Work;
-  method?: Method;
   /** Work count, for area nodes. */
   count?: number;
 }
@@ -67,7 +66,6 @@ export interface Graph {
   labels: Record<string, LabelPlacement>;
 }
 
-const methodNodeId = (id: string) => `m-${id}`;
 
 /* ------------------------------------------------------------------ */
 /* Validation                                                          */
@@ -180,20 +178,9 @@ export function layout(
     });
   }
 
-  METHODS.forEach((m, i) => {
-    const ws = WORKS.filter((w) => (w.methods ?? []).includes(m.id));
-    let x = ws.reduce((s, w) => s + P[w.id].x, 0) / ws.length;
-    let y = ws.reduce((s, w) => s + P[w.id].y, 0) / ws.length;
-    const ang = i * 2.39996; // golden angle
-    x += 55 * Math.cos(ang);
-    y += 55 * Math.sin(ang);
-    P[methodNodeId(m.id)] = { x, y, tx: x, ty: y };
-  });
-
-  const movable = [
-    ...WORKS.map((w) => w.id),
-    ...METHODS.map((m) => methodNodeId(m.id)),
-  ];
+  /* Only works relax. Methods used to add 9 more movables, and that extra
+     crowding is what pressed 6 of the 13 works flat against the frame. */
+  const movable = WORKS.map((w) => w.id);
 
   for (let it = 0; it < 400; it++) {
     for (let i = 0; i < movable.length; i++) {
@@ -221,13 +208,18 @@ export function layout(
         const dx = p.x - a.x;
         const dy = p.y - a.y;
         const d = Math.hypot(dx, dy) || 0.01;
-        if (d < 108) {
-          p.x = a.x + (dx / d) * 108;
-          p.y = a.y + (dy / d) * 108;
+        /* Raised from 108 now that only 13 nodes compete: it keeps work
+           labels clear of the area label, which sits outside the r=46 circle. */
+        if (d < 142) {
+          p.x = a.x + (dx / d) * 142;
+          p.y = a.y + (dy / d) * 142;
         }
       }
-      p.x += (p.tx - p.x) * 0.025;
-      p.y += (p.ty - p.y) * 0.025;
+      /* Stronger pull back to the barycentric anchor (was 0.025). Position is
+         supposed to encode area membership; a weak pull let relaxation swap
+         nodes across their own axis. */
+      p.x += (p.tx - p.x) * 0.06;
+      p.y += (p.ty - p.y) * 0.06;
       p.x = Math.min(1175, Math.max(540, p.x));
       p.y = Math.min(625, Math.max(45, p.y));
     }
@@ -248,8 +240,6 @@ function buildTopology(areas: Area[] = AREAS) {
   const edges: GraphEdge[] = [];
   for (const w of WORKS) {
     for (const a of w.areas) edges.push({ id: `${w.id}~${a}`, a: w.id, b: a });
-    for (const m of w.methods ?? [])
-      edges.push({ id: `${w.id}~m-${m}`, a: w.id, b: methodNodeId(m) });
   }
 
   const adjacency: Record<string, string[]> = {};
@@ -260,14 +250,17 @@ function buildTopology(areas: Area[] = AREAS) {
     push(e.a, e.b);
     push(e.b, e.a);
   }
-  for (const m of METHODS) adjacency[methodNodeId(m.id)] ??= [];
   for (const a of areas) adjacency[a.id] ??= [];
 
   const nodes: GraphNode[] = [];
   let index = 0;
 
   for (const a of areas) {
-    const count = WORKS.filter((w) => w.areas.includes(a.id)).length;
+    /* Publications only, to reconcile with the list below, which excludes
+       Projects. A bare total counting projects read as "7 publications". */
+    const count = WORKS.filter(
+      (w) => w.areas.includes(a.id) && w.type !== "Project",
+    ).length;
     nodes.push({
       id: a.id,
       kind: "area",
@@ -279,7 +272,7 @@ function buildTopology(areas: Area[] = AREAS) {
       areas: [a.id],
       area: a,
       count,
-      ariaLabel: `${a.label}: show its ${count} works`,
+      ariaLabel: `${a.label}: show its ${count} ${count === 1 ? "paper" : "papers"}`,
     });
   }
   for (const w of WORKS) {
@@ -297,23 +290,6 @@ function buildTopology(areas: Area[] = AREAS) {
       ariaLabel: `${w.title}, ${w.type}, ${w.year}`,
     });
   }
-  for (const m of METHODS) {
-    const id = methodNodeId(m.id);
-    const deg = adjacency[id].length;
-    nodes.push({
-      id,
-      kind: "method",
-      index: index++,
-      label: m.label,
-      x: positions[id].x,
-      y: positions[id].y,
-      r: 4 + 1.5 * Math.sqrt(deg),
-      areas: [],
-      method: m,
-      ariaLabel: `Method: ${m.label}, used in ${deg} works`,
-    });
-  }
-
   const triangle: GraphEdge[] = [
     { id: "tri-society-ai", a: "society", b: "ai" },
     { id: "tri-ai-decisions", a: "ai", b: "decisions" },
@@ -384,11 +360,10 @@ export function placeLabels(
   const order = [
     ...nodes.filter((n) => n.kind === "work" && n.work?.featured),
     ...nodes.filter((n) => n.kind === "work" && !n.work?.featured),
-    ...nodes.filter((n) => n.kind === "method"),
   ];
 
   for (const n of order) {
-    const fontSize = mobile ? 24 : n.kind === "method" ? 11.5 : 13;
+    const fontSize = mobile ? 24 : 13;
     const w = n.label.length * fontSize * 0.58;
     const h = fontSize * 1.15;
     const gap = n.r + 5;
@@ -426,8 +401,7 @@ export function placeLabels(
         );
 
     labels[n.id] = chosen.placement;
-    // On mobile only work labels reserve space; method labels are hidden.
-    if (!mobile || n.kind === "work") occupied.push(chosen.box);
+ occupied.push(chosen.box);
   }
 
   return labels;
