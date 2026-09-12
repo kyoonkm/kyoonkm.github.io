@@ -54,7 +54,6 @@ html {
 .rn-tip h3,
 .rn-mark,
 .rn-page-head h1,
-.rn-pgroup-head h2,
 .rn-detail h1,
 .rn-detail h2 {
   font-family: var(--font-satoshi), var(--font-body), system-ui, sans-serif;
@@ -829,31 +828,6 @@ a.rn-ti:hover {
   margin: 3px 0 0 16px;
 }
 
-/* Group heading. This is the 20-24px register the page was missing: the type
-   ran 13 / 13.5 / 14 / 15.5 / 17px and then leapt straight to the h1. */
-.rn-pgroup {
-  margin: 0 0 44px;
-}
-.rn-pgroup-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 16px;
-}
-.rn-pgroup-head h2 {
-  font-size: 1.375rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  color: var(--ink);
-  margin: 0;
-}
-.rn-pgroup-head p {
-  font-size: 13px;
-  color: var(--ink-3);
-  margin: 0;
-}
-
 /* Project list. Rows, not cards: eight same-size shadowed rectangles gave an
    AutoUI submission and a coursework script identical weight. */
 .rn-plist {
@@ -882,16 +856,20 @@ a.rn-ti:hover {
   min-width: 0;
 }
 
+/* --ink-2, not --ink-3: the year is what a returning reader scans for, and at
+   4.54:1 it was the lowest-contrast text on the page. */
 .rn-pyr {
   font-size: 13px;
   line-height: 1.4;
-  color: var(--ink-3);
+  color: var(--ink-2);
   font-variant-numeric: tabular-nums;
   margin: 0 0 4px;
 }
 
+/* 19px, not 17px: with no group heading above it the row title is the page's
+   second-level voice, and the scale needed the step (h1 1.6x, question 1.36x). */
 .rn-pti {
-  font-size: 1.0625rem;
+  font-size: 1.1875rem;
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: -0.01em;

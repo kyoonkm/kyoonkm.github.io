@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { PROJECTS_BY_YEAR, PROJECT_GROUPS, type Project } from '@/data/projects';
+import { PROJECTS_BY_YEAR, type Project } from '@/data/projects';
 import { AREAS, type AreaId } from '@/data/research-graph';
 
 export const metadata: Metadata = {
@@ -17,18 +17,19 @@ const AREA_BY_ID = Object.fromEntries(AREAS.map((a) => [a.id, a])) as Record<
 >;
 
 /**
- * Grouped by outcome, newest first inside each group.
+ * One list, newest first.
  *
- * Two things went with this rewrite. The three area toggles, because every one
- * of them returned exactly four of eight — a control whose only possible answer
- * is "half" does not earn the second slot on the page. And flat
- * reverse-chronological order, which put the one peer-reviewed article last,
- * below a coursework repo; app/publications abandoned that arrangement for the
- * same reason and this is the projects-side equivalent.
+ * Grouping by outcome was tried and reverted: it is the better arrangement for
+ * a committee hunting for peer review, and the worse one for the far more
+ * common reader who wants to know what this person is working on now. Sorted
+ * by outcome, the page opened on 2020 and buried 2026 below the fold. The
+ * credential survives per row instead, in bold on the meta line.
  *
- * The areas survive as the dots on each row, keyed by the legend below — which
- * is also the first place the blurbs in data/research-graph.ts have ever been
- * shown to a reader. With the filter gone the page needs no client state.
+ * The three area toggles are also gone — every one of them returned exactly
+ * four of eight, so the control could only ever answer "half". The areas
+ * survive as the dots on each row, keyed by the legend below, which is the
+ * first place the blurbs in data/research-graph.ts have been shown to a
+ * reader. With no filter the route needs no client state.
  */
 export default function Projects() {
   let figureIndex = 0;
@@ -56,7 +57,7 @@ export default function Projects() {
             <p className="rn-pyr" aria-hidden="true">
               {p.year}
             </p>
-            <h3 className="rn-pti">{p.title}</h3>
+            <h2 className="rn-pti">{p.title}</h2>
             <p className="rn-pq">{p.question}</p>
             {(outcome || p.context) && (
               <p className="rn-pmeta">
@@ -117,7 +118,7 @@ export default function Projects() {
             <div className="rn-page-head">
               <h1 id="rn-proj-h">Projects</h1>
               <p className="rn-showing">
-                {PROJECTS_BY_YEAR.length} projects, grouped by outcome
+                {PROJECTS_BY_YEAR.length} projects, newest first
               </p>
             </div>
 
@@ -141,23 +142,11 @@ export default function Projects() {
               ))}
             </dl>
 
-            {PROJECT_GROUPS.map((g) => {
-              const rows = PROJECTS_BY_YEAR.filter((p) => p.kind === g.kind);
-              if (!rows.length) return null;
-              return (
-                <section key={g.id} className="rn-pgroup" aria-labelledby={`g-${g.id}`}>
-                  <div className="rn-pgroup-head">
-                    <h2 id={`g-${g.id}`}>{g.heading}</h2>
-                    <p>{g.blurb}</p>
-                  </div>
-                  <ol className="rn-plist">
-                    {rows.map((p) => (
-                      <Row key={p.id} p={p} />
-                    ))}
-                  </ol>
-                </section>
-              );
-            })}
+            <ol className="rn-plist">
+              {PROJECTS_BY_YEAR.map((p) => (
+                <Row key={p.id} p={p} />
+              ))}
+            </ol>
 
             <p className="rn-work-foot">
               <Link href="/publications">All publications</Link>
