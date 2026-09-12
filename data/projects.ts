@@ -85,7 +85,16 @@ export const PROJECTS: Project[] = [
     year: 2026,
     question: "How do automated vehicles resolve conflicting passenger needs?",
     context: "Porsche Human-Centered AI Research",
-    outcomes: ["Submitted to AutoUI 2026"],
+    /*
+     * Two papers, one system, so one project page. The AutomotiveUI poster is
+     * the accepted outcome and leads; the workshop paper is still in review.
+     * Authorship differs between them — equal contribution on one, sole on the
+     * other — and /publications is where that distinction is carried.
+     */
+    outcomes: [
+      "AutomotiveUI 2026 Works in Progress poster",
+      "NeurIPS 2026 Social Agents Workshop poster, under review",
+    ],
     status: "In progress",
     areas: ["ai", "decisions"],
     summary:
@@ -103,7 +112,10 @@ export const PROJECTS: Project[] = [
       '- Validated Rationale Analysis\n' +
       'I developed an NLP pipeline to analyze rationale that users agreed on. I parsed responses into context, setting, and rationale, extracted normalized verb-object phrases from rationales, and clustered them semantically using sentence embeddings and BERTopic. By weighting frequent phrases and filtering generic preference language, I identified the underlying contextual factors (Figure 2).\n\n' +
       '- Contextual Inquiry (Field Test)\n' +
-      'For real-world, field-test oriented application, I trained a compact in-car decision model in three stages. First, I performed supervised fine-tuning on scenarios that participants accepted (“Yes”) to teach the model to generate structured cabin settings with clear rationales. Next, I applied a Chain-of-Hindsight–style revision step using disagreed (“No”) feedback to learn targeted corrections, and finally used KTO preference alignment on balanced Yes/No labels to shift the model toward outputs that match human acceptability. To evaluate performance, I conducted a field test with interaction design experts at Porsche.',
+      'For real-world, field-test oriented application, I trained a compact in-car decision model in three stages. First, I performed supervised fine-tuning on scenarios that participants accepted (“Yes”) to teach the model to generate structured cabin settings with clear rationales. Next, I applied a Chain-of-Hindsight–style revision step using disagreed (“No”) feedback to learn targeted corrections, and finally used KTO preference alignment on balanced Yes/No labels to shift the model toward outputs that match human acceptability. To evaluate performance, I conducted a field test with interaction design experts at Porsche.\n\n' +
+      'Where this work has gone\n\n' +
+      '• Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Decision Space Exploration — a Works in Progress poster at AutomotiveUI 2026, with Jan Henry Belz as an equal contributor, on the simulation-plus-survey mapping of the decision space into design guidelines.\n' +
+      '• Four Passengers, One Decision: How LLM Agents Negotiate and Form Norms in a Shared Car — a sole-authored poster under review at the NeurIPS 2026 Social Agents Workshop, on what the agents settle on: norms none of them held alone.' ,
     image: "/images/projects/reasoning_cluster.webp",
     thumb: "/images/projects/thumbs/reasoning_cluster.webp",
     images: [
@@ -112,6 +124,8 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ["Python", "Autogen", "Model Context Protocol"],
     links: [
+      { label: "Sim-DSE (AutomotiveUI)", url: "/publications#sim-dse" },
+      { label: "Four Passengers (NeurIPS workshop)", url: "/publications#agent-norms" },
       {
         label: "Slides",
         url: "https://docs.google.com/presentation/d/11icBSOa2cB54j50gHfyy2_zW2EXgIT9zrvkm9vqrVJM/edit?usp=sharing",
