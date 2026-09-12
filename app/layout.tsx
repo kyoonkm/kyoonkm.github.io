@@ -32,10 +32,37 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const DESCRIPTION =
+  "Kayoon Kim — researcher in human–AI interaction, social agents and responsible AI at ELLIS Institute Tübingen.";
+const SITE = "https://kyoonkm.github.io";
+
+/* Without these, a link pasted into LinkedIn, Slack or email rendered as a
+   bare URL with no title card. */
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE),
   title: "Kayoon Kim",
-  description:
-    "Kayoon Kim — researcher in human–AI interaction, social agents and responsible AI at ELLIS Institute Tübingen.",
+  description: DESCRIPTION,
+  openGraph: {
+    type: "profile",
+    url: SITE,
+    siteName: "Kayoon Kim",
+    title: "Kayoon Kim — human–AI interaction, social agents, responsible AI",
+    description: DESCRIPTION,
+    images: [
+      {
+        url: "/og-kayoon-kim.png",
+        width: 1200,
+        height: 627,
+        alt: "Kayoon Kim. Studying society with AI agents and ML, for better human decisions.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kayoon Kim — human–AI interaction, social agents, responsible AI",
+    description: DESCRIPTION,
+    images: ["/og-kayoon-kim.png"],
+  },
 };
 
 export default function RootLayout({
