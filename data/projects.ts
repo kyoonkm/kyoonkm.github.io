@@ -325,17 +325,35 @@ export const PROJECTS: Project[] = [
     title: "Recommender Systems for Human Decision-Making",
     year: 2021,
     question:
-      "Working through the standard recommender algorithms, one implementation at a time.",
-    context: "Internship study project",
+      "What does a recommender actually gain at each step from popularity ranking to a latent-variable model?",
+    context: "CAU Data Science Lab",
     status: "Completed",
     areas: ["decisions"],
-    /* A small study project. It used to claim it evaluated whether recommenders
-       "improve the choice rather than the click", which is a research finding
-       this work does not have; the repository is the honest artefact. */
+    /* A study project, and described as one. It used to claim it evaluated
+       whether recommenders "improve the choice rather than the click", which is
+       a research finding this work does not have. The notebooks are the
+       artefact. */
     summary:
-      "Implementations of the standard recommendation algorithms, each paired with a review of the paper it comes from. Written up during an internship.",
+      "Eleven topics in recommender systems, worked in order: non-personalised ranking, genre and group baselines, matrix factorisation, then autoencoders. Each step paired with a review of the paper it comes from.",
+    fullDescription:
+      'The shape of it\n\n' +
+      'An internship at the CAU Data Science Lab, run as a study sequence alongside a reading group following CSCI 5123. The point was to build each family of recommender in order rather than jump to the strongest one, so that every step had to justify what it added over the step before. Implementations are Jupyter notebooks on the MovieLens 1M dataset; the reviews are written up with figures.\n\n' +
+      'Built, in order\n\n' +
+      '• Non-personalised recommendation — the popularity baseline everything else has to beat.\n' +
+      '• Genre-based recommendation, then popular/genre/group variants, which is where personalisation first appears without any latent structure.\n' +
+      '• Matrix factorisation — latent factors learned from the interaction matrix.\n' +
+      '• Autoencoders, then variational autoencoders for collaborative filtering.\n' +
+      '• Mixture of experts, and Gumbel-Softmax for sampling a discrete choice while keeping gradients.\n\n' +
+      'Papers reviewed\n\n' +
+      'Categorical Reparameterization with Gumbel-Softmax; Variational Autoencoders for Collaborative Filtering; Embarrassingly Shallow Autoencoders for Sparse Data; Learning an Adaptive Meta-Model Generator for Incrementally Updating Recommender Systems; Transformers4Rec; and Time to CARE, a collaborative engine for practical disease prediction — the one that carries the thread into a decision that matters.\n\n' +
+      'This is coursework-scale work and it is listed as such. It is the point where the interest in how systems shape a person\'s choice stopped being sociological and started being something I could implement.',
+    technologies: ["Python", "PyTorch", "Jupyter"],
     links: [
       { label: "GitHub", url: "https://github.com/kyoonkm/2021-RecSys" },
+      {
+        label: "Reading group",
+        url: "https://github.com/CAU-Data-Science-Lab/2021S-RecSys-Study",
+      },
     ],
   },
 ];
