@@ -20,7 +20,7 @@ export const metadata: Metadata = {
  */
 const GROUPS: { id: string; heading: string; types: Work['type'][] }[] = [
   { id: 'journal', heading: 'Journal articles', types: ['Journal article'] },
-  { id: 'venue', heading: 'Conference & workshop', types: ['Poster'] },
+  { id: 'venue', heading: 'Conference & workshop', types: ['Talk', 'Poster'] },
   {
     id: 'preprint',
     heading: 'Manuscripts & work in progress',
@@ -78,13 +78,21 @@ function Byline({ authors }: { authors: Author[] }) {
  * " · " separators fall out of the join instead of being hand-placed on each
  * optional field, which is where the leading-separator bugs come from.
  */
+const spoken = (w: Work) => w.type === 'Talk' || w.type === 'Poster';
+
 function metaParts(w: Work) {
   const restatesType = !!w.status && w.status.toLowerCase().includes(w.type.toLowerCase());
   return [
     restatesType ? null : { text: w.type, className: undefined },
     w.venue ? { text: w.venue, className: 'rn-ve' } : null,
     w.status ? { text: w.status, className: 'rn-st' } : null,
-    w.published ? { text: `Published ${formatDate(w.published)}`, className: undefined } : null,
+    /* A talk is not published on the day it is given. */
+    w.published
+      ? {
+          text: `${spoken(w) ? 'Presented' : 'Published'} ${formatDate(w.published)}`,
+          className: undefined,
+        }
+      : null,
   ].filter(Boolean) as { text: string; className?: string }[];
 }
 

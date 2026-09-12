@@ -17,6 +17,7 @@ export type WorkType =
   | "Journal article"
   | "Manuscript"
   | "Work in progress"
+  | "Talk"
   | "Poster"
   | "Project";
 
@@ -301,10 +302,12 @@ export const WORKS: Work[] = [
       "Claiming for Rights: The Changing Landscape of Issues and Claims in the National Petition of South Korea, 2017–2020",
     short: "Petition claims",
     year: 2021,
-    type: "Poster",
+    type: "Talk",
     areas: ["society"],
     methods: ["text"],
-    venue: "International Postgraduate and Academic Conference",
+    venue:
+      "International Postgraduate and Academic Conference, Chung-Ang University",
+    published: "2021-02-19",
     authors: [{ name: "Kayoon Kim", self: true }],
     summary:
       "Which claims South Koreans brought to the national petition platform, and how that repertoire shifted over four years.",
