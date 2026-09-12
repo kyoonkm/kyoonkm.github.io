@@ -29,6 +29,15 @@ export interface Project {
   context?: string;
   /** The credential an academic reader ranks by. Index shows the first. */
   outcomes?: string[];
+  /**
+   * Which group the project sits in on the index.
+   *
+   * The index was flat reverse-chronological, which put a coursework repo at
+   * the same weight as a PLOS ONE paper and left the paper in last place.
+   * `app/publications` already abandoned that arrangement for the same reason;
+   * this is the projects-side equivalent.
+   */
+  kind: "published" | "research" | "study";
   status: "In progress" | "Completed";
   areas: AreaId[];
   /** Longer lede, used at the top of the detail page. */
@@ -47,6 +56,7 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: 1,
+    kind: "research",
     title:
       "Multi-Agent Negotiation for Human-Centric Vehicle Configuration (Sim-DSE)",
     year: 2026,
@@ -88,6 +98,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 2,
+    kind: "research",
     title: "Preferential Bayesian Optimization (PBO)",
     year: 2024,
     question:
@@ -125,6 +136,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 3,
+    kind: "research",
     title: "Student Dropout Prediction (Kalman Filter)",
     year: 2023,
     question:
@@ -155,6 +167,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 4,
+    kind: "research",
     title: "Automatic Labeling Model",
     year: 2023,
     question:
@@ -178,6 +191,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 5,
+    kind: "published",
     title: "COVID-19 Data Analysis A to Z",
     year: 2021,
     question:
@@ -223,6 +237,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 6,
+    kind: "published",
     title: "COVID-19: Our Memory",
     year: 2020,
     question:
@@ -252,6 +267,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 7,
+    kind: "published",
     title: "Online Petition Analysis of South Korea",
     year: 2020,
     question:
@@ -282,6 +298,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 8,
+    kind: "study",
     title: "Recommender Systems for Human Decision-Making",
     year: 2021,
     question:
@@ -302,6 +319,33 @@ export const PROJECTS: Project[] = [
 ];
 
 export const PROJECTS_BY_YEAR = [...PROJECTS].sort((a, b) => b.year - a.year);
+
+/** Group order is the reading order: evidence first, then work, then study. */
+export const PROJECT_GROUPS: {
+  id: string;
+  heading: string;
+  blurb: string;
+  kind: Project["kind"];
+}[] = [
+  {
+    id: "published",
+    heading: "Published & archived",
+    blurb: "Work that went through peer review or into a public collection.",
+    kind: "published",
+  },
+  {
+    id: "research",
+    heading: "Research & internships",
+    blurb: "Work done inside a lab or a company, some of it still in review.",
+    kind: "research",
+  },
+  {
+    id: "study",
+    heading: "Coursework & study",
+    blurb: "Smaller pieces, kept here because the code is public.",
+    kind: "study",
+  },
+];
 
 export function projectById(id: number): Project | undefined {
   return PROJECTS.find((p) => p.id === id);

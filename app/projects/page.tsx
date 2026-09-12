@@ -1,11 +1,15 @@
-'use client';
-
-import { useState } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { PROJECTS_BY_YEAR } from '@/data/projects';
+import { PROJECTS_BY_YEAR, PROJECT_GROUPS, type Project } from '@/data/projects';
 import { AREAS, type AreaId } from '@/data/research-graph';
+
+export const metadata: Metadata = {
+  title: 'Projects — Kayoon Kim',
+  description:
+    'Research projects in human–AI interaction, social agents and computational social science by Kayoon Kim.',
+};
 
 const AREA_BY_ID = Object.fromEntries(AREAS.map((a) => [a.id, a])) as Record<
   AreaId,
@@ -13,21 +17,96 @@ const AREA_BY_ID = Object.fromEntries(AREAS.map((a) => [a.id, a])) as Record<
 >;
 
 /**
- * Rows, newest first, one filter.
+ * Grouped by outcome, newest first inside each group.
  *
- * The previous version governed seven items with a sort select, a nine-option
- * dropdown, a dismissible chip stack and a result count — a toolbar for a
- * problem this page does not have. The three toggles below are the same three
- * areas as the hero graph, so the grid and the graph finally name the work the
- * same way.
+ * Two things went with this rewrite. The three area toggles, because every one
+ * of them returned exactly four of eight — a control whose only possible answer
+ * is "half" does not earn the second slot on the page. And flat
+ * reverse-chronological order, which put the one peer-reviewed article last,
+ * below a coursework repo; app/publications abandoned that arrangement for the
+ * same reason and this is the projects-side equivalent.
+ *
+ * The areas survive as the dots on each row, keyed by the legend below — which
+ * is also the first place the blurbs in data/research-graph.ts have ever been
+ * shown to a reader. With the filter gone the page needs no client state.
  */
 export default function Projects() {
-  const [area, setArea] = useState<AreaId | null>(null);
+  let figureIndex = 0;
 
-  const shown = area
-    ? PROJECTS_BY_YEAR.filter((p) => p.areas.includes(area))
-    : PROJECTS_BY_YEAR;
-  const label = area ? AREA_BY_ID[area].label : null;
+  const Row = ({ p }: { p: Project }) => {
+    /* The first figure on the page is the LCP candidate; the rest defer. */
+    const eager = figureIndex++ === 0;
+    const outcome = p.outcomes?.[0];
+    const areaNames = p.areas.map((a) => AREA_BY_ID[a].label).join(', ');
+
+    return (
+      <li>
+        {/*
+          aria-label replaces the whole subtree for name computation, so
+          everything the row says has to be inside it. An earlier version
+          carried only the title and the year, which silently dropped
+          "Published in PLOS ONE, 2024" out of the accessible tree entirely.
+        */}
+        <Link
+          className="rn-prow"
+          href={`/projects/${p.id}`}
+          aria-label={`${p.title}, ${p.year}${outcome ? `. ${outcome}` : ''}. ${areaNames}`}
+        >
+          <div className="rn-pmain">
+            <p className="rn-pyr" aria-hidden="true">
+              {p.year}
+            </p>
+            <h3 className="rn-pti">{p.title}</h3>
+            <p className="rn-pq">{p.question}</p>
+            {(outcome || p.context) && (
+              <p className="rn-pmeta">
+                {outcome ? (
+                  <>
+                    <strong>{outcome}</strong>
+                    {p.context ? ` · ${p.context}` : ''}
+                  </>
+                ) : (
+                  p.context
+                )}
+              </p>
+            )}
+          </div>
+
+          {/*
+            Dots first, so a row with a figure and a row without start their
+            column at the same y. The one project with no figure used to float
+            its dots 130px above everyone else's.
+          */}
+          <div className="rn-pfig">
+            <span className="rn-ds" aria-hidden="true">
+              {p.areas.map((a) => (
+                <i key={a} data-area={a} />
+              ))}
+            </span>
+            {p.thumb && (
+              /*
+                Contained on a mat, not cropped to fill. These are research
+                figures of wildly different proportions — forcing them all to
+                one aspect ratio cut 46% off the widest. The mat is what gives
+                seven unrelated screenshots a shared treatment.
+              */
+              <span className="rn-mat">
+                <img
+                  src={p.thumb}
+                  alt=""
+                  width={640}
+                  height={360}
+                  loading={eager ? 'eager' : 'lazy'}
+                  fetchPriority={eager ? 'high' : undefined}
+                  decoding="async"
+                />
+              </span>
+            )}
+          </div>
+        </Link>
+      </li>
+    );
+  };
 
   return (
     <div className="min-h-screen">
@@ -37,109 +116,48 @@ export default function Projects() {
           <section aria-labelledby="rn-proj-h">
             <div className="rn-page-head">
               <h1 id="rn-proj-h">Projects</h1>
-              <p className="rn-showing" role="status">
-                {label
-                  ? `${shown.length} of ${PROJECTS_BY_YEAR.length} in ${label}`
-                  : `${PROJECTS_BY_YEAR.length} projects, newest first`}
+              <p className="rn-showing">
+                {PROJECTS_BY_YEAR.length} projects, grouped by outcome
               </p>
             </div>
 
             <p className="rn-lede">
               Research projects from the lab, the internships and the coursework
-              that preceded them. Peer-reviewed work lives on{' '}
+              that preceded them. Peer-reviewed work is listed in full on{' '}
               <Link href="/publications" className="rn-link">
                 publications
               </Link>
               .
             </p>
 
-            <div className="rn-areafilter">
+            {/* The key for the dots on every row, and the one place the area
+                definitions are written out for a reader. */}
+            <dl className="rn-areakey">
               {AREAS.map((a) => (
-                <button
-                  key={a.id}
-                  type="button"
-                  data-area={a.id}
-                  className="rn-areabtn"
-                  aria-pressed={area === a.id}
-                  onClick={() => setArea((cur) => (cur === a.id ? null : a.id))}
-                >
-                  {a.label}
-                </button>
+                <div key={a.id} data-area={a.id}>
+                  <dt>{a.label}</dt>
+                  <dd>{a.blurb}</dd>
+                </div>
               ))}
-              {area && (
-                <button type="button" className="rn-clear" onClick={() => setArea(null)}>
-                  Show all
-                </button>
-              )}
-            </div>
+            </dl>
 
-            {shown.length ? (
-              <ol className="rn-plist">
-                {shown.map((p) => {
-                  const credit = [p.outcomes?.[0], p.context]
-                    .filter(Boolean)
-                    .join(' · ');
-                  return (
-                    <li key={p.id}>
-                      {/* The accessible name is the title and the year. It used
-                          to be the title, the year, the title again and a
-                          40-word paragraph, which made the links list
-                          unusable. */}
-                      <Link
-                        className="rn-prow"
-                        href={`/projects/${p.id}`}
-                        aria-label={`${p.title}, ${p.year}`}
-                      >
-                        <p className="rn-pyr" aria-hidden="true">
-                          {p.year}
-                        </p>
-                        <div className="rn-pmain">
-                          <h2 className="rn-pti">{p.title}</h2>
-                          <p className="rn-pq">{p.question}</p>
-                          {credit && (
-                            <p className="rn-pmeta">
-                              {p.outcomes?.[0] ? (
-                                <>
-                                  <strong>{p.outcomes[0]}</strong>
-                                  {p.context ? ` · ${p.context}` : ''}
-                                </>
-                              ) : (
-                                p.context
-                              )}
-                            </p>
-                          )}
-                        </div>
-                        <div className="rn-pfig">
-                          {p.thumb && (
-                            /* Decorative: the figure repeats nothing the
-                               heading does not already say, and the old
-                               alt text claimed a Porsche logo was "Sim-DSE". */
-                            <img
-                              src={p.thumb}
-                              alt=""
-                              width={480}
-                              height={320}
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          )}
-                          <span className="rn-ds">
-                            {p.areas.map((a) => (
-                              <i key={a} data-area={a} aria-hidden="true" />
-                            ))}
-                            <span className="sr-only">
-                              {p.areas.map((a) => AREA_BY_ID[a].label).join(', ')}
-                            </span>
-                          </span>
-                        </div>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ol>
-            ) : (
-              <p className="rn-empty">No projects in {label}.</p>
-            )}
+            {PROJECT_GROUPS.map((g) => {
+              const rows = PROJECTS_BY_YEAR.filter((p) => p.kind === g.kind);
+              if (!rows.length) return null;
+              return (
+                <section key={g.id} className="rn-pgroup" aria-labelledby={`g-${g.id}`}>
+                  <div className="rn-pgroup-head">
+                    <h2 id={`g-${g.id}`}>{g.heading}</h2>
+                    <p>{g.blurb}</p>
+                  </div>
+                  <ol className="rn-plist">
+                    {rows.map((p) => (
+                      <Row key={p.id} p={p} />
+                    ))}
+                  </ol>
+                </section>
+              );
+            })}
 
             <p className="rn-work-foot">
               <Link href="/publications">All publications</Link>

@@ -54,6 +54,7 @@ html {
 .rn-tip h3,
 .rn-mark,
 .rn-page-head h1,
+.rn-pgroup-head h2,
 .rn-detail h1,
 .rn-detail h2 {
   font-family: var(--font-satoshi), var(--font-body), system-ui, sans-serif;
@@ -793,30 +794,26 @@ a.rn-ti:hover {
 /* Area filter: the same three areas as the hero graph, as three toggles.
    The page used to carry a sort select, a nine-option dropdown, a chip stack
    and a result count to govern seven items. */
-.rn-areafilter {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px 10px;
-  margin: 0 0 6px;
+/* Area legend: the key for the row dots, and the only place the area
+   definitions in data/research-graph.ts are shown to a reader. It replaced
+   three filter toggles that each returned exactly four of eight. */
+.rn-areakey {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px 28px;
+  margin: 0 0 40px;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--line);
 }
-
-.rn-areabtn {
-  font: inherit;
+.rn-areakey dt {
   font-size: 13.5px;
-  line-height: 1;
-  color: var(--ink-2);
-  background: none;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 7px 13px 7px 11px;
-  cursor: pointer;
-  display: inline-flex;
+  font-weight: 500;
+  color: var(--ink);
+  display: flex;
   align-items: center;
   gap: 7px;
-  transition: border-color 0.15s, color 0.15s;
 }
-.rn-areabtn::before {
+.rn-areakey dt::before {
   content: '';
   width: 9px;
   height: 9px;
@@ -825,46 +822,54 @@ a.rn-ti:hover {
   border: 1px solid var(--cs);
   flex: none;
 }
-.rn-areabtn:hover {
-  border-color: var(--edge-hot);
-  color: var(--ink);
-}
-.rn-areabtn[aria-pressed='true'] {
-  border-color: var(--ink);
-  color: var(--ink);
+.rn-areakey dd {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-3);
+  margin: 3px 0 0 16px;
 }
 
-.rn-clear {
-  font: inherit;
+/* Group heading. This is the 20-24px register the page was missing: the type
+   ran 13 / 13.5 / 14 / 15.5 / 17px and then leapt straight to the h1. */
+.rn-pgroup {
+  margin: 0 0 44px;
+}
+.rn-pgroup-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+}
+.rn-pgroup-head h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0;
+}
+.rn-pgroup-head p {
   font-size: 13px;
   color: var(--ink-3);
-  background: none;
-  border: 0;
-  padding: 0;
-  margin-left: 4px;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.rn-clear:hover {
-  color: var(--ink);
+  margin: 0;
 }
 
-/* Project list. Rows, not cards: seven same-size shadowed rectangles gave an
-   AutoUI submission and a coursework script identical weight, and put a
-   192px-tall image above the title in every one of them. */
+/* Project list. Rows, not cards: eight same-size shadowed rectangles gave an
+   AutoUI submission and a coursework script identical weight. */
 .rn-plist {
   list-style: none;
-  margin: 22px 0 0;
+  margin: 10px 0 0;
   padding: 0;
 }
 
+/* Two columns, not three. The year moved into the text stack, which bought the
+   title ~50px of measure on mobile and removed a column that never aligned. */
 .rn-prow {
   display: grid;
-  grid-template-columns: 3.2rem minmax(0, 1fr) 196px;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 28px;
   align-items: start;
-  padding: 24px 0;
+  padding: 22px 0;
   border-top: 1px solid var(--line);
   text-decoration: none;
   color: inherit;
@@ -873,20 +878,16 @@ a.rn-ti:hover {
   border-bottom: 1px solid var(--line);
 }
 
-.rn-pyr {
-  grid-column: 1;
-  grid-row: 1;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--ink-3);
-  font-variant-numeric: tabular-nums;
-  margin: 0;
+.rn-pmain {
+  min-width: 0;
 }
 
-.rn-pmain {
-  grid-column: 2;
-  grid-row: 1;
-  min-width: 0;
+.rn-pyr {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  margin: 0 0 4px;
 }
 
 .rn-pti {
@@ -896,7 +897,7 @@ a.rn-ti:hover {
   letter-spacing: -0.01em;
   color: var(--ink);
   margin: 0;
-  text-wrap: balance;
+  max-width: 46ch;
 }
 .rn-prow:hover .rn-pti {
   text-decoration: underline;
@@ -907,11 +908,11 @@ a.rn-ti:hover {
 /* The question, not a 40-word paragraph. The long version is the detail
    page's job; here it only has to earn the click. */
 .rn-pq {
-  font-size: 14.5px;
+  font-size: 14px;
   line-height: 1.6;
   color: var(--ink-2);
   margin: 6px 0 0;
-  max-width: 56ch;
+  max-width: 58ch;
 }
 
 /* Venue, outcome and where the work was done — the fields an academic reader
@@ -920,35 +921,22 @@ a.rn-ti:hover {
   font-size: 13px;
   line-height: 1.5;
   color: var(--ink-3);
-  margin: 8px 0 0;
+  margin: 10px 0 0;
+  max-width: 64ch;
 }
 .rn-pmeta strong {
   font-weight: 500;
   color: var(--ink-2);
 }
 
+/* Dots sit above the figure so that the one project without a figure keeps
+   its column aligned with the rest. */
 .rn-pfig {
-  grid-column: 3;
-  grid-row: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
-}
-
-.rn-pfig img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  object-position: top;
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  background: var(--method);
-  transition: border-color 0.2s;
-}
-.rn-prow:hover .rn-pfig img {
-  border-color: var(--edge-hot);
+  min-width: 0;
 }
 
 .rn-ds {
@@ -963,6 +951,54 @@ a.rn-ti:hover {
   border: 1px solid var(--cs);
   display: block;
 }
+
+/* The mat. Seven research figures with aspect ratios from 1.17 to 2.79 cannot
+   share a crop, so nothing is cropped: each one is contained, centred, and
+   framed identically. Cropping to a common 3:2 was cutting 46% off the widest
+   of them and assigning visual weight by accidental image brightness. */
+.rn-mat {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--method);
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  padding: 8px;
+  transition: border-color 0.2s;
+}
+.rn-mat img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.rn-prow:hover .rn-mat {
+  border-color: var(--edge-hot);
+}
+
+/* Used in four files and defined in none: the two anchors rendered fused, as
+   "All publicationsCV (PDF)", on the index, every detail page and the 404. */
+.rn-work-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 8px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+}
+.rn-work-foot a {
+  color: var(--ink-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--edge);
+  padding-bottom: 2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.rn-work-foot a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
 
 /* Project detail */
 .rn-back {
@@ -1257,22 +1293,21 @@ a.rn-ti:hover {
   /* Two columns at 375px: the year moves to its own line above the title so
      the measure does not collapse to ~24 characters. */
   .rn-prow {
-    grid-template-columns: minmax(0, 1fr) 92px;
-    gap: 4px 14px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
     padding: 20px 0;
   }
-  .rn-pyr {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  .rn-pmain {
-    grid-column: 1;
-    grid-row: 2;
-  }
+  /* The figure goes full width under the text rather than shrinking to a 92px
+     smudge that squeezed the title to ~26 characters a line. */
   .rn-pfig {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: start;
+    align-items: stretch;
+  }
+  .rn-ds {
+    justify-content: flex-start;
+  }
+  .rn-areakey {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
   }
   .rn-gal {
     grid-template-columns: minmax(0, 1fr);
@@ -1305,7 +1340,6 @@ a.rn-ti:hover {
   }
 
   /* Except movement itself, which is what the preference is actually about. */
-  .rn-icon,
   .rn-skip,
   .rn-portrait {
     transition-property: opacity, color, background-color, border-color !important;
