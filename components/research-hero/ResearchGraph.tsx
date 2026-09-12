@@ -633,7 +633,6 @@ export default function ResearchGraph() {
                     textAnchor={label.anchor}
                   >
                     {n.label}
-                    {isArea && <tspan>{`  ${n.count} ${n.count === 1 ? 'paper' : 'papers'}`}</tspan>}
                   </text>
                 </g>
               </g>

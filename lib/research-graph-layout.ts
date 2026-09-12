@@ -343,8 +343,7 @@ export function placeLabels(
 
   for (const n of nodes.filter((n) => n.kind === "area")) {
     const fontSize = mobile ? 26 : 15;
-    // "+3" leaves room for the work-count tspan.
-    const w = (n.label.length + 3) * fontSize * 0.6;
+    const w = n.label.length * fontSize * 0.6;
     const below = n.area?.labelSide === "below";
     const dy = below ? n.r + fontSize + 4 : -n.r - 10;
     labels[n.id] = { dx: 0, dy, anchor: "middle", fontSize };

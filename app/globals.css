@@ -290,10 +290,6 @@ html {
   fill: var(--ink);
   opacity: 1;
 }
-.rn-area text tspan {
-  font-weight: 400;
-  fill: var(--ink-3);
-}
 .rn-nd.is-shown text {
   opacity: 1;
 }
