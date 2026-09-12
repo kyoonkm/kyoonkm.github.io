@@ -21,31 +21,38 @@ const PHRASES: { area: AreaId; text: string }[] = [
 export default function ThesisPhrases() {
   const { area, openArea, closeAreaSoon, toggleFilter, clearFilter } = useResearchState();
 
-  const phrase = (i: number) => {
+  /* `after` is the punctuation that follows the phrase. It is rendered inside
+     a nowrap wrapper because the button is an inline-block, which gives the
+     browser a break opportunity between it and a following text node — the
+     comma was wrapping to the next line on its own. */
+  const phrase = (i: number, after = '') => {
     const p = PHRASES[i];
     return (
-      <button
-        type="button"
-        className="rn-phrase"
-        data-area={p.area}
-        aria-pressed={area === p.area}
-        onClick={() => toggleFilter(p.area)}
-        onPointerEnter={(e) => {
-          if (e.pointerType === 'mouse') openArea(p.area);
-        }}
-        onPointerLeave={closeAreaSoon}
-        onFocus={() => openArea(p.area)}
-        onBlur={closeAreaSoon}
-      >
-        {p.text}
-      </button>
+      <span className="rn-nb">
+        <button
+          type="button"
+          className="rn-phrase"
+          data-area={p.area}
+          aria-pressed={area === p.area}
+          onClick={() => toggleFilter(p.area)}
+          onPointerEnter={(e) => {
+            if (e.pointerType === 'mouse') openArea(p.area);
+          }}
+          onPointerLeave={closeAreaSoon}
+          onFocus={() => openArea(p.area)}
+          onBlur={closeAreaSoon}
+        >
+          {p.text}
+        </button>
+        {after}
+      </span>
     );
   };
 
   return (
     <>
       <p className="rn-thesis">
-        Studying {phrase(0)} with {phrase(1)}, for {phrase(2)}.
+        Studying {phrase(0)} with {phrase(1, ',')} for {phrase(2, '.')}
       </p>
       <p className="rn-filter-note" aria-live="polite">
         {area ? (

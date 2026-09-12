@@ -167,6 +167,11 @@ html {
   text-wrap: balance;
 }
 
+/* Keeps a phrase and its trailing punctuation on one line. */
+.rn-nb {
+  white-space: nowrap;
+}
+
 .rn-phrase {
   border: 0;
   padding: 0 1px;
