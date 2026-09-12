@@ -79,19 +79,6 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
         )}
 
         <dl className="rn-facts">
-          <div className="rn-fact">
-            <dt>Topics</dt>
-            <dd>
-              <ul className="rn-chips">
-                {project.topics.map((topic) => (
-                  <li key={topic} className="rn-chip">
-                    {topic}
-                  </li>
-                ))}
-              </ul>
-            </dd>
-          </div>
-
           {project.technologies && (
             <div className="rn-fact">
               <dt>Built with</dt>

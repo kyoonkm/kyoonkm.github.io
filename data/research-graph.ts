@@ -175,7 +175,7 @@ export const WORKS: Work[] = [
     type: "Manuscript",
     areas: ["ai"],
     methods: ["llm", "eval"],
-    status: "Manuscript in preparation",
+    status: "In preparation for ICLR 2027",
     authors: [
       { name: "Patrik Reizinger" },
       { name: "Kayoon Kim", self: true },

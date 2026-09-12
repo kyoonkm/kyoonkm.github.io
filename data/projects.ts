@@ -39,12 +39,45 @@ export interface Project {
   /** 480px-wide index thumbnail. Omit when no honest figure exists. */
   thumb?: string;
   images?: string[];
-  topics: string[];
   technologies?: string[];
   links?: ProjectLink[];
 }
 
 export const PROJECTS: Project[] = [
+  {
+    id: 9,
+    title: "HALLMARK: Diagnosing Three Failure Modes in LLM Citation Verifiers",
+    year: 2026,
+    question:
+      "When a verifier misses a fabricated citation, which kind of fabrication does it miss?",
+    context: "ELLIS Institute Tübingen",
+    outcomes: ["Manuscript in preparation for ICLR 2027"],
+    status: "In progress",
+    areas: ["ai"],
+    summary:
+      "A benchmark for citation-hallucination detection: 2,526 annotated references across 14 hallucination types and three difficulty tiers, scored against 19 baseline variants. My part was the model sweep and the diagnosis of where it breaks.",
+    fullDescription:
+      'Why a benchmark\n\n' +
+      'The NeurIPS 2025 incident — 53 papers found to contain fabricated citations that had passed peer review — exposed a gap: there was no standard way to measure how well a tool detects a hallucinated reference. HALLMARK is that measurement. 2,526 annotated entries, 14 hallucination types across three difficulty tiers, six sub-tests per entry (DOI resolution, title matching, author consistency, venue verification, field completeness, cross-database agreement), and 19 baseline variants from a DOI-only check to agentic LLMs with tool use.\n\n' +
+      'Cascade runs beyond the default model\n\n' +
+      'The headline result is a two-stage cascade: a database lookup first, then an LLM that diagnoses whatever the database could not resolve. Run on one model family that result is an anecdote, so I ran the cascade on GPT-5.1 and GPT-5.4 alongside the Claude Sonnet configuration, across the dev, test and stress splits. Per-type detection rates (Figure 1) are what the comparison is for: the aggregate numbers sit close together while the failures do not, and the types where a model collapses differ by model.\n\n' +
+      'Where the task stops working\n\n' +
+      'I ran the verification task down the Qwen3 parameter range — 4B, 8B, 14B, 32B — to find where citation verification stops being viable rather than assuming a frontier model is required. The question is a deployment one: a screening tool that has to run over every reference in every submission cannot afford the top of the cost curve.\n\n' +
+      'GEPA prompt optimization\n\n' +
+      'Rather than hand-tuning the zero-shot verification prompt, I optimised it with GEPA, using a small model as the task LM and a larger one for reflection, scored on a stratified 50-entry training sample with a disjoint 200-entry validation set. The metric is deliberately blunt — the label is right or it is not, and an UNCERTAIN verdict scores zero — because a verifier that hedges is a verifier a human still has to check.\n\n' +
+      'Multi-defect analysis\n\n' +
+      'Real fabricated references usually have several things wrong at once: a real DOI, a wrong title, invented authors. The scorer only compares labels, so a tool gets full credit for catching any one defect. I measured how much of the benchmark is multi-defect and what the metrics actually reward there, because that gap between "flagged it" and "understood it" is the difference between a screening tool and a diagnosis.',
+    image: "/images/projects/hallmark_per_type.webp",
+    thumb: "/images/projects/thumbs/hallmark_per_type.webp",
+    technologies: ["Python", "GEPA", "OpenRouter"],
+    links: [
+      { label: "GitHub", url: "https://github.com/rpatrik96/hallmark" },
+      {
+        label: "Interactive companion",
+        url: "https://rpatrik96.github.io/hallmark/",
+      },
+    ],
+  },
   {
     id: 1,
     title:
@@ -77,7 +110,6 @@ export const PROJECTS: Project[] = [
       "/images/projects/porsche_question.webp",
       "/images/projects/porsche_consensus.webp",
     ],
-    topics: ["Decision Making", "AI Agents", "Social Simulation", "NLP"],
     technologies: ["Python", "Autogen", "Model Context Protocol"],
     links: [
       {
@@ -113,7 +145,6 @@ export const PROJECTS: Project[] = [
       "/images/projects/3_6d_ackley_regret_bias.webp",
       "/images/projects/3_ackley_bias.webp",
     ],
-    topics: ["Decision Making", "Machine Learning", "Data Analysis"],
     technologies: ["Python", "BoTorch"],
     links: [
       { label: "Paper", url: "/pbo.pdf" },
@@ -145,7 +176,6 @@ export const PROJECTS: Project[] = [
       'The system functions as an early warning, identifying at-risk students weeks before they drop out. This enables educators to deploy timely, personalized interventions.',
     image: "/images/projects/lyra_analysis.webp",
     thumb: "/images/projects/thumbs/lyra_analysis.webp",
-    topics: ["Machine Learning", "Data Analysis", "Social Science"],
     links: [
       {
         label: "Related Paper",
@@ -173,7 +203,6 @@ export const PROJECTS: Project[] = [
       'To make this accessible, I wrapped the model in a web interface using Streamlit. This allowed stakeholders to simply upload a raw CSV and receive a fully labeled dataset. The tool transformed the workflow from manual tagging to rapid verification.',
     image: "/images/projects/labeling.webp",
     thumb: "/images/projects/thumbs/labeling.webp",
-    topics: ["Machine Learning", "NLP"],
     technologies: ["Python", "Streamlit"],
   },
   {
@@ -204,7 +233,6 @@ export const PROJECTS: Project[] = [
       "/images/projects/covid_regulation.webp",
       "/images/projects/covid_newslink.webp",
     ],
-    topics: ["Data Analysis", "Public Health", "Social Science"],
     links: [
       {
         label: "GitHub",
@@ -242,7 +270,6 @@ export const PROJECTS: Project[] = [
     image: "/images/projects/covid19.webp",
     thumb: "/images/projects/thumbs/covid19.webp",
     images: ["/images/projects/covid_all_online_petitions.gif"],
-    topics: ["Public Health", "NLP", "Social Science", "Data Analysis"],
     links: [
       {
         label: "Website",
@@ -272,7 +299,6 @@ export const PROJECTS: Project[] = [
       'What began as a student research project involving messy, unstructured data scraping evolved into an academic contribution. I refined the methodology over several years, leading to a presentation at the International Postgraduate Academic Conference 2021 and eventual publication in the journal PLOS ONE in 2024.',
     image: "/images/projects/petitions.webp",
     thumb: "/images/projects/thumbs/petitions.webp",
-    topics: ["Social Science", "NLP", "Data Analysis"],
     links: [
       {
         label: "Slides (English)",
@@ -294,7 +320,6 @@ export const PROJECTS: Project[] = [
        this work does not have; the repository is the honest artefact. */
     summary:
       "Implementations of the standard recommendation algorithms, each paired with a review of the paper it comes from. Written up during an internship.",
-    topics: ["Machine Learning", "Data Analysis"],
     links: [
       { label: "GitHub", url: "https://github.com/kyoonkm/2021-RecSys" },
     ],
