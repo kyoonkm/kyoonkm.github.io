@@ -147,13 +147,6 @@ export default function Projects() {
                 <Row key={p.id} p={p} />
               ))}
             </ol>
-
-            <p className="rn-work-foot">
-              <Link href="/publications">All publications</Link>
-              <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
-                CV (PDF)
-              </a>
-            </p>
           </section>
         </div>
       </main>

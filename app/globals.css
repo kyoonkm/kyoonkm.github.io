@@ -956,13 +956,15 @@ a.rn-ti:hover {
 
 /* Used in four files and defined in none: the two anchors rendered fused, as
    "All publicationsCV (PDF)", on the index, every detail page and the 404. */
+/* Only the two not-found pages still use this, where the links are the way
+   out rather than a repeat of the header nav. The border-top went with the
+   block on the content pages: it drew a second rule directly above the
+   footer's own. */
 .rn-work-foot {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 20px;
-  margin: 8px 0 0;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
+  margin: 24px 0 0;
   font-size: 14px;
 }
 .rn-work-foot a {

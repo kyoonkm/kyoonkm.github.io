@@ -127,14 +127,6 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             </div>
           )}
         </dl>
-
-        <p className="rn-work-foot">
-          <Link href="/projects">All projects</Link>
-          <Link href="/publications">All publications</Link>
-          <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
-            CV (PDF)
-          </a>
-        </p>
       </article>
     </div>
   );
