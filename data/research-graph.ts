@@ -175,11 +175,12 @@ export const WORKS: Work[] = [
     type: "Manuscript",
     areas: ["ai"],
     methods: ["llm", "eval"],
-    status: "In preparation for ICLR 2027",
+    venue: "ICLR 2027",
+    status: "Under review",
     authors: [
-      { name: "Patrik Reizinger" },
       { name: "Kayoon Kim", self: true },
       { name: "Wieland Brendel" },
+      { name: "Patrik Reizinger" },
     ],
     featured: true,
     summary:
@@ -189,17 +190,21 @@ export const WORKS: Work[] = [
   {
     id: "sim-dse",
     title:
-      "Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Decision Space Exploration",
+      "Sim-DSE: Mediating Multi-User Automations in Cars through Simulation-Augmented Decision Space Exploration",
     short: "Sim-DSE",
     year: 2026,
     type: "Poster",
     areas: ["ai", "decisions"],
     methods: ["sim", "survey"],
-    venue: "AutomotiveUI 2026, Works in Progress",
+    venue: "AutomotiveUI 2026 Adjunct (Works in Progress), 94–99",
     authors: [
       { name: "Jan Henry Belz", equal: true },
       { name: "Kayoon Kim", self: true, equal: true },
+      { name: "Enrico Rukzio" },
+      { name: "Tobias Grosse-Puppendahl" },
     ],
+    doi: "10.1145/3828158.3838235",
+    published: "2026-09-19",
     featured: true,
     summary:
       "Simulation plus an online survey map the decision space for multi-occupant autonomous vehicles into design guidelines.",
