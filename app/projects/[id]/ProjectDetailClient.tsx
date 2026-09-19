@@ -37,14 +37,14 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
         <p className="rn-detail-lede">{project.summary}</p>
 
         {project.image && (
-          <div className="rn-hero-fig">
+          <div className={`rn-hero-fig${project.figure ? ' is-figure' : ''}`}>
             <Zoom>
               {/* Decorative: the h1 directly above already names the work. */}
               <img
                 src={project.image}
                 alt=""
-                width={1800}
-                height={1013}
+                width={project.figure?.width ?? 1800}
+                height={project.figure?.height ?? 1013}
                 decoding="async"
               />
             </Zoom>

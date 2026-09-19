@@ -36,6 +36,13 @@ export interface Project {
   fullDescription?: string;
   /** Detail-page hero. */
   image?: string;
+  /**
+   * Set when `image` is a chart rather than a screenshot: the detail page then
+   * shows it whole at its own aspect ratio instead of cropping it to the 16:9
+   * hero frame, which cut the axis labels off a data figure. Pixel size of
+   * `image`, so the frame reserves the right height before it loads.
+   */
+  figure?: { width: number; height: number };
   /** 480px-wide index thumbnail. Omit when no honest figure exists. */
   thumb?: string;
   images?: string[];
@@ -46,12 +53,12 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: 9,
-    title: "HALLMARK: Diagnosing Three Failure Modes in LLM Citation Verifiers",
+    title: "HALLMARK: How to Diagnose LLM Citation Verifiers and When to Deploy Them",
     year: 2026,
     question:
       "When a verifier misses a fabricated citation, which kind of fabrication does it miss?",
     context: "ELLIS Institute Tübingen",
-    outcomes: ["Manuscript in preparation for ICLR 2027"],
+    outcomes: ["ICLR 2027, under review"],
     status: "In progress",
     areas: ["ai"],
     summary:
@@ -68,6 +75,7 @@ export const PROJECTS: Project[] = [
       'Multi-defect analysis\n\n' +
       'Real fabricated references usually have several things wrong at once: a real DOI, a wrong title, invented authors. The scorer only compares labels, so a tool gets full credit for catching any one defect. I measured how much of the benchmark is multi-defect and what the metrics actually reward there, because that gap between "flagged it" and "understood it" is the difference between a screening tool and a diagnosis.',
     image: "/images/projects/hallmark_per_type.webp",
+    figure: { width: 2236, height: 1530 },
     thumb: "/images/projects/thumbs/hallmark_per_type.webp",
     technologies: ["Python", "GEPA", "OpenRouter"],
     links: [
@@ -114,7 +122,7 @@ export const PROJECTS: Project[] = [
       '- Contextual Inquiry (Field Test)\n' +
       'For real-world, field-test oriented application, I trained a compact in-car decision model in three stages. First, I performed supervised fine-tuning on scenarios that participants accepted (“Yes”) to teach the model to generate structured cabin settings with clear rationales. Next, I applied a Chain-of-Hindsight–style revision step using disagreed (“No”) feedback to learn targeted corrections, and finally used KTO preference alignment on balanced Yes/No labels to shift the model toward outputs that match human acceptability. To evaluate performance, I conducted a field test with interaction design experts at Porsche.\n\n' +
       'Where this work has gone\n\n' +
-      '• Sim-DSE: Mediating Multi-User Orchestration in Confined Shared Spaces through Simulation-Augmented Decision Space Exploration — a Works in Progress poster at AutomotiveUI 2026, with Jan Henry Belz as an equal contributor, on the simulation-plus-survey mapping of the decision space into design guidelines.\n' +
+      '• Sim-DSE: Mediating Multi-User Automations in Cars through Simulation-Augmented Decision Space Exploration — a Works in Progress poster at AutomotiveUI 2026, with Jan Henry Belz as an equal contributor, on the simulation-plus-survey mapping of the decision space into design guidelines.\n' +
       '• Four Passengers, One Decision: How LLM Agents Negotiate and Form Norms in a Shared Car — a sole-authored poster under review at the NeurIPS 2026 Social Agents Workshop, on what the agents settle on: norms none of them held alone.' ,
     image: "/images/projects/reasoning_cluster.webp",
     thumb: "/images/projects/thumbs/reasoning_cluster.webp",

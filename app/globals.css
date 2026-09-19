@@ -1063,6 +1063,13 @@ a.rn-ti:hover {
   object-fit: cover;
   object-position: top;
 }
+/* A chart is read edge to edge; cropping it to the frame drops its axes. */
+.rn-hero-fig.is-figure img {
+  aspect-ratio: auto;
+  height: auto;
+  object-fit: contain;
+  background: var(--bg);
+}
 
 .rn-gal {
   display: grid;

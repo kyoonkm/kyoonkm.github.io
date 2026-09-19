@@ -169,7 +169,7 @@ export const WORKS: Work[] = [
   {
     id: "hallmark",
     title:
-      "HALLMARK: Diagnosing Three Failure Modes in LLM Citation Verifiers",
+      "HALLMARK: How to Diagnose LLM Citation Verifiers and When to Deploy Them",
     short: "HALLMARK",
     year: 2026,
     type: "Manuscript",
