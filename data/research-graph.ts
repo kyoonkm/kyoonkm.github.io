@@ -2,7 +2,7 @@
  * Research-network data for the hero graph.
  *
  * Ported from docs/prototypes/research-map.html, with the sample projects
- * replaced by real work from CV_Kayoon_Kim.pdf (last updated 3 Sep 2026).
+ * replaced by real work from CV_KayoonKim.pdf (last updated 3 Sep 2026).
  *
  * Constraints enforced by lib/research-graph-layout.ts#validateGraphData:
  *   - ids unique; every area/method id referenced must exist

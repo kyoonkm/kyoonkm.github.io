@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="rn-foot-grid">
           <nav className="rn-foot-nav" aria-label="Elsewhere">
             <a href="mailto:kyoonkm@gmail.com">kyoonkm@gmail.com</a>
-            <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/CV_KayoonKim.pdf" target="_blank" rel="noopener noreferrer">
               CV (PDF)
             </a>
             <a

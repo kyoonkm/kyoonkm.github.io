@@ -41,7 +41,7 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/CV_KayoonKim.pdf" target="_blank" rel="noopener noreferrer">
               CV (PDF)
             </a>
           </nav>
@@ -68,7 +68,7 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            <a href="/CV_Kayoon_Kim.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/CV_KayoonKim.pdf" target="_blank" rel="noopener noreferrer">
               CV (PDF)
             </a>
           </nav>
