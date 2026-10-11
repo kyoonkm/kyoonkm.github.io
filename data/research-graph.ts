@@ -308,7 +308,7 @@ export const WORKS: Work[] = [
     areas: ["society"],
     methods: ["text"],
     venue:
-      "International Postgraduate and Academic Conference, Chung-Ang University",
+      "International Postgraduate and Academic Conference, Chung-Ang University, Ritsumeikan University and National Taipei University",
     published: "2021-02-19",
     authors: [{ name: "Kayoon Kim", self: true }],
     summary:
