@@ -136,11 +136,9 @@ export const WORKS: Work[] = [
       "Four Passengers, One Decision: How LLM Agents Negotiate and Form Norms in a Shared Car",
     short: "Agent norms",
     year: 2026,
-    type: "Poster",
+    type: "Work in progress",
     areas: ["society", "ai", "decisions"],
     methods: ["llm", "sim", "survey"],
-    venue: "NeurIPS 2026 Social Agents Workshop",
-    status: "Under review",
     authors: [{ name: "Kayoon Kim", self: true }],
     featured: true,
     summary:
