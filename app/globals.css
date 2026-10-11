@@ -670,17 +670,24 @@ a.rn-ti:hover {
   margin-top: 4px;
 }
 
-/* The DOI is selectable text, not a second link to the destination the title
-   already points at — adjacent duplicate links are a WCAG H2 defect, and the
-   thing a researcher actually wants here is to copy the string. */
+/* The DOI links out like the title does. It sits on its own line as an
+   inline box, so the underline and hit area cover the string rather than the
+   full row width, and the text stays easy to select for copying. */
 .rn-doi {
-  display: block;
+  display: table;
   font-size: 13px;
   line-height: 1.5;
   color: var(--ink-2);
   margin-top: 2px;
   font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
+  text-decoration: none;
+  border-bottom: 1px solid var(--edge);
+  transition: color 0.15s, border-color 0.15s;
+}
+.rn-doi:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
 }
 
 .rn-pubs :focus-visible {

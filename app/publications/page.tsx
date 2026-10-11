@@ -129,7 +129,17 @@ function PublicationRow({ w }: { w: Work }) {
           ))}
         </span>
 
-        {w.doi ? <span className="rn-doi">doi.org/{w.doi}</span> : null}
+        {w.doi ? (
+          <a
+            className="rn-doi"
+            href={`https://doi.org/${w.doi}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            doi.org/{w.doi}
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        ) : null}
       </span>
     </li>
   );
