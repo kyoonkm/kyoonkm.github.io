@@ -133,16 +133,17 @@ export const WORKS: Work[] = [
   {
     id: "agent-norms",
     title:
-      "Four Passengers, One Decision: How LLM Agents Negotiate and Form Norms in a Shared Car",
-    short: "Agent norms",
+      "Agreement by Amendment: How LLM Proxies Negotiate a Shared Physical Environment",
+    short: "LLM proxies",
     year: 2026,
     type: "Work in progress",
     areas: ["society", "ai", "decisions"],
     methods: ["llm", "sim", "survey"],
+    status: "In preparation for ACL 2027",
     authors: [{ name: "Kayoon Kim", self: true }],
     featured: true,
     summary:
-      "LLM agents advocating for four passengers negotiate cabin settings, and settle on norms none of them held alone.",
+      "LLM proxies, one per passenger, reach agreement on a shared cabin by amending each other's proposals.",
     href: "/publications#agent-norms",
   },
   {
