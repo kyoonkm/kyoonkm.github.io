@@ -135,7 +135,7 @@ export const WORKS: Work[] = [
     title:
       "Agreement by Amendment: How LLM Proxies Negotiate a Shared Physical Environment",
     short: "LLM proxies",
-    year: 2026,
+    year: 2027,
     type: "Work in progress",
     areas: ["society", "ai", "decisions"],
     methods: ["llm", "sim", "survey"],
@@ -145,25 +145,6 @@ export const WORKS: Work[] = [
     summary:
       "LLM proxies, one per passenger, reach agreement on a shared cabin by amending each other's proposals.",
     href: "/publications#agent-norms",
-  },
-  {
-    id: "design-ai",
-    title:
-      "Between Plausible and Viable: How Designers and Their Managers Rework Around AI That Performs It",
-    short: "AI in organization",
-    year: 2026,
-    type: "Work in progress",
-    areas: ["society", "decisions"],
-    methods: ["interviews"],
-    authors: [
-      { name: "Kayoon Kim", self: true },
-      { name: "Jan Henry Belz" },
-      { name: "Hirokazu Shirado" },
-    ],
-    featured: true,
-    summary:
-      "Interviews with designers and their managers on how design work is redistributed once AI can do part of it.",
-    href: "/publications#design-ai",
   },
   {
     id: "hallmark",
