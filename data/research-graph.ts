@@ -77,6 +77,8 @@ export interface Work {
   authors?: Author[];
   /** Bare DOI, no resolver prefix — the page builds the https://doi.org URL. */
   doi?: string;
+  /** Bare arXiv ID, e.g. "2607.18360". Used for preprints without a DOI. */
+  arxiv?: string;
   /** ISO date of record publication. Rendered as a human date. */
   published?: string;
   /** Always labelled in the graph. Aim for 3–5. */
@@ -157,6 +159,7 @@ export const WORKS: Work[] = [
     methods: ["llm", "eval"],
     venue: "ICLR 2027",
     status: "Under review",
+    arxiv: "2607.18360",
     authors: [
       { name: "Kayoon Kim", self: true },
       { name: "Wieland Brendel" },

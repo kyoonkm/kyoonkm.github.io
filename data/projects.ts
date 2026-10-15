@@ -79,6 +79,7 @@ export const PROJECTS: Project[] = [
     thumb: "/images/projects/thumbs/hallmark_per_type.webp",
     technologies: ["Python", "GEPA", "OpenRouter"],
     links: [
+      { label: "arXiv", url: "https://arxiv.org/abs/2607.18360" },
       { label: "GitHub", url: "https://github.com/rpatrik96/hallmark" },
       {
         label: "Interactive companion",

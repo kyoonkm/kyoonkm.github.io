@@ -98,16 +98,22 @@ function metaParts(w: Work) {
 
 function PublicationRow({ w }: { w: Work }) {
   const meta = metaParts(w);
+  /* A DOI is the version of record, so it wins over a preprint. */
+  const link = w.doi
+    ? { url: `https://doi.org/${w.doi}`, text: `doi.org/${w.doi}` }
+    : w.arxiv
+      ? { url: `https://arxiv.org/abs/${w.arxiv}`, text: `arxiv.org/abs/${w.arxiv}` }
+      : null;
 
   return (
     <li id={w.id} className="rn-pub">
       <span className="rn-yr">{w.year}</span>
 
       <span className="rn-pub-body">
-        {w.doi ? (
+        {link ? (
           <a
             className="rn-ti"
-            href={`https://doi.org/${w.doi}`}
+            href={link.url}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -129,14 +135,14 @@ function PublicationRow({ w }: { w: Work }) {
           ))}
         </span>
 
-        {w.doi ? (
+        {link ? (
           <a
             className="rn-doi"
-            href={`https://doi.org/${w.doi}`}
+            href={link.url}
             target="_blank"
             rel="noopener noreferrer"
           >
-            doi.org/{w.doi}
+            {link.text}
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
         ) : null}
