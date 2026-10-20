@@ -96,13 +96,13 @@ export const PROJECTS: Project[] = [
     context: "Porsche Human-Centered AI Research",
     /*
      * Two papers, one system, so one project page. The AutomotiveUI poster is
-     * the accepted outcome and leads; the Agreement by Amendment paper is in preparation for ACL 2027.
+     * the accepted outcome and leads; the Scaffold or Social? paper is in preparation for ACL 2027.
      * Authorship differs between them — equal contribution on one, sole on the
      * other — and /publications is where that distinction is carried.
      */
     outcomes: [
       "AutomotiveUI 2026 Works in Progress poster",
-      "Agreement by Amendment, in preparation for ACL 2027",
+      "Scaffold or Social?, in preparation for ACL 2027",
     ],
     status: "In progress",
     areas: ["ai", "decisions"],
@@ -124,7 +124,7 @@ export const PROJECTS: Project[] = [
       'For real-world, field-test oriented application, I trained a compact in-car decision model in three stages. First, I performed supervised fine-tuning on scenarios that participants accepted (“Yes”) to teach the model to generate structured cabin settings with clear rationales. Next, I applied a Chain-of-Hindsight–style revision step using disagreed (“No”) feedback to learn targeted corrections, and finally used KTO preference alignment on balanced Yes/No labels to shift the model toward outputs that match human acceptability. To evaluate performance, I conducted a field test with interaction design experts at Porsche.\n\n' +
       'Where this work has gone\n\n' +
       '• Sim-DSE: Mediating Multi-User Automations in Cars through Simulation-Augmented Decision Space Exploration — a Works in Progress poster at AutomotiveUI 2026, with Jan Henry Belz as an equal contributor, on the simulation-plus-survey mapping of the decision space into design guidelines.\n' +
-      '• Agreement by Amendment: How LLM Proxies Negotiate a Shared Physical Environment — a sole-authored paper in preparation for ACL 2027, on how LLM proxies reach agreement on a shared cabin by amending each other’s proposals.' ,
+      '• Scaffold or Social? What Survives When LLM Agents Negotiate a Shared Physical Space — a sole-authored paper in preparation for ACL 2027, on which parts of the agents’ negotiation over a shared cabin come from the prompt scaffold and which survive as social behaviour.' ,
     image: "/images/projects/reasoning_cluster.webp",
     thumb: "/images/projects/thumbs/reasoning_cluster.webp",
     images: [
@@ -134,7 +134,7 @@ export const PROJECTS: Project[] = [
     technologies: ["Python", "Autogen", "Model Context Protocol"],
     links: [
       { label: "Sim-DSE (AutomotiveUI)", url: "/publications#sim-dse" },
-      { label: "Agreement by Amendment (in preparation)", url: "/publications#agent-norms" },
+      { label: "Scaffold or Social? (in preparation)", url: "/publications#agent-norms" },
       {
         label: "Slides",
         url: "https://docs.google.com/presentation/d/11icBSOa2cB54j50gHfyy2_zW2EXgIT9zrvkm9vqrVJM/edit?usp=sharing",

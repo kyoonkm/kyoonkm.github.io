@@ -135,8 +135,8 @@ export const WORKS: Work[] = [
   {
     id: "agent-norms",
     title:
-      "Agreement by Amendment: How LLM Proxies Negotiate a Shared Physical Environment",
-    short: "LLM proxies",
+      "Scaffold or Social? What Survives When LLM Agents Negotiate a Shared Physical Space",
+    short: "Scaffold or Social",
     year: 2027,
     type: "Work in progress",
     areas: ["society", "ai", "decisions"],
@@ -145,7 +145,7 @@ export const WORKS: Work[] = [
     authors: [{ name: "Kayoon Kim", self: true }],
     featured: true,
     summary:
-      "LLM proxies, one per passenger, reach agreement on a shared cabin by amending each other's proposals.",
+      "LLM agents, one per passenger, negotiate a shared cabin, testing which behaviours come from the scaffold and which are social.",
     href: "/publications#agent-norms",
   },
   {
