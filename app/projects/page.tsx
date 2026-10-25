@@ -8,7 +8,7 @@ import { AREAS, type AreaId } from '@/data/research-graph';
 export const metadata: Metadata = {
   title: 'Projects — Kayoon Kim',
   description:
-    'Research projects in human–AI interaction, social agents and computational social science by Kayoon Kim.',
+    'Research projects in human–AI interaction, social intelligence and computational social science by Kayoon Kim.',
 };
 
 const AREA_BY_ID = Object.fromEntries(AREAS.map((a) => [a.id, a])) as Record<

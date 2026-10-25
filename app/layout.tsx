@@ -33,7 +33,7 @@ const geistMono = Geist_Mono({
 });
 
 const DESCRIPTION =
-  "Kayoon Kim — researcher in human–AI interaction, AI evaluation, social agents and responsible AI at ELLIS Institute Tübingen.";
+  "Kayoon Kim — researcher in human–AI interaction, AI evaluation, social intelligence and responsible AI at ELLIS Institute Tübingen.";
 const SITE = "https://kyoonkm.github.io";
 
 /* Without these, a link pasted into LinkedIn, Slack or email rendered as a
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     type: "profile",
     url: SITE,
     siteName: "Kayoon Kim",
-    title: "Kayoon Kim — human–AI interaction, AI evaluation, social agents, responsible AI",
+    title: "Kayoon Kim — human–AI interaction, AI evaluation, social intelligence, responsible AI",
     description: DESCRIPTION,
     images: [
       {
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kayoon Kim — human–AI interaction, AI evaluation, social agents, responsible AI",
+    title: "Kayoon Kim — human–AI interaction, AI evaluation, social intelligence, responsible AI",
     description: DESCRIPTION,
     images: ["/og-kayoon-kim.png"],
   },
