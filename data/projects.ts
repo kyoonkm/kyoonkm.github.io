@@ -57,7 +57,7 @@ export const PROJECTS: Project[] = [
     year: 2026,
     question:
       "When a verifier misses a fabricated citation, which kind of fabrication does it miss?",
-    context: "ELLIS Institute Tübingen",
+    context: "ELLIS Institute Tübingen & Max Planck Institute",
     outcomes: ["ICLR 2027, under review"],
     status: "In progress",
     areas: ["ai"],
