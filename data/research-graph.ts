@@ -137,8 +137,8 @@ export const WORKS: Work[] = [
   {
     id: "agent-norms",
     title:
-      "Scaffold or Social? What Survives When LLM Agents Negotiate a Shared Physical Space",
-    short: "Scaffold or Social",
+      "Whose Preferences Survive? LLM Agents Negotiating a Shared Physical Space",
+    short: "Whose Preferences",
     year: 2027,
     type: "Work in progress",
     areas: ["society", "ai", "decisions"],
@@ -147,7 +147,7 @@ export const WORKS: Work[] = [
     authors: [{ name: "Kayoon Kim", self: true }],
     featured: true,
     summary:
-      "LLM agents, one per passenger, negotiate a shared cabin, testing which behaviours come from the scaffold and which are social.",
+      "LLM agents, one per passenger, negotiate a shared cabin, testing whose preferences survive the negotiation.",
     href: "/publications#agent-norms",
   },
   {
