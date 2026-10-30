@@ -47,6 +47,8 @@ export interface Author {
   self?: boolean;
   /** Shared first authorship. Renders the asterisk and the adjacent note. */
   equal?: boolean;
+  /** Shared supervision of the work. Renders the dagger and its note. */
+  advisor?: boolean;
 }
 
 export interface Work {
@@ -162,8 +164,8 @@ export const WORKS: Work[] = [
     arxiv: "2607.18360",
     authors: [
       { name: "Kayoon Kim", self: true },
-      { name: "Wieland Brendel" },
-      { name: "Patrik Reizinger" },
+      { name: "Wieland Brendel", advisor: true },
+      { name: "Patrik Reizinger", advisor: true },
     ],
     featured: true,
     summary:

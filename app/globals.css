@@ -651,7 +651,7 @@ a.rn-ti:hover {
   color: var(--ink);
 }
 
-/* The equal-contribution note is a footnote, not part of the byline. */
+/* The authorship note is a footnote, not part of the byline. */
 .rn-eq {
   color: var(--ink-3);
 }
