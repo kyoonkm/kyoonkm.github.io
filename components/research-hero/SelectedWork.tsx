@@ -46,7 +46,13 @@ function destination(w: Work) {
 
 /** The byline is the citation detail /publications used to carry. */
 function Byline({ authors }: { authors: NonNullable<Work['authors']> }) {
-  const equal = authors.some((a) => a.equal);
+  /* One note carrying every mark the byline used, so a paper with both
+     shared first authorship and shared supervision gets one footnote line
+     instead of two stacked ones. */
+  const notes = [
+    authors.some((a) => a.equal) ? '*equal contribution' : null,
+    authors.some((a) => a.advisor) ? '\u2020equal advising' : null,
+  ].filter(Boolean);
   return (
     <span className="rn-au">
       {authors.map((a, i) => (
@@ -54,9 +60,12 @@ function Byline({ authors }: { authors: NonNullable<Work['authors']> }) {
           {i ? ', ' : ''}
           {a.name}
           {a.equal ? '*' : ''}
+          {a.advisor ? '\u2020' : ''}
         </span>
       ))}
-      {equal ? <span className="rn-eq"> *equal contribution</span> : null}
+      {notes.length ? (
+        <span className="rn-eq"> {notes.join(' \u00b7 ')}</span>
+      ) : null}
     </span>
   );
 }
