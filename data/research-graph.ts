@@ -137,7 +137,7 @@ export const WORKS: Work[] = [
   {
     id: "agent-norms",
     title:
-      "Whose Preferences Survive? LLM Agents Negotiating a Shared Physical Space",
+      "Whose Preferences Survive When LLM Agents Negotiate a Shared Physical Space?",
     short: "Whose Preferences",
     year: 2027,
     type: "Work in progress",
