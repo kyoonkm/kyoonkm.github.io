@@ -51,7 +51,7 @@ function Byline({ authors }: { authors: NonNullable<Work['authors']> }) {
      instead of two stacked ones. */
   const notes = [
     authors.some((a) => a.equal) ? '*equal contribution' : null,
-    authors.some((a) => a.advisor) ? '\u2020equal advising' : null,
+    authors.some((a) => a.advisor) ? '\u2020joint senior authors' : null,
   ].filter(Boolean);
   return (
     <span className="rn-au">
