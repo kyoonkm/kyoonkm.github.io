@@ -53,7 +53,7 @@ export const metadata: Metadata = {
         url: "/og-kayoon-kim.png",
         width: 1200,
         height: 627,
-        alt: "Kayoon Kim. How can AI read the social context that people leave unsaid?",
+        alt: "Kayoon Kim. Studying society with AI agents and ML, for better human decisions.",
       },
     ],
   },
