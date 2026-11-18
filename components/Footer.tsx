@@ -34,7 +34,7 @@ export default function Footer() {
           </nav>
         </div>
 
-        <p className="rn-foot-meta">Last updated September 2026</p>
+        <p className="rn-foot-meta">Last updated November 2026</p>
       </div>
     </footer>
   );

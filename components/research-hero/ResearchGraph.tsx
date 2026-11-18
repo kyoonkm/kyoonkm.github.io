@@ -657,11 +657,14 @@ export default function ResearchGraph() {
 
 function TipBody({ node }: { node: GraphNode }) {
   const w = node.work!;
-  const external = w.href.startsWith('http');
+  const external = !!w.href && w.href.startsWith('http');
   /* Venue and status, matching metaParts() in SelectedWork: the tooltip used
      to show type and year only, omitting the field an academic reader ranks
      on. A status that already names the type replaces it. */
-  const restatesType = !!w.status && w.status.toLowerCase().includes(w.type.toLowerCase());
+  const t = w.type.toLowerCase();
+  const restatesType =
+    (!!w.status && w.status.toLowerCase().includes(t)) ||
+    (!!w.venue && w.venue.toLowerCase().includes(t));
   return (
     <>
       <p className="rn-eyebrow">
@@ -677,6 +680,7 @@ function TipBody({ node }: { node: GraphNode }) {
             {AREA_BY_ID[a].label}
           </span>
         ))}
+        {w.href ? (
         <a
           className="rn-go"
           href={w.href}
@@ -689,6 +693,7 @@ function TipBody({ node }: { node: GraphNode }) {
         >
           Open →
         </a>
+        ) : null}
       </div>
     </>
   );

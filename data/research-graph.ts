@@ -18,6 +18,8 @@ export type WorkType =
   | "Manuscript"
   | "Work in progress"
   | "Poster"
+  /** Adjunct proceedings. The venue names it, so the type label is not printed. */
+  | "Adjunct"
   | "Project";
 
 export interface Area {
@@ -87,37 +89,38 @@ export interface Work {
   featured?: boolean;
   /** At most 140 characters. */
   summary: string;
-  href: string;
+  /** Omit when the work has no public record to open; it renders as plain text. */
+  href?: string;
   sample?: boolean;
 }
 
 export const AREAS: Area[] = [
   {
     id: "society",
-    label: "Society",
+    label: "Social intelligence",
     x: 665,
     y: 130,
     labelSide: "above",
     blurb:
-      "Sociology and computational social science: how people voice grievances, mobilise, and settle on shared norms.",
+      "Whether AI can read the social context people leave unsaid: grievances, norms, and whose preferences count.",
   },
   {
     id: "ai",
-    label: "AI agents & ML",
+    label: "Learning with context",
     x: 1065,
     y: 245,
     labelSide: "above",
     blurb:
-      "LLM agents, preference learning, and testing whether AI systems can actually be trusted.",
+      "Training models on data that keeps its context: human feedback, expert preferences, and individual differences.",
   },
   {
     id: "decisions",
-    label: "Human decisions",
+    label: "Evaluation with explicit standards",
     x: 865,
     y: 540,
     labelSide: "below",
     blurb:
-      "HCI and decision support: tools that help people choose well, alone and together.",
+      "Evaluations that state what counts as success, so a score says what a system can be trusted to do.",
   },
 ];
 
@@ -127,7 +130,6 @@ export const METHODS: Method[] = [
   { id: "nlp", label: "NLP" },
   { id: "text", label: "text mining" },
   { id: "survey", label: "surveys" },
-  { id: "interviews", label: "interviews" },
   { id: "bo", label: "Bayesian opt." },
   { id: "stats", label: "statistical modelling" },
   { id: "eval", label: "benchmarking" },
@@ -157,7 +159,7 @@ export const WORKS: Work[] = [
     short: "HALLMARK",
     year: 2026,
     type: "Manuscript",
-    areas: ["ai"],
+    areas: ["decisions"],
     methods: ["llm", "eval"],
     venue: "ICLR 2027",
     status: "Under review",
@@ -170,7 +172,7 @@ export const WORKS: Work[] = [
     featured: true,
     summary:
       "Separates three distinct ways automated citation verifiers fail, and benchmarks models against each of them.",
-    href: "/publications#hallmark",
+    href: "https://arxiv.org/abs/2607.18360",
   },
   {
     id: "sim-dse",
@@ -178,10 +180,10 @@ export const WORKS: Work[] = [
       "Sim-DSE: Mediating Multi-User Automations in Cars through Simulation-Augmented Decision Space Exploration",
     short: "Sim-DSE",
     year: 2026,
-    type: "Poster",
-    areas: ["ai", "decisions"],
+    type: "Adjunct",
+    areas: ["society", "decisions"],
     methods: ["sim", "survey"],
-    venue: "AutomotiveUI 2026 Adjunct (Works in Progress), 94–99",
+    venue: "AutomotiveUI '26 Adjunct (Works in Progress), 94–99",
     authors: [
       { name: "Jan Henry Belz", equal: true },
       { name: "Kayoon Kim", self: true, equal: true },
@@ -243,7 +245,7 @@ export const WORKS: Work[] = [
     short: "Dropout model",
     year: 2023,
     type: "Project",
-    areas: ["society", "ai"],
+    areas: ["ai"],
     methods: ["stats"],
     summary:
       "A Kalman-filter state-space model over intensive longitudinal data, flagging STEM dropout risk early enough to act.",
@@ -279,7 +281,7 @@ export const WORKS: Work[] = [
     short: "Recommenders",
     year: 2021,
     type: "Project",
-    areas: ["decisions"],
+    areas: ["ai"],
     methods: ["stats"],
     summary:
       "Implementations of the standard recommendation algorithms, each paired with a review of the paper it comes from.",
@@ -300,7 +302,6 @@ export const WORKS: Work[] = [
     authors: [{ name: "Kayoon Kim", self: true }],
     summary:
       "Which claims South Koreans brought to the national petition platform, and how that repertoire shifted over four years.",
-    href: "/publications#petition-claims",
   },
   {
     id: "covid-memory",

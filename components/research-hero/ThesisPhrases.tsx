@@ -8,15 +8,17 @@ const AREA_BY_ID = Object.fromEntries(AREAS.map((a) => [a.id, a])) as Record<
   (typeof AREAS)[number]
 >;
 
-const PHRASES: { area: AreaId; text: string }[] = [
-  { area: 'society', text: 'society' },
-  { area: 'ai', text: 'AI agents & ML' },
-  { area: 'decisions', text: 'better human decisions' },
-];
+/* The three research interests, in the order the slides give them. Each
+   opens and filters its area, as the thesis phrases used to. */
+const PHRASES: { area: AreaId; text: string }[] = AREAS.map((a) => ({
+  area: a.id,
+  text: a.label,
+}));
 
 /**
- * The interactive part of the text column: the thesis sentence (each phrase
- * opens and filters its area) plus the aria-live filter note.
+ * The interactive part of the text column: the thesis question, the three
+ * research interests (each opens and filters its area), and the aria-live
+ * filter note.
  */
 export default function ThesisPhrases() {
   const { area, openArea, closeAreaSoon, toggleFilter, clearFilter } = useResearchState();
@@ -52,7 +54,10 @@ export default function ThesisPhrases() {
   return (
     <>
       <p className="rn-thesis">
-        Studying {phrase(0)} with {phrase(1, ',')} for {phrase(2, '.')}
+        How can AI read the social context that people leave unsaid?
+      </p>
+      <p className="rn-interests">
+        {phrase(0, ' \u00b7')} {phrase(1, ' \u00b7')} {phrase(2)}
       </p>
       <p className="rn-filter-note" aria-live="polite">
         {area ? (

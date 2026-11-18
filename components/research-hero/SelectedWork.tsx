@@ -30,7 +30,10 @@ function track(name: string, params: Record<string, unknown>) {
  * preparation".
  */
 function metaParts(w: Work) {
-  const restatesType = !!w.status && w.status.toLowerCase().includes(w.type.toLowerCase());
+  const t = w.type.toLowerCase();
+  const restatesType =
+    (!!w.status && w.status.toLowerCase().includes(t)) ||
+    (!!w.venue && w.venue.toLowerCase().includes(t));
   return [
     restatesType ? null : { text: w.type, className: '' },
     w.venue ? { text: w.venue, className: 'rn-ve' } : null,
@@ -50,7 +53,7 @@ function Byline({ authors }: { authors: NonNullable<Work['authors']> }) {
      shared first authorship and shared supervision gets one footnote line
      instead of two stacked ones. */
   const notes = [
-    authors.some((a) => a.equal) ? '*equal contribution' : null,
+    authors.some((a) => a.equal) ? '*co-first authors' : null,
     authors.some((a) => a.advisor) ? '\u2020joint senior authors' : null,
   ].filter(Boolean);
   return (

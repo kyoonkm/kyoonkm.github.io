@@ -101,7 +101,7 @@ export const PROJECTS: Project[] = [
      * other — and /publications is where that distinction is carried.
      */
     outcomes: [
-      "AutomotiveUI 2026 Works in Progress poster",
+      "AutomotiveUI '26 Adjunct (Works in Progress)",
       "Whose Preferences Survive?, in preparation for ACL 2027",
     ],
     status: "In progress",
@@ -123,7 +123,7 @@ export const PROJECTS: Project[] = [
       '- Contextual Inquiry (Field Test)\n' +
       'For real-world, field-test oriented application, I trained a compact in-car decision model in three stages. First, I performed supervised fine-tuning on scenarios that participants accepted (“Yes”) to teach the model to generate structured cabin settings with clear rationales. Next, I applied a Chain-of-Hindsight–style revision step using disagreed (“No”) feedback to learn targeted corrections, and finally used KTO preference alignment on balanced Yes/No labels to shift the model toward outputs that match human acceptability. To evaluate performance, I conducted a field test with interaction design experts at Porsche.\n\n' +
       'Where this work has gone\n\n' +
-      '• Sim-DSE: Mediating Multi-User Automations in Cars through Simulation-Augmented Decision Space Exploration — a Works in Progress poster at AutomotiveUI 2026, with Jan Henry Belz as an equal contributor, on the simulation-plus-survey mapping of the decision space into design guidelines.\n' +
+      '• Sim-DSE: Mediating Multi-User Automations in Cars through Simulation-Augmented Decision Space Exploration — AutomotiveUI \'26 Adjunct (Works in Progress), co-first authored with Jan Henry Belz, on the simulation-plus-survey mapping of the decision space into design guidelines.\n' +
       '• Whose Preferences Survive When LLM Agents Negotiate a Shared Physical Space? — a sole-authored paper in preparation for ACL 2027, on whose preferences survive when the agents negotiate over a shared cabin.' ,
     image: "/images/projects/reasoning_cluster.webp",
     thumb: "/images/projects/thumbs/reasoning_cluster.webp",

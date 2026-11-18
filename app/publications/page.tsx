@@ -20,7 +20,7 @@ export const metadata: Metadata = {
  */
 const GROUPS: { id: string; heading: string; types: Work['type'][] }[] = [
   { id: 'journal', heading: 'Journal articles', types: ['Journal article'] },
-  { id: 'venue', heading: 'Conference & workshop', types: ['Poster'] },
+  { id: 'venue', heading: 'Conference & workshop', types: ['Adjunct', 'Poster'] },
   {
     id: 'preprint',
     heading: 'Manuscripts & work in progress',
@@ -54,7 +54,7 @@ function Byline({ authors }: { authors: Author[] }) {
      shared first authorship and shared supervision gets one footnote line
      instead of two stacked ones. */
   const notes = [
-    authors.some((a) => a.equal) ? '*equal contribution' : null,
+    authors.some((a) => a.equal) ? '*co-first authors' : null,
     authors.some((a) => a.advisor) ? '\u2020joint senior authors' : null,
   ].filter(Boolean);
   return (
@@ -91,7 +91,10 @@ function Byline({ authors }: { authors: Author[] }) {
 const spoken = (w: Work) => w.type === 'Poster';
 
 function metaParts(w: Work) {
-  const restatesType = !!w.status && w.status.toLowerCase().includes(w.type.toLowerCase());
+  const t = w.type.toLowerCase();
+  const restatesType =
+    (!!w.status && w.status.toLowerCase().includes(t)) ||
+    (!!w.venue && w.venue.toLowerCase().includes(t));
   return [
     restatesType ? null : { text: w.type, className: undefined },
     w.venue ? { text: w.venue, className: 'rn-ve' } : null,
