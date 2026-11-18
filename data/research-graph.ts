@@ -97,30 +97,30 @@ export interface Work {
 export const AREAS: Area[] = [
   {
     id: "society",
-    label: "Social intelligence",
+    label: "Society",
     x: 665,
     y: 130,
     labelSide: "above",
     blurb:
-      "Whether AI can read the social context people leave unsaid: grievances, norms, and whose preferences count.",
+      "Sociology and computational social science: how people voice grievances, mobilise, and settle on shared norms.",
   },
   {
     id: "ai",
-    label: "Learning with context",
+    label: "AI agents & ML",
     x: 1065,
     y: 245,
     labelSide: "above",
     blurb:
-      "Training models on data that keeps its context: human feedback, expert preferences, and individual differences.",
+      "LLM agents, preference learning, and testing whether AI systems can actually be trusted.",
   },
   {
     id: "decisions",
-    label: "Evaluation with explicit standards",
+    label: "Human decisions",
     x: 865,
     y: 540,
     labelSide: "below",
     blurb:
-      "Evaluations that state what counts as success, so a score says what a system can be trusted to do.",
+      "HCI and decision support: tools that help people choose well, alone and together.",
   },
 ];
 
@@ -159,7 +159,7 @@ export const WORKS: Work[] = [
     short: "HALLMARK",
     year: 2026,
     type: "Manuscript",
-    areas: ["decisions"],
+    areas: ["ai"],
     methods: ["llm", "eval"],
     venue: "ICLR 2027",
     status: "Under review",
@@ -181,7 +181,7 @@ export const WORKS: Work[] = [
     short: "Sim-DSE",
     year: 2026,
     type: "Adjunct",
-    areas: ["society", "decisions"],
+    areas: ["ai", "decisions"],
     methods: ["sim", "survey"],
     venue: "AutomotiveUI '26 Adjunct (Works in Progress), 94–99",
     authors: [
@@ -245,7 +245,7 @@ export const WORKS: Work[] = [
     short: "Dropout model",
     year: 2023,
     type: "Project",
-    areas: ["ai"],
+    areas: ["society", "ai"],
     methods: ["stats"],
     summary:
       "A Kalman-filter state-space model over intensive longitudinal data, flagging STEM dropout risk early enough to act.",
@@ -281,7 +281,7 @@ export const WORKS: Work[] = [
     short: "Recommenders",
     year: 2021,
     type: "Project",
-    areas: ["ai"],
+    areas: ["decisions"],
     methods: ["stats"],
     summary:
       "Implementations of the standard recommendation algorithms, each paired with a review of the paper it comes from.",
