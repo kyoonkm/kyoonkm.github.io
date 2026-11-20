@@ -56,7 +56,7 @@ export default function ThesisPhrases() {
         How can AI read the social context that people leave unsaid?
       </p>
       <p className="rn-interests">
-        I study {phrase(0)} in {phrase(1, ',')} for {phrase(2, '.')}
+        To answer, I study {phrase(0)} in {phrase(1, ',')} for {phrase(2, '.')}
       </p>
       <p className="rn-filter-note" aria-live="polite">
         {area ? (
